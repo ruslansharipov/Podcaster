@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import ru.sharipov.podcaster.i_listen.auth.KeyInterceptor
 import ru.sharipov.podcaster.i_network.network.cache.SimpleCacheInterceptor
 import ru.surfstudio.android.dagger.scope.PerApplication
 import java.util.concurrent.TimeUnit
@@ -25,6 +26,7 @@ class OkHttpModule {
             writeTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
             addInterceptor(cacheInterceptor)
             addInterceptor(httpLoggingInterceptor)
+            addInterceptor(KeyInterceptor())
         }.build()
     }
 }
