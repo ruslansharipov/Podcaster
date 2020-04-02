@@ -14,8 +14,8 @@ interface ListenApi {
     @GET(ServerUrls.CURATED_PODCASTS)
     fun getBestPodcasts(
         @Query("page") page: Int,
-        @Query("region") region: String? = null,
-        @Query("genre_id") genreId: Int? = null
+        @Query("region") region: String?,
+        @Query("genre_id") genreId: Int?
     ): Single<CuratedResponse>
 
     /**

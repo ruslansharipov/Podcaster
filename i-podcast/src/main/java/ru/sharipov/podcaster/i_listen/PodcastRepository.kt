@@ -1,9 +1,12 @@
 package ru.sharipov.podcaster.i_listen
 
 import io.reactivex.Observable
+import io.reactivex.Single
+import ru.sharipov.podcaster.domain.CuratedItem
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.i_network.network.transform
 import ru.surfstudio.android.dagger.scope.PerApplication
+import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import javax.inject.Inject
 
 @PerApplication
@@ -16,5 +19,11 @@ class PodcastRepository @Inject constructor(
             .getGenres(queryMode)
             .transform()
             .toObservable()
+    }
+
+    fun getBestPodcasts(page: Int, region: String?, genreId: Int?) : Single<DataList<CuratedItem>> {
+        return listenApi
+            .getBestPodcasts(page, region, genreId)
+            .transform()
     }
 }
