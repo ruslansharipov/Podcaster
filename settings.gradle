@@ -1,9 +1,10 @@
 rootProject.name='Podcaster'
-include ':app'
-include ':base-feature'
-include ':domain'
-include ':i-network'
-include ':base'
-include ':f-main'
-include ':f-splash'
-include ':i-podcast'
+include ':app',
+        ':base-feature',
+        ':domain',
+        ':i-network',
+        ':base',
+        ':f-main',
+        ':f-splash',
+        ':i-podcast',
+        ':f-explore'

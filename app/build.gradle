@@ -32,6 +32,7 @@ dependencies {
     // TODO все фича-модули здесь
     implementation project(":f-main")
     implementation project(":f-splash")
+    implementation project(":f-explore")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
