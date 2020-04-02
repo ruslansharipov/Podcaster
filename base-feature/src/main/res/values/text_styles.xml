@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="Text.Regular">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Text.Regular.9">
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="Text.Regular.9.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.10">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Text.Regular.10.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Regular.10.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Regular.10.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Regular.10.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.10.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Regular.11">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="Text.Regular.11.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Regular.11.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Regular.11.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Regular.11.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.11.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Regular.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.Regular.12.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Regular.12.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Regular.12.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Regular.12.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.12.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Regular.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.Regular.14.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Regular.14.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Regular.14.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Regular.14.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.14.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Regular.14.GreenColor">
+        <item name="android:textColor">@color/apple</item>
+    </style>
+
+    <style name="Text.Regular.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Regular.16.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Regular.16.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Regular.16.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Regular.16.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Regular.16.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Medium">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="Text.Medium.10">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="Text.Medium.10.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Medium.10.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Medium.10.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Medium.10.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.10.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Medium.12">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.Medium.12.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Medium.12.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Medium.12.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Medium.12.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.12.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Medium.14">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.Medium.14.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Medium.14.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Medium.14.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Medium.14.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.14.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Medium.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Medium.16.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Medium.16.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Medium.16.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Medium.16.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.16.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Medium.18">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.Medium.18.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Medium.18.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Medium.18.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Medium.18.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Medium.18.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="Text.Bold.22">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Text.Bold.22.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Bold.22.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Bold.22.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Bold.22.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Bold.22.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Bold.28">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="Text.Bold.28.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Bold.28.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Bold.28.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Bold.28.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Bold.28.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="Text.Bold.28.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Text.Black">
+        <item name="android:fontFamily">@font/roboto_black</item>
+    </style>
+
+    <style name="Text.Black.36">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="Text.Black.36.PrimaryColor">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="Text.Black.36.SecondaryColor">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Text.Black.36.AccentColor">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Text.Black.36.WhiteColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Text.Black.36.ErrorColor">
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+
+</resources>

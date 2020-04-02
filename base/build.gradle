@@ -1,0 +1,42 @@
+apply from: '../commonModule.gradle'
+
+dependencies {
+    api project(":domain")
+
+    api "ru.surfstudio.android:dagger-scope:$daggerScopeVersion"
+    api "ru.surfstudio.android:core-ui:$coreUiVersion"
+    api "ru.surfstudio.android:easyadapter:$easyAdapterVersion"
+    api "ru.surfstudio.android:shared-pref:$sharedPrefsVersion"
+    api "ru.surfstudio.android:core-mvp:$coreMvpVersion"
+    api "ru.surfstudio.android:filestorage:$filestorageVersion"
+    api "ru.surfstudio.android:logger:$loggerVersion"
+    api "ru.surfstudio.android:mvp-dialog:$mvpDialogVersion"
+    api "ru.surfstudio.android:core-mvp-binding:$coreMvpBindingVersion"
+    api "ru.surfstudio.android:datalist-page-count:$dataListVersion"
+
+}
+//"activity-holder",
+//                    "core-mvp-binding",
+//                    "mvi-core",
+//                    "mvi-impls",
+//                    "mvp-widget",
+//                    "analytics",
+//                    "firebase-analytics",
+//                    "push",
+//                    "filestorage",
+//                    "imageloader",
+//                    "animations",
+//                    "picture-provider",
+//                    "app-migration",
+//                    "connection",
+//                    "custom-view",
+//                    "datalist-limit-offset",
+//                    "recycler-extension",
+//                    "rx-extension",
+//                    "shared-pref",
+//                    "util-ktx",
+//                    "standard-dialog",
+//                    "message-controller",
+//                    "broadcast-extension",
+//                    "location",
+//                    "rxbus"

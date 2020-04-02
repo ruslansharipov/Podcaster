@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flClickShield"
+    android:layout_marginTop="@dimen/default_status_bar_height"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false">
+
+    <LinearLayout
+        android:id="@+id/llAlertBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/snack_margin_default"
+        android:layout_marginTop="@dimen/snack_margin_top"
+        android:layout_marginRight="@dimen/snack_margin_default"
+        android:layout_marginBottom="@dimen/snack_margin_default"
+        android:background="@drawable/bg_snack_default"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/snack_margin_default"
+        android:paddingStart="@dimen/snack_margin_default"
+        android:paddingEnd="@dimen/snack_margin_default"
+        android:paddingBottom="@dimen/snack_margin_default"
+        tools:backgroundTint="@color/colorAccent"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="@dimen/snack_icon_size"
+            android:layout_height="@dimen/snack_icon_size"
+            android:visibility="invisible"
+            app:tint="@android:color/white"
+            tools:srcCompat="@drawable/debug_ic_android"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/snack_margin_default"
+            android:layout_marginEnd="@dimen/snack_margin_default"
+            android:textAppearance="@style/Text.Regular.14.WhiteColor"
+            android:visibility="gone"
+            android:gravity="center"
+            tools:text="Text"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+</LinearLayout>

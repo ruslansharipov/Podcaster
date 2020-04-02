@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- сервис для именования цветов http://www.color-blindness.com/color-name-hue/ -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_70">#AAFFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_40">#64FFFFFF</color>
+    <color name="white_20">#32FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_60">#90000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_06">#10000000</color>
+    <color name="medium_violet_red">#E51888</color>
+    <color name="deep_cerise">#CD217F</color>\
+    <color name="french_lilac">#E6C8D9</color>
+    <color name="classic_rose">#F5D3E5</color>
+    <color name="fire_engine_red">#ED1515</color>
+    <color name="grey_suit">#8E8D95</color>
+    <color name="grey_suit_40">#648E8D95</color>
+    <color name="french_grey">#B9B8BC</color>
+    <color name="white_smoke">#F2F2F2</color>
+    <color name="nero_grey">#1a1a1a</color>
+    <color name="transparent">#00000000</color>
+    <color name="link_water">#dadade</color>
+    <color name="link_water_gray">#D2D1DA</color>
+    <color name="apple">#57BC4E</color>
+</resources>
+
+    <!-- Прозрачность цвета в процентах переведенная в шестнадцатиричный вид. Часто требуются для добавления оттенков цветов
+        100% — FF
+        95% — F2
+        90% — E6
+        85% — D9
+        80% — CC
+        75% — BF
+        70% — B3
+        65% — A6
+        60% — 99
+        55% — 8C
+        50% — 80
+        45% — 73
+        40% — 66
+        35% — 59
+        30% — 4D
+        25% — 40
+        20% — 33
+        15% — 26
+        10% — 1A
+        5% — 0D
+        0% — 00
+    -->

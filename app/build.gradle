@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../config.gradle'
+apply from: '../commonAndroidDefaultConfig.gradle'
+
+def config = extensions.getByName("ext")
+
+android {
+
+    defaultConfig {
+        applicationId config["applicationId"]
+
+        versionCode config["versionCode"]
+        versionName config["versionName"]
+
+        setProperty("archivesBaseName", "$applicationName-$versionName-($versionCode)")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    // TODO все фича-модули здесь
+    implementation project(":f-main")
+    implementation project(":f-splash")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    implementation "androidx.appcompat:appcompat:$androidxVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
+
+    implementation "androidx.annotation:annotation:$androidxAnnotationVersion"
+    implementation "androidx.appcompat:appcompat:$androidxVersion"
+}
