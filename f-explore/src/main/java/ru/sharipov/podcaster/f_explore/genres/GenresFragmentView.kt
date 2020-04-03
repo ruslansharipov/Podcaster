@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ru.sharipov.podcaster.f_explore.R
+import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 
-class GenresFragmentView: Fragment() {
+class GenresFragmentView: BaseRxFragmentView() {
+
+    override fun createConfigurator() = GenresScreenConfigurator()
 
     override fun onCreateView(
         inflater: LayoutInflater,
