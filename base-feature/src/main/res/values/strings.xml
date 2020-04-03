@@ -21,4 +21,8 @@
 
     <!-- Тег, который проставляется вьюшке, служащей якорем для показа снеков. Снеки показываются под ней. -->
     <string name="tag_snack_anchor_view">toolbar tag</string>
+
+    <!--  ExploreFragmentView  -->
+    <string name="explore_curated_tab">Curated</string>
+    <string name="explore_genres_tab">Genres</string>
 </resources>

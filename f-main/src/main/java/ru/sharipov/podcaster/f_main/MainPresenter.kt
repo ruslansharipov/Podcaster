@@ -1,7 +1,7 @@
 package ru.sharipov.podcaster.f_main
 
-import ru.sharipov.podcaster.base_feature.ui.base.StatePresenter
-import ru.sharipov.podcaster.base_feature.ui.base.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
+import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.navigation.ExploreFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.FeedFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlaylistFragmentRoute
@@ -13,20 +13,31 @@ import javax.inject.Inject
 
 @PerScreen
 class MainPresenter @Inject constructor(
+    private val stateHolder: MainStateHolder,
     private val mainReducer: MainReducer,
     private val tabNavigator: TabFragmentNavigator,
     dependency: StatePresenterDependency
 ) : StatePresenter(dependency) {
 
+    override fun onFirstLoad() {
+        val tabType = stateHolder.value.currentTabType
+        val route: FragmentRoute = createRouteForTab(tabType)
+        tabNavigator.open(route)
+    }
+
     fun onBottomTabClick(tabType: MainTabType) {
-        val route: FragmentRoute = when(tabType){
+        val route: FragmentRoute = createRouteForTab(tabType)
+        tabNavigator.open(route)// TODO раскоментить когда появятся роуты
+        mainReducer.onTabSelected(tabType)
+    }
+
+    private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
+        return when (tabType) {
             MainTabType.EXPLORE -> ExploreFragmentRoute()
             MainTabType.SEARCH -> SearchFragmentRoute()
             MainTabType.FEED -> FeedFragmentRoute()
             MainTabType.PLAYLIST -> PlaylistFragmentRoute()
         }
-        tabNavigator.open(route)// TODO раскоментить когда появятся роуты
-        mainReducer.onTabSelected(tabType)
     }
 
 }

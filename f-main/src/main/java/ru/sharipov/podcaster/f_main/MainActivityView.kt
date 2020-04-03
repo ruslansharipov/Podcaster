@@ -5,9 +5,10 @@ import android.os.PersistableBundle
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
+import ru.surfstudio.android.core.ui.FragmentContainer
 import javax.inject.Inject
 
-class MainActivityView: BaseRxActivityView() {
+class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -20,6 +21,8 @@ class MainActivityView: BaseRxActivityView() {
     override fun getScreenName(): String = "MainActivityView"
 
     override fun getContentView(): Int = R.layout.activity_main
+
+    override fun getContentContainerViewId(): Int = R.id.main_fragment_container
 
     override fun onCreate(
         savedInstanceState: Bundle?,
