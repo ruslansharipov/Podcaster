@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.f_main
+package ru.sharipov.podcaster.f_main.di
 
 import android.content.Intent
 import dagger.Component
@@ -8,6 +8,8 @@ import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
 import ru.sharipov.podcaster.base_feature.ui.navigation.MainActivityRoute
 import ru.sharipov.podcaster.base_feature.ui.screen.ActivityScreenModule
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
+import ru.sharipov.podcaster.f_main.DaggerMainActivityConfigurator_MainActivityComponent
+import ru.sharipov.podcaster.f_main.MainActivityView
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
@@ -32,7 +34,11 @@ class MainActivityConfigurator(intent: Intent): ActivityScreenConfigurator(inten
         return DaggerMainActivityConfigurator_MainActivityComponent.builder()
             .activityComponent(parentComponent)
             .activityScreenModule(activityScreenModule)
-            .mainActivityModule(MainActivityModule(MainActivityRoute()))
+            .mainActivityModule(
+                MainActivityModule(
+                    MainActivityRoute()
+                )
+            )
             .build()
     }
 

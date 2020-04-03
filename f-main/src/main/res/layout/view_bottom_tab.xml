@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <ImageButton
+        android:id="@+id/bottom_tab_explore_btn"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/content_description"
+        app:srcCompat="@drawable/ic_explore" />
+
+    <ImageButton
+        android:id="@+id/bottom_bar_search_btn"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/content_description"
+        app:srcCompat="@drawable/ic_search" />
+
+    <ImageButton
+        android:id="@+id/bottom_tab_feed_btn"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/content_description"
+        app:srcCompat="@drawable/ic_feed" />
+
+    <ImageButton
+        android:id="@+id/bottom_bar_playlist_btn"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?selectableItemBackgroundBorderless"
+        android:contentDescription="@string/content_description"
+        app:srcCompat="@drawable/ic_playlist" />
+
+</merge>

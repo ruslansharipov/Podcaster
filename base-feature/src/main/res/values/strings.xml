@@ -17,6 +17,8 @@
     <string name="share_dialog_title">Выбрать приложение</string>
     <string name="format_error">Неверный формат</string>
 
+    <string name="content_description">content_description</string>
+
     <!-- Тег, который проставляется вьюшке, служащей якорем для показа снеков. Снеки показываются под ней. -->
     <string name="tag_snack_anchor_view">toolbar tag</string>
 </resources>
