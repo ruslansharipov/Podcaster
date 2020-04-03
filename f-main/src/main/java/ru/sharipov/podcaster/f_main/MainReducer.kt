@@ -6,13 +6,23 @@ import ru.surfstudio.android.core.mvp.error.ErrorHandler
 import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
-class MainState
+data class MainState(
+    val currentTabType: MainTabType = MainTabType.EXPLORE
+)
 
 @PerScreen
 class MainStateHolder @Inject constructor() : State<MainState>(MainState())
 
 @PerScreen
-class MainReducer @Inject constructor(errorHandler: ErrorHandler) :
-    StateReducer(errorHandler) {
+class MainReducer @Inject constructor(
+    errorHandler: ErrorHandler,
+    private val stateHolder: MainStateHolder
+) : StateReducer(errorHandler) {
+
+    fun onTabSelected(tabType: MainTabType) {
+        stateHolder.emitNewState {
+            copy(currentTabType = tabType)
+        }
+    }
 
 }

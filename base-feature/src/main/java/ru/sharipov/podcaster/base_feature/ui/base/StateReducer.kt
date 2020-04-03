@@ -4,6 +4,8 @@ import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.sharipov.podcaster.i_network.error.server.SpecificServerException
 import ru.sharipov.podcaster.i_network.network.error.NoInternetException
+import ru.surfstudio.android.core.mvi.ui.relation.StateEmitter
+import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.*
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.error.ErrorHandler
@@ -11,7 +13,7 @@ import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 import ru.surfstudio.android.rx.extension.scheduler.MainThreadImmediateScheduler
 
-open class StateReducer(protected val errorHandler: ErrorHandler) {
+open class StateReducer(protected val errorHandler: ErrorHandler): StateEmitter {
 
     protected fun <T> mapLoading(type: Request<T>, hasData: Boolean, isSwr: Boolean = false): Loading {
         val isLoading = type is Request.Loading
@@ -190,5 +192,10 @@ open class StateReducer(protected val errorHandler: ErrorHandler) {
 
     protected fun handleErrorInMainThread(error: Throwable) {
         MainThreadImmediateScheduler.scheduleDirect { errorHandler.handleError(error) }
+    }
+
+    protected fun <T> State<T>.emitNewState(transformer: T.() -> T) {
+        val newState = transformer(value)
+        accept(newState)
     }
 }
