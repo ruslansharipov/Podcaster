@@ -17,31 +17,31 @@ class BottomTabView @JvmOverloads constructor(
     attributeSet: AttributeSet? = null
 ) : LinearLayout(context, attributeSet) {
 
-    init {
-        View.inflate(context, R.layout.view_bottom_tab, this)
-        orientation = HORIZONTAL
-        initListeners()
-        update()
-    }
-
+    private val tabButtonsMap: Map<MainTabType, ImageButton>
     private val selectedTabRelay = BehaviorRelay.create<MainTabType>()
 
     val selectedTabObservable: Observable<MainTabType> = selectedTabRelay.share()
 
-    // текущий активный таб
     var selectedTabType: MainTabType = MainTabType.EXPLORE
         set(value) {
             field = value
             update()
         }
 
-    private val tabButtonsMap by lazy {
-        hashMapOf<MainTabType, ImageButton>(
+    init {
+        View.inflate(context, R.layout.view_bottom_tab, this)
+
+        orientation = HORIZONTAL
+
+        tabButtonsMap = hashMapOf<MainTabType, ImageButton>(
             MainTabType.EXPLORE to bottom_tab_explore_btn,
             MainTabType.SEARCH to bottom_bar_search_btn,
             MainTabType.FEED to bottom_tab_feed_btn,
             MainTabType.PLAYLIST to bottom_bar_playlist_btn
         )
+
+        initListeners()
+        update()
     }
 
     private fun initListeners() {
@@ -76,6 +76,4 @@ class BottomTabView @JvmOverloads constructor(
                 tabButtonsMap[it]?.setColorFilter(ContextCompat.getColor(context, R.color.black))
             }
     }
-
-
 }

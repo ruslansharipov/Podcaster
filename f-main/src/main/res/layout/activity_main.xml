@@ -5,8 +5,14 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:layout_weight="1"
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"/>
+
+    <ru.sharipov.podcaster.f_main.view.BottomTabView
+        android:id="@+id/main_tab_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
 
 </LinearLayout>
