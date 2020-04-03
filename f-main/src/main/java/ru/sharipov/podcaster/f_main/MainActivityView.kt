@@ -1,11 +1,11 @@
 package ru.sharipov.podcaster.f_main
 
-import ru.surfstudio.android.core.mvp.activity.BaseRenderableActivityView
-import ru.surfstudio.android.core.mvp.presenter.CorePresenter
-import ru.surfstudio.android.core.mvp.view.CoreView
+import android.os.Bundle
+import android.os.PersistableBundle
+import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
 import javax.inject.Inject
 
-class MainActivityView: BaseRenderableActivityView<MainScreenModel>() {
+class MainActivityView: BaseRxActivityView() {
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -16,9 +16,20 @@ class MainActivityView: BaseRenderableActivityView<MainScreenModel>() {
 
     override fun getContentView(): Int = R.layout.activity_main
 
-    override fun getPresenters(): Array<CorePresenter<out CoreView>> = arrayOf(presenter)
+    override fun onCreate(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?,
+        viewRecreated: Boolean
+    ) {
+        initView()
+        bind()
+    }
 
-    override fun renderInternal(sm: MainScreenModel) {
-        // TODO
+    private fun initView() {
+
+    }
+
+    private fun bind() {
+
     }
 }

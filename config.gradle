@@ -26,6 +26,8 @@ ext {
     coreMvpBindingVersion = '0.5.0-alpha.8'
     loggerVersion = '0.5.0-alpha.1-REN.23'
     dataListVersion = '0.5.0-alpha.3'
+    mviCoreVersion = '0.5.0-alpha.9'
+    mviImplsVersion = '0.5.0-alpha.9'
 
     //firebase
     firebaseCrashlyticsVersion = '17.0.0-beta01'     //http://bit.ly/2RM7ec2

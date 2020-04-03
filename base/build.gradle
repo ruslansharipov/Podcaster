@@ -13,6 +13,8 @@ dependencies {
     api "ru.surfstudio.android:mvp-dialog:$mvpDialogVersion"
     api "ru.surfstudio.android:core-mvp-binding:$coreMvpBindingVersion"
     api "ru.surfstudio.android:datalist-page-count:$dataListVersion"
+    api "ru.surfstudio.android:mvi-core:$mviCoreVersion"
+    api "ru.surfstudio.android:mvi-impls:$mviImplsVersion"
 
 }
 //"activity-holder",
