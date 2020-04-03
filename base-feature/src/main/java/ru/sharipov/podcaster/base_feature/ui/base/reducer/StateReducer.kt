@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.base_feature.ui.base
+package ru.sharipov.podcaster.base_feature.ui.base.reducer
 
 import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState

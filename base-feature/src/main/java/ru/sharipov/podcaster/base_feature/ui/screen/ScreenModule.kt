@@ -2,8 +2,8 @@ package ru.sharipov.podcaster.base_feature.ui.screen
 
 import dagger.Module
 import dagger.Provides
-import ru.sharipov.podcaster.base_feature.ui.base.StatePresenterDependency
-import ru.sharipov.podcaster.base_feature.ui.base.StateReducerDependency
+import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.mvp.error.ErrorHandler
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
@@ -24,16 +24,23 @@ abstract class ScreenModule {
     internal fun provideReducerDependency(
         errorHandler: ErrorHandler
     ) : StateReducerDependency {
-        return StateReducerDependency(errorHandler)
+        return StateReducerDependency(
+            errorHandler
+        )
     }
 
     @PerScreen
     @Provides
     internal fun providePresenterDependency(
         eventDelegateManager: ScreenEventDelegateManager,
-        schedulersProvider: SchedulersProvider
+        schedulersProvider: SchedulersProvider,
+        screenState: ScreenState
     ) : StatePresenterDependency {
-        return StatePresenterDependency(eventDelegateManager, schedulersProvider)
+        return StatePresenterDependency(
+            eventDelegateManager,
+            schedulersProvider,
+            screenState
+        )
     }
 
     @PerScreen

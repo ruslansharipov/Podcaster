@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.base_feature.ui.base
+package ru.sharipov.podcaster.base_feature.ui.base.reducer
 
 import ru.surfstudio.android.core.mvp.error.ErrorHandler
 
