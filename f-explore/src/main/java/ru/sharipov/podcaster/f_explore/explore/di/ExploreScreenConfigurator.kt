@@ -1,12 +1,14 @@
-package ru.sharipov.podcaster.f_explore
+package ru.sharipov.podcaster.f_explore.explore.di
 
 import android.os.Bundle
 import dagger.Component
 import dagger.Module
 import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
 import ru.sharipov.podcaster.base_feature.ui.di.FragmentScreenConfigurator
+import ru.sharipov.podcaster.base_feature.ui.navigation.ExploreFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
 import ru.sharipov.podcaster.base_feature.ui.screen.FragmentScreenModule
+import ru.sharipov.podcaster.f_explore.explore.ExploreFragmentView
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
@@ -30,7 +32,11 @@ class ExploreScreenConfigurator : FragmentScreenConfigurator(Bundle()) {
         return DaggerExploreScreenConfigurator_ExploreScreenComponent.builder()
             .activityComponent(parentComponent)
             .fragmentScreenModule(fragmentScreenModule)
-            .exploreScreenModule(ExploreScreenModule(ExploreFragmentRoute()))
+            .exploreScreenModule(
+                ExploreScreenModule(
+                    ExploreFragmentRoute()
+                )
+            )
             .build()
     }
 

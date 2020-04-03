@@ -25,7 +25,7 @@ class MainPresenter @Inject constructor(
             MainTabType.FEED -> FeedFragmentRoute()
             MainTabType.PLAYLIST -> PlaylistFragmentRoute()
         }
-//        tabNavigator.open(route) TODO раскоментить когда появятся роуты
+        tabNavigator.open(route)// TODO раскоментить когда появятся роуты
         mainReducer.onTabSelected(tabType)
     }
 

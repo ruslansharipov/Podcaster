@@ -13,7 +13,9 @@ import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 import ru.surfstudio.android.rx.extension.scheduler.MainThreadImmediateScheduler
 
-open class StateReducer(protected val errorHandler: ErrorHandler): StateEmitter {
+open class StateReducer(dependency: StateReducerDependency): StateEmitter {
+
+    protected val errorHandler: ErrorHandler = dependency.errorHandler
 
     protected fun <T> mapLoading(type: Request<T>, hasData: Boolean, isSwr: Boolean = false): Loading {
         val isLoading = type is Request.Loading
