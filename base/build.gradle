@@ -1,4 +1,5 @@
 apply from: '../commonModule.gradle'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(":domain")
@@ -18,6 +19,10 @@ dependencies {
     api "ru.surfstudio.android:imageloader:$imageloaderVersion"
     api "ru.surfstudio.android:animations:$animationsVersion"
 
+    api "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    api "androidx.room:room-ktx:$roomVersion"
+    api "androidx.room:room-rxjava2:$roomVersion"
 }
 //"activity-holder",
 //                    "core-mvp-binding",

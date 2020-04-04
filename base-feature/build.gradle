@@ -7,7 +7,7 @@ dependencies {
     // TODO i-modules
     implementation project(":i-network")
     implementation project(":i-podcast")
-    implementation project(":i-genres")
+    implementation project(':i-region')
 
     implementation "androidx.multidex:multidex:$androidxMultidexVersion"
 

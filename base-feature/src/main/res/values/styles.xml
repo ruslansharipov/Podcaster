@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorError">@color/colorError</item>
 
+        <item name="android:windowLightStatusBar">true</item>
+
         <item name="android:windowBackground">@color/colorWindowBackgroundLight</item>
         <item name="android:colorBackground">@color/colorWindowBackgroundLight</item>
 
@@ -35,11 +37,13 @@
     </style>
 
     <style name="AppTheme.Light" parent="AppTheme">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
-    <style name="AppTheme.Light.LightNavigation" parent="AppTheme.Light"></style>
+    <style name="AppTheme.Light.LightNavigation" parent="AppTheme.Light">
+
+    </style>
 
     <style name="BottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
