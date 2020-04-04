@@ -147,7 +147,7 @@ open class PlaceholderStateView @JvmOverloads constructor(
     private fun initErrorState(ta: TypedArray) {
         errorTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorTitle, R.string.error_loading_title)
         errorSubtitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorSubtitle, R.string.error_loading_message)
-        errorIconRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorIcon, R.drawable.empty_drawable) // TODO
+        errorIconRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorIcon, R.drawable.bg_primary_btn) // TODO
         errorBtnTitleRes =
             ta.getResourceId(R.styleable.PlaceholderStateView_errorBtnTitle, R.string.retry_btn)
     }
@@ -156,7 +156,7 @@ open class PlaceholderStateView @JvmOverloads constructor(
         emptyBtnTitleRes =
             ta.getResourceId(R.styleable.PlaceholderStateView_emptyBtnTitle, R.string.empty_string)
         emptyIconRes =
-            ta.getResourceId(R.styleable.PlaceholderStateView_emptyIcon, R.drawable.empty_drawable) // TODO
+            ta.getResourceId(R.styleable.PlaceholderStateView_emptyIcon, R.drawable.bg_primary_btn) // TODO
         emptyStateTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_emptyTitle, R.string.empty_string)
         emptyStateSubTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_emptySubTitle, R.string.empty_string)
         isEmptyStateTransparent = ta.getBoolean(R.styleable.PlaceholderStateView_emptyStateTransparent, false)

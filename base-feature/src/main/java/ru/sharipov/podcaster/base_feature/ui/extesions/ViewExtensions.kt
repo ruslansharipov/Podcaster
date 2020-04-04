@@ -199,7 +199,7 @@ fun View.setOnGlobalLayoutListenerSingle(onGlobalLayoutAction: () -> Unit) {
  *
  * Если `data == null` или `data == previous_data` -> [action] не будет вызван.
  * */
-fun <T : Any> View.performIfChanged(data: T?, action: (T) -> Unit) {
+fun <T : Any, V: View> V.performIfChanged(data: T?, action: V.(T) -> Unit) {
     actionIfChanged(data, { if (data != null) action(data) })
 }
 

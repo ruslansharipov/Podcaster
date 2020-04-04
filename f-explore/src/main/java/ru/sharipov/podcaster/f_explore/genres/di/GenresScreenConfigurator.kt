@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.f_explore.genres
+package ru.sharipov.podcaster.f_explore.genres.di
 
 import android.os.Bundle
 import dagger.Component
@@ -7,6 +7,8 @@ import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
 import ru.sharipov.podcaster.base_feature.ui.di.FragmentScreenConfigurator
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
 import ru.sharipov.podcaster.base_feature.ui.screen.FragmentScreenModule
+import ru.sharipov.podcaster.f_explore.genres.GenresFragmentRoute
+import ru.sharipov.podcaster.f_explore.genres.GenresFragmentView
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
@@ -31,7 +33,11 @@ class GenresScreenConfigurator : FragmentScreenConfigurator(Bundle.EMPTY) {
         return DaggerGenresScreenConfigurator_GenresScreenComponent.builder()
             .activityComponent(parentComponent)
             .fragmentScreenModule(fragmentScreenModule)
-            .genresScreenModule(GenresScreenModule(GenresFragmentRoute()))
+            .genresScreenModule(
+                GenresScreenModule(
+                    GenresFragmentRoute()
+                )
+            )
             .build()
     }
 }

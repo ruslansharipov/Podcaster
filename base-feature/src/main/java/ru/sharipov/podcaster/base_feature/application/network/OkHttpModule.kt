@@ -24,9 +24,9 @@ class OkHttpModule {
             connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
             readTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
-            addInterceptor(cacheInterceptor)
-            addInterceptor(httpLoggingInterceptor)
             addInterceptor(KeyInterceptor())
+//            addInterceptor(cacheInterceptor)
+            addInterceptor(httpLoggingInterceptor)
         }.build()
     }
 }
