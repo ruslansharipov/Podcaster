@@ -6,16 +6,15 @@
     <string name="server_error_not_found">@string/common_error_message</string>
     <string name="default_http_error_message">@string/common_error_message</string>
     <string name="forbidden_error_error_message">@string/common_error_message</string>
-    <string name="no_internet_connection_error_message">Интернет недоступен.\nПожалуйста проверьте соединение</string>
+    <string name="no_internet_connection_error_message">No internet.\nPlease check your connection</string>
     <string name="bad_response_error_message">@string/common_error_message</string>
     <string name="unexpected_error_error_message">@string/common_error_message</string>
-    <string name="common_error_message">Что-то пошло не так.\nИнформация не загрузилась</string>
-    <string name="default_empty_input_message">Поля не заполнены</string>
+    <string name="common_error_message">Oops, something went wrong.\nInformation is not loaded</string>
+    <string name="default_empty_input_message">Required fields are empty</string>
     <string name="empty_string"></string>
-    <string name="validation_format_error">Неверный формат</string>
-    <string name="all">Все</string>
-    <string name="share_dialog_title">Выбрать приложение</string>
-    <string name="format_error">Неверный формат</string>
+    <string name="validation_format_error">Wrong format</string>
+    <string name="all">All</string>
+    <string name="share_dialog_title">Choose application</string>
 
     <string name="content_description">content_description</string>
 

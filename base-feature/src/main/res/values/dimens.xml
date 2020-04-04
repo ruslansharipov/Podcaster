@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="default_button_radius">24dp</dimen>
+
     <dimen name="snack_margin_default">8dp</dimen>
     <dimen name="snack_margin_top">12dp</dimen>
     <dimen name="default_status_bar_height">24dp</dimen>

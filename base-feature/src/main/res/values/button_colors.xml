@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryButtonColor">@color/colorAccent</color>
+    <color name="primaryButtonRippleColor">@color/deep_cerise</color>
+    <color name="primaryButtonDisabledColor">@color/colorAccent</color>
+    <color name="primaryButtonTextColor">@color/white</color>
+    <color name="primaryButtonDisabledTextColor">@color/white</color>
+    <color name="primaryButtonPressedTextColor">@color/classic_rose</color>
+
+    <color name="transparentButtonRippleColor">@color/defaultRippleColor</color>
+    <color name="transparentButtonStrokeColor">@color/colorAccent</color>
+    <color name="transparentButtonDisabledStrokeColor">@color/transparent</color>
+    <color name="transparentButtonTextColor">@color/colorAccent</color>
+    <color name="transparentButtonDisabledTextColor">@color/colorAccent</color>
+    <color name="transparentButtonPressedTextColor">@color/colorAccent</color>
+
+</resources>

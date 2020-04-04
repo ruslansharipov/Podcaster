@@ -7,4 +7,5 @@ include ':app',
         ':f-main',
         ':f-splash',
         ':i-podcast',
-        ':f-explore'
+        ':f-explore',
+        ':i-genres'

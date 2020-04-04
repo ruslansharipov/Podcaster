@@ -9,8 +9,6 @@ import io.reactivex.internal.functions.Functions
 import io.reactivex.internal.observers.LambdaObserver
 import ru.surfstudio.android.core.mvi.ui.relation.StateEmitter
 import ru.surfstudio.android.core.mvp.binding.rx.builders.RxBuilderIo
-import ru.surfstudio.android.core.ui.event.lifecycle.completely.destroy.OnCompletelyDestroyDelegate
-import ru.surfstudio.android.core.ui.event.lifecycle.ready.OnViewReadyDelegate
 import ru.surfstudio.android.core.ui.state.ScreenState
 import ru.surfstudio.android.rx.extension.ObservableUtil
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
@@ -19,7 +17,8 @@ abstract class StatePresenter(
     dependency: StatePresenterDependency
 ) : LifecyclePresenter(),
     StateEmitter,
-    RxBuilderIo {
+    RxBuilderIo,
+    RxBuilderMain {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
     private val screenState: ScreenState = dependency.screenState
@@ -29,12 +28,12 @@ abstract class StatePresenter(
         dependency.eventDelegateManager.registerDelegate(StatePresenterGateway(this, screenState))
     }
 
-    fun <T> Observable<T>.subscribeIoWithFreeze(
+    fun <T> Observable<T>.subscribeIoDefault(
         onNext: (T) -> Unit,
         onError: (Throwable) -> Unit = {}
-    ): Disposable = subscribeWithFreeze(onNext, onError)
+    ): Disposable = io().subscribeDefault(onNext, onError)
 
-    fun <T> Observable<T>.subscribeWithFreeze(
+    fun <T> Observable<T>.subscribeDefault(
         onNext: (T) -> Unit,
         onError: (Throwable) -> Unit = {}
     ): Disposable {
@@ -45,7 +44,9 @@ abstract class StatePresenter(
             Functions.emptyConsumer()
         )
 
-        val disposable = this.subscribeWith(observer)
+        val disposable = this
+            .observeOn(schedulersProvider.main())
+            .subscribeWith(observer)
 
         disposables.add(disposable)
         return disposable

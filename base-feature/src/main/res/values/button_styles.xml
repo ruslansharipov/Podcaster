@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Button.Borderless" parent="Widget.AppCompat.Button.Borderless">
+        <!-- кнопка без бэкграунда, но с эффектами риппл или
+        полупрозрачным бэкграундом на более ранних версиях -->
+    </style>
+
+    <!--СТИЛИ КНОПОК-->
+
+    <style name="DefaultButton" parent="Button.Borderless">
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="DefaultButton.TextButton">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textAppearance">@style/Text.Regular.14.AccentColor</item>
+        <item name="android:background">@drawable/bg_text_btn</item>
+    </style>
+
+    <!-- TODO добавить disabled-стейты, когда подоспеет дизайн -->
+    <style name="DefaultButton.Transparent">
+        <item name="android:textAppearance">@style/Text.Medium.16</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@drawable/bg_transparent_btn</item>
+    </style>
+
+    <!-- TODO добавить disabled-стейты, когда подоспеет дизайн -->
+    <style name="DefaultButton.Primary">
+        <item name="android:textAppearance">@style/Text.Medium.16</item>
+        <item name="android:textColor">@drawable/primary_btn_text_color_selector</item>
+        <item name="android:background">@drawable/bg_primary_btn</item>
+    </style>
+
+    <style name="DefaultRadioButton" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:textAppearance">@style/Text.Regular.16</item>
+    </style>
+
+    <style name="HomeCarouselTextButton" parent="DefaultButton.TextButton">
+        <item name="android:textAppearance">@style/Text.Regular.16.AccentColor</item>
+    </style>
+</resources>

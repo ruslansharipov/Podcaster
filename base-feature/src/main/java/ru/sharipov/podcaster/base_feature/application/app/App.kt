@@ -3,7 +3,9 @@ package ru.sharipov.podcaster.base_feature.application.app
 import androidx.multidex.MultiDexApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import ru.sharipov.podcaster.base_feature.application.app.di.AppInjector
+import ru.sharipov.podcaster.base_feature.ui.logger.TimberLoggingStrategy
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
+import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.android.utilktx.ktx.ui.activity.ActivityLifecycleListener
 
 class App: MultiDexApplication() {
@@ -21,7 +23,7 @@ class App: MultiDexApplication() {
     }
 
     private fun initLogger() {
-//        Logger.addLoggingStrategy(TimberLoggingStrategy())
+        Logger.addLoggingStrategy(TimberLoggingStrategy())
     }
 
     private fun initThreeTenAbp() {

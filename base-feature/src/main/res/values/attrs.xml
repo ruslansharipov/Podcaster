@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PlaceholderView">
+        <attr name="iconRes" format="reference" />
+        <attr name="iconSize" format="dimension|reference" />
+        <attr name="title" />
+        <attr name="subtitle" format="string|reference" />
+        <attr name="titleTextAppearance" format="reference" />
+        <attr name="subtitleTextAppearance" format="reference" />
+        <attr name="primaryButtonText" format="string|reference" />
+        <attr name="secondaryButtonText" format="string|reference" />
+    </declare-styleable>
+</resources>

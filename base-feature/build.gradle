@@ -7,6 +7,7 @@ dependencies {
     // TODO i-modules
     implementation project(":i-network")
     implementation project(":i-podcast")
+    implementation project(":i-genres")
 
     implementation "androidx.multidex:multidex:$androidxMultidexVersion"
 
@@ -23,4 +24,5 @@ dependencies {
     api "com.romandanylyk:pageindicatorview:$pageIndicatorVersion"
     implementation "androidx.browser:browser:$androidxBrowserVersion"
     implementation "ru.tinkoff.decoro:decoro:$decoroVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 }
