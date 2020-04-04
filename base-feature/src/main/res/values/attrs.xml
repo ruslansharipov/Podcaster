@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="appShimmerStyle" format="reference" />
 
     <declare-styleable name="PlaceholderView">
         <attr name="iconRes" format="reference" />
@@ -10,5 +11,26 @@
         <attr name="subtitleTextAppearance" format="reference" />
         <attr name="primaryButtonText" format="string|reference" />
         <attr name="secondaryButtonText" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PlaceholderStateView">
+        <attr name="emptyIcon" format="reference" />
+        <attr name="emptyBtnTitle" format="string" />
+        <attr name="emptyTitle" format="string" />
+        <attr name="emptySubTitle" format="string" />
+        <attr name="emptyStateTransparent" format="boolean" />
+        <attr name="shimmerLayout" format="reference" />
+        <attr name="errorIcon" format="reference" />
+        <attr name="errorBtnTitle" format="string" />
+        <attr name="errorTitle" format="string" />
+        <attr name="errorSubtitle" format="string" />
+        <attr name="transparentLoadingVisible" format="boolean" />
+        <attr name="transparentBackgroundColor" format="reference" />
+        <attr name="notFoundIcon" format="reference" />
+        <attr name="notFoundBtnTitle" format="string" />
+        <attr name="notFoundTitle" format="string" />
+        <attr name="notFoundSubTitle" format="string" />
+        <attr name="isMiniStyle" format="boolean" />
+        <attr name="transitionsAnimated" format="boolean" />
     </declare-styleable>
 </resources>

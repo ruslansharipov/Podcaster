@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PlaceHolderStateView">
+        <item name="primaryButtonText">@string/empty_string</item>
+        <item name="secondaryButtonText">@string/empty_string</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="iconRes">@drawable/empty_drawable</item>
+        <item name="titleTextAppearance">@style/Text.Medium.18</item>
+        <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
+        <item name="iconSize">150dp</item>
+    </style>
+
+    <style name="PlaceHolderStateViewEmpty">
+        <item name="primaryButtonText">@string/empty_string</item>
+        <item name="secondaryButtonText">@string/empty_string</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="titleTextAppearance">@style/Text.Medium.18</item>
+        <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
+        <item name="iconSize">150dp</item>
+    </style>
+
+    <style name="PlaceHolderViewError">
+        <item name="title">@string/error_loading_title</item>
+        <item name="subtitle">@string/error_loading_message</item>
+        <item name="primaryButtonText">@string/empty_string</item>
+        <item name="secondaryButtonText">@string/retry_btn</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="iconRes">@drawable/empty_drawable</item>
+        <item name="titleTextAppearance">@style/Text.Medium.18</item>
+        <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
+        <item name="iconSize">150dp</item>
+    </style>
+
+    <style name="PlaceHolderEmpty">
+        <item name="secondaryButtonText">@string/empty_string</item>
+        <item name="iconRes">@drawable/empty_drawable</item>
+        <item name="titleTextAppearance">@style/Text.Medium.18</item>
+        <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
+        <item name="iconSize">150dp</item>
+    </style>
+</resources>

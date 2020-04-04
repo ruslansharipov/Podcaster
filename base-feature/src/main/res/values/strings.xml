@@ -21,6 +21,24 @@
     <!-- Тег, который проставляется вьюшке, служащей якорем для показа снеков. Снеки показываются под ней. -->
     <string name="tag_snack_anchor_view">toolbar tag</string>
 
+    <string name="error_loading_title">Can\'t load data</string>
+    <string name="error_loading_message">Check your internet connection and retry.</string>
+
+    <string name="state_empty_text">Nothing found</string>
+    <string name="state_error_message">Some error happened</string>
+    <string name="state_error_btn">Retry</string>
+    <string name="done_text">Done</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="interrupt_text">Interrupt</string>
+    <string name="yes_text">Yes</string>
+    <string name="no_text">No</string>
+    <string name="ok_text">OK</string>
+    <string name="save_text">Save</string>
+    <string name="close_text">Close</string>
+    <string name="further_text">Next</string>
+    <string name="retry_btn">Retry</string>
+    <string name="pagination_retry_btn">Retry</string>
+
     <!--  ExploreFragmentView  -->
     <string name="explore_curated_tab">Curated</string>
     <string name="explore_genres_tab">Genres</string>
