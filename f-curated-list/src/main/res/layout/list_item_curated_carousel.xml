@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/curated_domain_tv"
+            style="@style/Text.Medium.12.WhiteColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_curated_domain"
+            android:paddingStart="16dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="4dp"
+            tools:text="www.stylist.co.uk" />
+
+        <TextView
+            android:id="@+id/curated_all_btn"
+            style="@style/DefaultButton.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/all"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/curated_title_tv"
+        style="@style/Text.Medium.16.PrimaryColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        tools:text="7 Bookish Podcasts for Avid Readers On the Go" />
+
+    <TextView
+        android:id="@+id/curated_description_tv"
+        style="@style/Text.Regular.14.PrimaryColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        tools:text="Commuting to work is always better when you have a great new podcast to listen to, and this year, we have discovered some of our favorite podcasts yet for readers and book-lovers. These podcasts for readers entertain us and provide no shortage of new book recommendations too." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/curated_podcasts_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        tools:listitem="@layout/list_item_podcast_short" />
+
+</LinearLayout>

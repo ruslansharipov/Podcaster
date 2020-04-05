@@ -33,6 +33,8 @@ dependencies {
     implementation project(":f-main")
     implementation project(":f-splash")
     implementation project(":f-explore")
+    implementation project(":f-curated-list")
+    implementation project(":f-best")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

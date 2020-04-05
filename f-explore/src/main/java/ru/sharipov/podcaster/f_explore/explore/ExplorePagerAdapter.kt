@@ -32,7 +32,7 @@ class ExplorePagerAdapter(
         val titleRes = if (position == 0){
             R.string.explore_curated_tab
         } else {
-            R.string.explore_genres_tab
+            R.string.explore_best_tab
         }
         return resources.getString(titleRes)
     }

@@ -41,5 +41,5 @@
 
     <!--  ExploreFragmentView  -->
     <string name="explore_curated_tab">Curated</string>
-    <string name="explore_genres_tab">Genres</string>
+    <string name="explore_best_tab">Best</string>
 </resources>

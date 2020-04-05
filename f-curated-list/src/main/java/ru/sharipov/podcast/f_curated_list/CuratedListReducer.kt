@@ -24,10 +24,10 @@ class CuratedListReducer @Inject constructor(
     private val sh: CuratedListStateHolder
 ) : StateReducer(dependency) {
 
-    fun onCuratedLoaded(request: Request<DataList<CuratedItem>>) {
+    fun onCuratedLoaded(request: Request<DataList<CuratedItem>>, isSwr: Boolean = false) {
         sh.emitNewState {
             copy(
-                curatedItems = mapPaginationDefault(request, curatedItems)
+                curatedItems = mapPaginationDefault(request, curatedItems, isSwr)
             )
         }
     }

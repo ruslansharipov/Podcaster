@@ -12,4 +12,6 @@
     <dimen name="divider_margin">16dp</dimen>
 
     <dimen name="toolbar_size">56dp</dimen>
+
+    <dimen name="placeholder_picture_corner_radius">8dp</dimen>
 </resources>

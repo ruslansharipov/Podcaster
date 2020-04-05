@@ -2,6 +2,8 @@ package ru.sharipov.podcast.f_curated_list
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.domain.CuratedItem
+import ru.sharipov.podcaster.domain.PodcastShort
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
@@ -15,8 +17,12 @@ class CuratedListPresenter @Inject constructor(
     private val podcastInteractor: PodcastInteractor
 ) : StatePresenter(dependency) {
 
+    private companion object {
+        const val INITIAL_PAGE = 1
+    }
+
     override fun onFirstLoad() {
-        loadCuratedPodcasts(0)
+        loadCuratedPodcasts(INITIAL_PAGE)
     }
 
     fun loadMore() {
@@ -24,10 +30,24 @@ class CuratedListPresenter @Inject constructor(
         loadCuratedPodcasts(nextPage)
     }
 
-    private fun loadCuratedPodcasts(nextPage: Int) {
+    fun reload() {
+        loadCuratedPodcasts(INITIAL_PAGE, true)
+    }
+
+    fun allClick(item: CuratedItem) {
+
+    }
+
+    fun podcastClick(podcast: PodcastShort) {
+
+    }
+
+    private fun loadCuratedPodcasts(nextPage: Int, isSwr: Boolean = false) {
         podcastInteractor.getCuratedPodcasts(nextPage)
             .asRequest()
-            .subscribeIoDefault(reducer::onCuratedLoaded)
+            .subscribeIoDefault (
+                onNext = { reducer.onCuratedLoaded(it, isSwr) }
+            )
     }
 
 }

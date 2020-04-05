@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/pagination_footer_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_transparent_btn"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/pagination_retry_btn"
+        android:textAppearance="@style/Text.Medium.16.AccentColor" />
+
+</FrameLayout>

@@ -23,7 +23,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/explore_genres_tab" />
+            android:text="@string/explore_best_tab" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -31,6 +31,7 @@
         android:id="@+id/explore_vp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

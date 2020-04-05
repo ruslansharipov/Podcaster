@@ -10,12 +10,12 @@ import ru.sharipov.podcaster.i_network.network.BaseServerConstants
 
 interface ListenApi {
 
-    @GET(ServerUrls.BEST_PODCASTS)
+    @GET(ServerUrls.CURATED_PODCASTS)
     fun getCuratedPodcasts(
         @Query("page") page: Int
     ): Single<CuratedResponse>
 
-    @GET(ServerUrls.CURATED_PODCASTS)
+    @GET(ServerUrls.BEST_PODCASTS)
     fun getBestPodcasts(
         @Query("page") page: Int,
         @Query("region") region: String?,
