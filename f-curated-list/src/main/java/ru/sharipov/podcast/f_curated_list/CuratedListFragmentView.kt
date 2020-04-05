@@ -26,4 +26,17 @@ class CuratedListFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_curated_list, container, false)
+
+    override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
+        initView()
+        sh.bindTo(::render)
+    }
+
+    private fun initView() {
+
+    }
+
+    private fun render(state: CuratedListState) {
+
+    }
 }
