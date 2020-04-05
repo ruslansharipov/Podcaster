@@ -17,8 +17,7 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     @Inject
     lateinit var sh: BestStateHolder
 
-    override fun createConfigurator() =
-        BestScreenConfigurator()
+    override fun createConfigurator() = BestScreenConfigurator()
 
     override fun getScreenName(): String = "BestFragmentView"
 
@@ -29,7 +28,12 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     ): View? = inflater.inflate(R.layout.fragment_best, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?, viewRecreated: Boolean) {
+        initView()
         sh.bindTo(::render)
+    }
+
+    private fun initView() {
+
     }
 
     private fun render(state: BestState) {
