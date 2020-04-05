@@ -89,9 +89,10 @@ public class SimpleCacheInterceptor implements Interceptor {
         } else {
             //производим запрос на сервер и кешируем результат
             Response response = chain.proceed(originalRequest);
-            if (response.isSuccessful() && response.body() != null) {
-                MediaType mediaType = response.body().contentType();
-                String stringBody = response.body().string();
+            ResponseBody responseBody = response.body();
+            if (response.isSuccessful() && responseBody != null) {
+                MediaType mediaType = responseBody.contentType();
+                String stringBody = responseBody.string();
                 simpleCache.put(cacheKey, stringBody);
                 response = response.newBuilder()
                         .body(ResponseBody.create(mediaType, stringBody))

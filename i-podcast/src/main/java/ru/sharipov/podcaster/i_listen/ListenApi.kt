@@ -1,9 +1,8 @@
 package ru.sharipov.podcaster.i_listen
 
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
+import ru.sharipov.podcaster.i_listen.response.BestResponse
 import ru.sharipov.podcaster.i_listen.response.CuratedResponse
 import ru.sharipov.podcaster.i_listen.response.GenresResponse
 import ru.sharipov.podcaster.i_network.ServerUrls
@@ -11,12 +10,17 @@ import ru.sharipov.podcaster.i_network.network.BaseServerConstants
 
 interface ListenApi {
 
+    @GET(ServerUrls.BEST_PODCASTS)
+    fun getCuratedPodcasts(
+        @Query("page") page: Int
+    ): Single<CuratedResponse>
+
     @GET(ServerUrls.CURATED_PODCASTS)
     fun getBestPodcasts(
         @Query("page") page: Int,
         @Query("region") region: String?,
         @Query("genre_id") genreId: Int?
-    ): Single<CuratedResponse>
+    ): Single<BestResponse>
 
     /**
      * Получение жанров

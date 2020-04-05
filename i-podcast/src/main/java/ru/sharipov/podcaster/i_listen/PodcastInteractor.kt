@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import ru.sharipov.podcaster.domain.CuratedItem
 import ru.sharipov.podcaster.domain.Genre
+import ru.sharipov.podcaster.domain.Podcast
 import ru.sharipov.podcaster.i_network.network.BaseNetworkInteractor
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.dagger.scope.PerApplication
@@ -16,6 +17,10 @@ class PodcastInteractor @Inject constructor(
     private val podcastRepository: PodcastRepository
 ): BaseNetworkInteractor(connectionProvider) {
 
+    fun getCuratedPodcasts(page: Int): Observable<DataList<CuratedItem>> {
+        return podcastRepository.getCuratedPodcasts(page)
+    }
+
     fun getGenres(): Observable<List<Genre>> {
         return hybridQueryWithSimpleCache(podcastRepository::getGenres)
     }
@@ -24,7 +29,7 @@ class PodcastInteractor @Inject constructor(
         page: Int,
         region: String? = null,
         genreId: Int? = null
-    ) : Single<DataList<CuratedItem>> {
+    ) : Single<DataList<Podcast>> {
         return podcastRepository.getBestPodcasts(page, region, genreId)
     }
 }
