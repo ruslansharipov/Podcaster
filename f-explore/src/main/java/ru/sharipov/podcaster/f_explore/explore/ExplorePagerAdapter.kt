@@ -5,9 +5,9 @@ import android.content.res.Resources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.f_explore.R
-import ru.sharipov.podcaster.f_explore.curated.CuratedFragmentRoute
-import ru.sharipov.podcaster.f_explore.genres.GenresFragmentRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.CuratedListFragmentRoute
 
 @SuppressLint("WrongConstant")
 class ExplorePagerAdapter(
@@ -21,9 +21,9 @@ class ExplorePagerAdapter(
 
     override fun getItem(position: Int): Fragment {
         val route = if (position == 0) {
-            CuratedFragmentRoute()
+            CuratedListFragmentRoute()
         } else {
-            GenresFragmentRoute()
+            BestFragmentRoute()
         }
         return route.createFragment()
     }

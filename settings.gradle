@@ -9,4 +9,5 @@ include ':app',
         ':i-podcast',
         ':f-explore',
         ':i-region',
-        ':f-best'
+        ':f-best',
+        ':f-curated-list'
