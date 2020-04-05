@@ -9,6 +9,7 @@ import com.jakewharton.rxbinding2.support.v4.widget.refreshes
 import kotlinx.android.synthetic.main.fragment_curated_list.*
 import ru.sharipov.podcast.f_curated_list.di.CuratedListScreenConfigurator
 import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
+import ru.sharipov.podcaster.base_feature.ui.extesions.dpToPx
 import ru.sharipov.podcaster.base_feature.ui.extesions.isSwrLoading
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
@@ -52,8 +53,11 @@ class CuratedListFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     }
 
     private fun initView() {
-        curated_list_swr.refreshes().bindTo(presenter::reload)
         curated_list_placeholder.errorClickListener = presenter::reload
+        curated_list_swr.run {
+            setProgressViewOffset(true, dpToPx(0), dpToPx(12))
+            refreshes().bindTo(presenter::reload)
+        }
         curated_list_rv.run {
             layoutManager = LinearLayoutManager(context)
             adapter = easyAdapter
