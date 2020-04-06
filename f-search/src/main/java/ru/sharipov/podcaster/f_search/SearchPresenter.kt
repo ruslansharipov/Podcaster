@@ -26,15 +26,17 @@ class SearchPresenter @Inject constructor(
         textChanges
             .debounce(DEBOUNCE_MS, TimeUnit.MILLISECONDS)
             .doOnNext(reducer::onQueryChanged)
+            .filter(String::isNotEmpty)
             .switchMap { debouncedQuery: String ->
                 podcastInteractor.getTypeAhead(
                     query = debouncedQuery,
                     showPodcasts = true,
                     showGenres = true
                 )
+                    .asRequest()
+                    .io()
             }
-            .asRequest()
-            .subscribeIoDefault(reducer::onTypeAheadRequest)
+            .subscribeDefault(reducer::onTypeAheadRequest)
     }
 
     fun onGenreClick(genre: Genre) {

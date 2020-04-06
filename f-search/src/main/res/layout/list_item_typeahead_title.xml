@@ -5,8 +5,8 @@
     style="@style/Text.Medium.14.PrimaryColor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="24dp"
+    android:paddingStart="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="8dp"
-    android:paddingEnd="24dp"
+    android:paddingEnd="16dp"
     tools:text="Genres" />

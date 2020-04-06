@@ -29,7 +29,10 @@ class SearchReducer @Inject constructor(
 
     fun onQueryChanged(query: String) {
         sh.emitNewState {
-            copy(input = query)
+            copy(
+                input = query,
+                typeAheadList = if (query.isEmpty()) emptyList() else typeAheadList
+            )
         }
     }
 
