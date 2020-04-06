@@ -6,6 +6,6 @@ import ru.surfstudio.android.core.ui.navigation.fragment.route.RootFragmentRoute
 class SearchFragmentRoute: FragmentCrossFeatureRoute(), RootFragmentRoute {
 
     override fun targetClassPath(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return "ru.sharipov.podcaster.f_search.SearchFragmentView"
     }
 }

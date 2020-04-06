@@ -35,6 +35,7 @@ dependencies {
     implementation project(":f-explore")
     implementation project(":f-curated-list")
     implementation project(":f-best")
+    implementation project(":f-search")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 

@@ -18,6 +18,7 @@ dependencies {
     api "ru.surfstudio.android:mvi-impls:$mviImplsVersion"
     api "ru.surfstudio.android:imageloader:$imageloaderVersion"
     api "ru.surfstudio.android:animations:$animationsVersion"
+    api "ru.surfstudio.android:util-ktx:$utilKtxVersion"
 
     api "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
@@ -43,7 +44,6 @@ dependencies {
 //                    "recycler-extension",
 //                    "rx-extension",
 //                    "shared-pref",
-//                    "util-ktx",
 //                    "standard-dialog",
 //                    "message-controller",
 //                    "broadcast-extension",

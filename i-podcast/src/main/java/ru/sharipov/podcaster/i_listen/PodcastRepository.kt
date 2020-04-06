@@ -5,6 +5,7 @@ import io.reactivex.Single
 import ru.sharipov.podcaster.domain.CuratedItem
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.TypeAhead
 import ru.sharipov.podcaster.i_network.network.transform
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
@@ -29,9 +30,24 @@ class PodcastRepository @Inject constructor(
             .toObservable()
     }
 
-    fun getBestPodcasts(page: Int, region: String?, genreId: Int?) : Single<DataList<Podcast>> {
+    fun getBestPodcasts(page: Int, region: String?, genreId: Int?): Single<DataList<Podcast>> {
         return listenApi
             .getBestPodcasts(page, region, genreId)
             .transform()
+    }
+
+    fun getTypeAhead(
+        query: String,
+        showPodcasts: Boolean,
+        showGenres: Boolean
+    ): Observable<TypeAhead> {
+        return listenApi
+            .getTypeAhead(
+                query = query,
+                showPodcasts = if (showPodcasts) 1 else 0,
+                showGenres = if (showGenres) 1 else 0
+            )
+            .transform()
+            .toObservable()
     }
 }

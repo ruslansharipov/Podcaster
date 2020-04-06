@@ -10,4 +10,5 @@ include ':app',
         ':f-explore',
         ':i-region',
         ':f-best',
-        ':f-curated-list'
+        ':f-curated-list',
+        ':f-search'

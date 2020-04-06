@@ -42,4 +42,10 @@
     <!--  ExploreFragmentView  -->
     <string name="explore_curated_tab">Curated</string>
     <string name="explore_best_tab">Best</string>
+
+    <!--  SearchFragmentView  -->
+    <string name="search_empty_subtitle">Try to change query</string>
+    <string name="search_terms_title">Terms</string>
+    <string name="search_genres_title">Genres</string>
+    <string name="search_podcasts_title">Podcasts</string>
 </resources>

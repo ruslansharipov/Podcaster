@@ -14,4 +14,5 @@
     <dimen name="toolbar_size">56dp</dimen>
 
     <dimen name="placeholder_picture_corner_radius">8dp</dimen>
+    <dimen name="podcast_picture_small_radius">4dp</dimen>
 </resources>

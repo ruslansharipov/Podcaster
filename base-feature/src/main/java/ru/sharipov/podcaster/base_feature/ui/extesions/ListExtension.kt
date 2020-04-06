@@ -17,7 +17,11 @@ fun <T : Any> MutableList<T>.addIfNonNull(item: T?): Boolean {
 fun <T : Any> MutableList<T>.addAllIfNonNull(items: List<T?>?): Boolean {
     if (items == null) return false
     val nonNullItems = items.filterNotNull()
-    if (nonNullItems.isEmpty()) return false
-    addAll(nonNullItems)
+    return addAllIfNotEmpty(nonNullItems)
+}
+
+fun <T : Any> MutableList<T>.addAllIfNotEmpty(items: List<T>): Boolean {
+    if (items.isEmpty()) return false
+    addAll(items)
     return true
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_genres.*
+import ru.sharipov.podcaster.base_feature.ui.controller.GenreController
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
 import ru.sharipov.podcaster.f_explore.R

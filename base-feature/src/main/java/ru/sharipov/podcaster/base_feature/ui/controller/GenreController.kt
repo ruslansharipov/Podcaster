@@ -1,9 +1,9 @@
-package ru.sharipov.podcaster.f_explore.genres
+package ru.sharipov.podcaster.base_feature.ui.controller
 
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item_genre.view.*
 import ru.sharipov.podcaster.domain.Genre
-import ru.sharipov.podcaster.f_explore.R
+import ru.sharipov.podcaster.base_feature.R
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 
@@ -20,11 +20,10 @@ class GenreController(
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
 
-    inner class Holder(
-        parent: ViewGroup
-    ) : BindableViewHolder<Genre>(parent, R.layout.list_item_genre) {
+    inner class Holder(parent: ViewGroup) :
+        BindableViewHolder<Genre>(parent, R.layout.list_item_genre) {
 
-        private val genreTv = itemView.genre_tv
+        private val genreTv = itemView.title_tv
 
         private var payload: Genre? = null
 
