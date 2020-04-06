@@ -33,4 +33,12 @@
         <attr name="isMiniStyle" format="boolean" />
         <attr name="transitionsAnimated" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="RoundedBlurView">
+        <attr name="cornerSize"/>
+    </declare-styleable>
+
+    <declare-styleable name="FixedRatioView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
 </resources>
