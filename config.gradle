@@ -118,6 +118,7 @@ ext {
     exoplayerVersion = '2.11.1'                 //https://git.io/JvY3w
     pdfViewerVersion = '2.8.2'                  //https://git.io/Jv3nL
     blurViewVersion = "1.6.3"                   //https://git.io/Jv6dQ
+    flexboxVersion = '2.0.1'
 
     //other
     mailtoVersion = '2.0.0'                     //http://bit.ly/2S4mjnM

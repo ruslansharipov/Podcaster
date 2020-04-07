@@ -27,6 +27,7 @@ class TermItemController(
         }
 
         override fun bind(data: TypeAheadItem.TermItem) {
+            payload = data.term
             titleTv.distinctText = data.term
         }
     }

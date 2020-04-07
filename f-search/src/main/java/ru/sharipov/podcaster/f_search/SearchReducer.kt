@@ -60,6 +60,10 @@ class SearchReducer @Inject constructor(
 
     private fun createTypeAheadList(data: TypeAhead): List<TypeAheadItem> {
         return mutableListOf<TypeAheadItem>().apply {
+            if (data.terms.isNotEmpty()){
+                add(TypeAheadItem.TitleItem(R.string.search_terms_title))
+                addAll(data.terms.map(TypeAheadItem::TermItem))
+            }
             if (data.podcasts.isNotEmpty()){
                 add(TypeAheadItem.TitleItem(R.string.search_podcasts_title))
                 addAll(data.podcasts.map(TypeAheadItem::PodcastItem))
@@ -67,10 +71,6 @@ class SearchReducer @Inject constructor(
             if (data.genres.isNotEmpty()){
                 add(TypeAheadItem.TitleItem(R.string.search_genres_title))
                 addAll(data.genres.map(TypeAheadItem::GenreItem))
-            }
-            if (data.terms.isNotEmpty()){
-                add(TypeAheadItem.TitleItem(R.string.search_terms_title))
-                addAll(data.terms.map(TypeAheadItem::TermItem))
             }
         }
     }

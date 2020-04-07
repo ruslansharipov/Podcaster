@@ -22,7 +22,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     override fun onFirstLoad() {
-        loadCuratedPodcasts(INITIAL_PAGE)
+        //loadCuratedPodcasts(INITIAL_PAGE) TODO раскомментить в релизной версии=)
     }
 
     fun loadMore() {

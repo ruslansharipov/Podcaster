@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.sharipov.podcaster.base_feature.ui.controller.GenreController
 import ru.sharipov.podcaster.base_feature.ui.extesions.distinctText
@@ -56,7 +56,7 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
 
     private fun initView() {
         search_list_rv.run {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = FlexboxLayoutManager(context)
             adapter = easyAdapter
         }
         search_et.showKeyboard()

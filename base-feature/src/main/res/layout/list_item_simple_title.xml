@@ -2,21 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:minHeight="56dp"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:background="@drawable/bg_selectable_item">
 
     <TextView
-        android:id="@+id/title_tv"
+        android:id="@+id/simple_title_tv"
         style="@style/Text.Regular.14.PrimaryColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        tools:text="Вся обувь" />
+        tools:text="Comedy" />
 
     <View
         android:layout_width="match_parent"
