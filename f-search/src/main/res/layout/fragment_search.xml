@@ -53,6 +53,7 @@
         app:emptyIcon="@drawable/bg_primary_btn"
         app:emptySubTitle="@string/search_empty_subtitle"
         app:emptyTitle="@string/state_empty_text"
+        app:isMiniStyle="true"
         app:transparentLoadingVisible="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

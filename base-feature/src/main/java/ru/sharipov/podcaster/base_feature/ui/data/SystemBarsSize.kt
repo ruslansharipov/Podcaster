@@ -17,5 +17,6 @@ data class SystemBarsSize(
     val keyboard: Int = 0
 ) : Parcelable {
 
+    val hasKeyboard: Boolean get() = keyboard != 0
     val isEmpty get() = statusBar == 0 && navigationBar == 0 && keyboard == 0
 }

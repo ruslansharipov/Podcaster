@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.PodcastTypeAhead
 import ru.sharipov.podcaster.domain.TypeAhead
@@ -19,7 +20,8 @@ class SearchPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val sh: SearchStateHolder,
     private val reducer: SearchReducer,
-    private val podcastInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor,
+    private val insetsInteractor: InsetsInteractor
 ) : StatePresenter(dependency) {
 
     private companion object {
@@ -30,6 +32,13 @@ class SearchPresenter @Inject constructor(
 
     override fun onFirstLoad() {
         subscribeOnQueryChanges()
+        subscribeOnInsetChanges()
+    }
+
+    private fun subscribeOnInsetChanges() {
+        insetsInteractor
+            .observeInsets()
+            .subscribeDefault(reducer::onNewInsets)
     }
 
     fun onQueryChanged(query: String) {

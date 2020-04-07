@@ -9,8 +9,7 @@
     <FrameLayout
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="48dp"/>
+        android:layout_height="match_parent"/>
 
     <ru.sharipov.podcaster.f_main.view.BottomTabView
         android:id="@+id/main_tab_view"

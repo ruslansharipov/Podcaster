@@ -6,8 +6,8 @@ import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
 /**
  * Extension-метод для получения состояния загрузки данных.
  * */
-val RequestUi<*>.placeholderState: PlaceholderState?
-    get() = load as? PlaceholderState
+val RequestUi<*>.placeholderState: PlaceholderState
+    get() = load as? PlaceholderState ?: PlaceholderState.None
 
 /**
  * Extension-метод для получения состояния загрузки данных.

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.sharipov.podcaster.base_feature.ui.controller.GenreController
@@ -80,6 +81,9 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
         }
         search_pv.performIfChanged(state.typeAhead.placeholderState){ placeholderState: PlaceholderState ->
             setState(placeholderState)
+        }
+        search_container.performIfChanged(state.insets.keyboard){ keyboardHeight: Int ->
+            updatePadding(bottom = keyboardHeight)
         }
     }
 
