@@ -7,8 +7,12 @@ import android.view.ViewTreeObserver
 import android.view.animation.Interpolator
 import android.view.animation.LinearInterpolator
 import androidx.annotation.*
+import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import ru.sharipov.podcaster.base_feature.ui.data.SystemBarsSize
 import ru.surfstudio.android.animations.anim.AnimationUtil
 import ru.surfstudio.android.animations.anim.fadeIn
 import ru.surfstudio.android.animations.anim.fadeOut
@@ -199,7 +203,7 @@ fun View.setOnGlobalLayoutListenerSingle(onGlobalLayoutAction: () -> Unit) {
  *
  * Если `data == null` или `data == previous_data` -> [action] не будет вызван.
  * */
-fun <T : Any, V: View> V.performIfChanged(data: T?, action: V.(T) -> Unit) {
+fun <T : Any, V : View> V.performIfChanged(data: T?, action: V.(T) -> Unit) {
     actionIfChanged(data, { if (data != null) action(data) })
 }
 
@@ -309,5 +313,42 @@ fun View.calculateHorizontalSlideAnimDuration(
         translationDiff == 0f -> 0L
         translationDiff == targetTranslationX || width == 0 -> animDuration
         else -> (animDuration / widthF * translationDiff).roundToLong()
+    }
+}
+
+private fun View.isKeyboardAppeared(bottomInset: Int): Boolean {
+    return bottomInset / resources.displayMetrics.heightPixels.toDouble() > .15
+}
+
+fun View.doOnApplyInsets(listener: (SystemBarsSize) -> Unit) {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
+        val topInset = insets.systemWindowInsetTop
+        val bottomInset = insets.systemWindowInsetBottom
+
+        val hasKeyboard = isKeyboardAppeared(bottomInset)
+        val keyboardHeight = if (hasKeyboard) bottomInset else 0
+        val navigationBarBottomInset = if (hasKeyboard) 0 else bottomInset
+        listener(SystemBarsSize(topInset, navigationBarBottomInset, keyboardHeight))
+        insets
+    }
+    if (isAttachedToWindow) {
+        // We're already attached, just request as normal
+        requestApplyInsets()
+    } else {
+        // We're not attached to the hierarchy, add a listener to
+        // request when we are
+        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+                v.removeOnAttachStateChangeListener(this)
+                v.requestApplyInsets()
+            }
+            override fun onViewDetachedFromWindow(v: View) = Unit
+        })
+    }
+}
+
+fun View.observeSystemBarsSize(): Observable<SystemBarsSize> {
+    return Observable.create<SystemBarsSize> { emitter: ObservableEmitter<SystemBarsSize> ->
+        doOnApplyInsets(emitter::onNext)
     }
 }

@@ -5,7 +5,9 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.PodcastTypeAhead
+import ru.sharipov.podcaster.domain.TypeAhead
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
+import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
 import java.util.concurrent.TimeUnit
@@ -28,20 +30,13 @@ class SearchPresenter @Inject constructor(
             .debounce(DEBOUNCE_MS, TimeUnit.MILLISECONDS)
             .doOnNext(reducer::onQueryChanged)
             .filter(String::isNotEmpty)
-            .switchMap { debouncedQuery: String ->
-                podcastInteractor.getTypeAhead(
-                    query = debouncedQuery,
-                    showPodcasts = true,
-                    showGenres = true
-                )
-                    .asRequest()
-                    .io()
-            }
+            .switchMap(::createTypeAheadObservable)
             .subscribeDefault(reducer::onTypeAheadRequest)
     }
 
     fun retryClick() {
-
+        createTypeAheadObservable(sh.value.input)
+            .subscribeDefault(reducer::onTypeAheadRequest)
     }
 
     fun onGenreClick(genre: Genre) {
@@ -58,6 +53,16 @@ class SearchPresenter @Inject constructor(
 
     fun onTermClick(term: String) {
         reducer.onTermClick(term)
+    }
+
+    private fun createTypeAheadObservable(debouncedQuery: String): Observable<Request<TypeAhead>> {
+        return podcastInteractor.getTypeAhead(
+            query = debouncedQuery,
+            showPodcasts = true,
+            showGenres = true
+        )
+            .asRequest()
+            .io()
     }
 
 }

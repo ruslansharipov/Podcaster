@@ -105,7 +105,8 @@ fun Activity.setStatusBarDark() {
 fun Activity.setNavigationBarLight() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val flags = window.decorView.systemUiVisibility
-        window.decorView.systemUiVisibility = flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
+        window.decorView.systemUiVisibility =
+            flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
     }
 }
 
@@ -117,8 +118,4 @@ fun Activity.setNavigationBarDark() {
         val flags = window.decorView.systemUiVisibility
         window.decorView.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
     }
-}
-
-private fun Activity.isKeyboardAppeared(bottomInset: Int): Boolean {
-    return bottomInset / resources.displayMetrics.heightPixels.toDouble() > .25
 }
