@@ -14,6 +14,7 @@ import javax.inject.Inject
 @PerScreen
 class SearchPresenter @Inject constructor(
     dependency: StatePresenterDependency,
+    private val sh: SearchStateHolder,
     private val reducer: SearchReducer,
     private val podcastInteractor: PodcastInteractor
 ) : StatePresenter(dependency) {
@@ -37,6 +38,10 @@ class SearchPresenter @Inject constructor(
                     .io()
             }
             .subscribeDefault(reducer::onTypeAheadRequest)
+    }
+
+    fun retryClick() {
+
     }
 
     fun onGenreClick(genre: Genre) {

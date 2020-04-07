@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp">
+
+        <View
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+        <View
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_type_ahead_podcast"
+        android:layout_marginTop="16dp"
+        android:layout_height="56dp"
+        android:layout_width="match_parent"/>
+
+    <include layout="@layout/layout_type_ahead_podcast" />
+
+    <include layout="@layout/layout_type_ahead_podcast" />
+
+    <View
+        android:layout_width="160dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+    <View
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_shimmer_skeleton_corners_8dp_dark" />
+
+</LinearLayout>

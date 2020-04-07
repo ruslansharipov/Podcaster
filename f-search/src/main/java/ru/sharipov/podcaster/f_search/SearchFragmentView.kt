@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import ru.sharipov.podcaster.base_feature.ui.controller.GenreController
 import ru.sharipov.podcaster.base_feature.ui.extesions.distinctText
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
 import ru.sharipov.podcaster.base_feature.ui.extesions.textChangesStringSkipFirst
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.sharipov.podcaster.f_search.controller.PodcastItemController
 import ru.sharipov.podcaster.f_search.controller.TermItemController
 import ru.sharipov.podcaster.f_search.controller.TitleItemController
@@ -77,6 +79,9 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
                 }
             }
             easyAdapter.setItems(ItemList(items))
+        }
+        search_pv.performIfChanged(state.typeAhead.placeholderState){ placeholderState: PlaceholderState ->
+            setState(placeholderState)
         }
     }
 

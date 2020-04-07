@@ -31,7 +31,8 @@ class SearchReducer @Inject constructor(
         sh.emitNewState {
             copy(
                 input = query,
-                typeAheadList = if (query.isEmpty()) emptyList() else typeAheadList
+                typeAheadList = if (query.isEmpty()) emptyList() else typeAheadList,
+                typeAhead = if (query.isEmpty()) RequestUi() else typeAhead
             )
         }
     }
@@ -48,7 +49,7 @@ class SearchReducer @Inject constructor(
     fun onTypeAheadRequest(request: Request<TypeAhead>) {
         sh.emitNewState {
             copy(
-                typeAhead = mapRequestDefault(request, typeAhead, typeAheadList.isNotEmpty()),
+                typeAhead = mapRequestDefault(request, typeAhead),
                 typeAheadList = if (request is Request.Success) {
                     createTypeAheadList(request.data)
                 } else {

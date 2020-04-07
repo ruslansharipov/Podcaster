@@ -53,9 +53,11 @@
         app:emptyIcon="@drawable/bg_primary_btn"
         app:emptySubTitle="@string/search_empty_subtitle"
         app:emptyTitle="@string/state_empty_text"
+        app:transparentLoadingVisible="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_input_container" />
+        app:layout_constraintTop_toBottomOf="@id/search_input_container"
+        app:shimmerLayout="@layout/layout_search_skeleton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
