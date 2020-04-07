@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.f_explore.R
 import ru.sharipov.podcaster.base_feature.ui.navigation.CuratedListFragmentRoute
+import ru.sharipov.podcaster.domain.Genre
 
 @SuppressLint("WrongConstant")
 class ExplorePagerAdapter(
@@ -23,7 +24,7 @@ class ExplorePagerAdapter(
         val route = if (position == 0) {
             CuratedListFragmentRoute()
         } else {
-            BestFragmentRoute()
+            BestFragmentRoute(Genre())
         }
         return route.createFragment()
     }
