@@ -62,6 +62,7 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
         search_pv.errorClickListener = { presenter.retryClick() }
         search_clear_iv.setOnClickListener { presenter.onCrearClick() }
         search_et.textChangesStringSkipFirst().bindTo(presenter::onQueryChanged)
+        search_et.searchActions().bindTo(presenter::onSearchClick)
     }
 
     private fun render(state: SearchState) {

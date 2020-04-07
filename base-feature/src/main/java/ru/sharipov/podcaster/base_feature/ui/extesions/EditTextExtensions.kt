@@ -2,7 +2,6 @@ package ru.sharipov.podcaster.base_feature.ui.extesions
 
 import android.widget.EditText
 import android.widget.TextView
-import ru.sharipov.podcaster.base_feature.ui.extesions.setTextDistinct
 
 /**
  * Свойство производит самостоятельный Diff'ing текста и применяет его только тогда,

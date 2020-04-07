@@ -54,6 +54,10 @@ class SearchPresenter @Inject constructor(
             .subscribeDefault(reducer::onTypeAheadRequest)
     }
 
+    fun onSearchClick() {
+        // TODO
+    }
+
     fun retryClick() {
         createTypeAheadObservable(sh.value.input)
             .subscribeDefault(reducer::onTypeAheadRequest)

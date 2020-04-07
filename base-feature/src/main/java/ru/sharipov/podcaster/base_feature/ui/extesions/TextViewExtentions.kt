@@ -5,10 +5,13 @@ import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import com.jakewharton.rxbinding2.widget.editorActionEvents
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.Observable
+import io.reactivex.functions.Predicate
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 import kotlin.math.roundToInt
 
@@ -119,4 +122,12 @@ fun TextView.updateDrawables(
     bottom: Drawable? = compoundDrawables[3]
 ) {
     setCompoundDrawablesRelativeWithIntrinsicBounds(left, top, right, bottom)
+}
+
+fun TextView.searchActions(): Observable<Unit> {
+    return editorActionEvents(
+        Predicate { actionEvent ->
+            actionEvent.actionId() == EditorInfo.IME_ACTION_SEARCH
+        }
+    ).map { Unit }
 }
