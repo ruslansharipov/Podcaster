@@ -35,13 +35,12 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     private val easyAdapter = EasyAdapter()
     private val titleController = TitleItemController()
     private val termController = TermItemController { presenter.onTermClick(it) }
-    private val podcastController = PodcastItemController { presenter.onPodcastClick(it) }
     private val genreController = GenreController { presenter.onGenreClick(it) }
+    private val podcastController = PodcastItemController { presenter.onPodcastClick(it) }
 
     override fun getScreenName(): String = "SearchFragmentView"
 
-    override fun createConfigurator() =
-        SearchScreenConfigurator()
+    override fun createConfigurator() = SearchScreenConfigurator()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,8 +86,8 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
         }
     }
 
-    override fun onDestroyView() {
+    override fun onPause() {
         search_et.hideSoftKeyboard()
-        super.onDestroyView()
+        super.onPause()
     }
 }

@@ -5,7 +5,7 @@ import android.os.PersistableBundle
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.sharipov.podcaster.base_feature.ui.data.SystemBarsSize
+import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.base_feature.ui.extesions.dimen
 import ru.sharipov.podcaster.base_feature.ui.extesions.doOnApplyInsets
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
@@ -48,7 +48,7 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     private fun render(state: MainState) {
         main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
-        main_container.performIfChanged(state.insets){ insets: SystemBarsSize ->
+        main_container.performIfChanged(state.insets){ insets: AppInsets ->
             Logger.d("$insets")
             main_tab_view.isVisible = !insets.hasKeyboard
             main_container.updatePadding(top = insets.statusBar)

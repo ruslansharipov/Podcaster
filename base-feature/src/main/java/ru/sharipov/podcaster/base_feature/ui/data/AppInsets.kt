@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
  * @param keyboard размер системной клавиатуры
  */
 @Parcelize
-data class SystemBarsSize(
+data class AppInsets(
     val statusBar: Int = 0,
     val navigationBar: Int = 0,
     val keyboard: Int = 0

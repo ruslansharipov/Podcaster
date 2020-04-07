@@ -3,7 +3,7 @@ package ru.sharipov.podcaster.f_main
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
-import ru.sharipov.podcaster.base_feature.ui.data.SystemBarsSize
+import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.base_feature.ui.navigation.ExploreFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.FeedFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlaylistFragmentRoute
@@ -34,7 +34,7 @@ class MainPresenter @Inject constructor(
         mainReducer.onTabSelected(tabType)
     }
 
-    fun onNewInsets(insets: SystemBarsSize) {
+    fun onNewInsets(insets: AppInsets) {
         insetsInteractor.emitInsets(insets)
         mainReducer.onNewInsets(insets)
     }

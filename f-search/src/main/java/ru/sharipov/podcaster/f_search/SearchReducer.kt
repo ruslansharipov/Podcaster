@@ -2,7 +2,7 @@ package ru.sharipov.podcaster.f_search
 
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
-import ru.sharipov.podcaster.base_feature.ui.data.SystemBarsSize
+import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.domain.TypeAhead
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
@@ -15,7 +15,7 @@ data class SearchState(
     val input: String = EMPTY_STRING,
     val typeAhead: RequestUi<TypeAhead> = RequestUi(),
     val typeAheadList: List<TypeAheadItem> = emptyList(),
-    val insets: SystemBarsSize = SystemBarsSize()
+    val insets: AppInsets = AppInsets()
 ) {
     val isClearBtnVisible: Boolean = input.isNotEmpty()
 }
@@ -29,7 +29,7 @@ class SearchReducer @Inject constructor(
     private val sh: SearchStateHolder
 ) : StateReducer(dependency) {
 
-    fun onNewInsets(newInsets: SystemBarsSize) {
+    fun onNewInsets(newInsets: AppInsets) {
         sh.emitNewState {
             copy(insets = newInsets)
         }

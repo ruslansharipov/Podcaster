@@ -12,7 +12,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
-import ru.sharipov.podcaster.base_feature.ui.data.SystemBarsSize
+import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.surfstudio.android.animations.anim.AnimationUtil
 import ru.surfstudio.android.animations.anim.fadeIn
 import ru.surfstudio.android.animations.anim.fadeOut
@@ -320,7 +320,7 @@ private fun View.isKeyboardAppeared(bottomInset: Int): Boolean {
     return bottomInset / resources.displayMetrics.heightPixels.toDouble() > .15
 }
 
-fun View.doOnApplyInsets(listener: (SystemBarsSize) -> Unit) {
+fun View.doOnApplyInsets(listener: (AppInsets) -> Unit) {
     ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
         val topInset = insets.systemWindowInsetTop
         val bottomInset = insets.systemWindowInsetBottom
@@ -328,7 +328,7 @@ fun View.doOnApplyInsets(listener: (SystemBarsSize) -> Unit) {
         val hasKeyboard = isKeyboardAppeared(bottomInset)
         val keyboardHeight = if (hasKeyboard) bottomInset else 0
         val navigationBarBottomInset = if (hasKeyboard) 0 else bottomInset
-        listener(SystemBarsSize(topInset, navigationBarBottomInset, keyboardHeight))
+        listener(AppInsets(topInset, navigationBarBottomInset, keyboardHeight))
         insets
     }
     if (isAttachedToWindow) {
@@ -347,8 +347,8 @@ fun View.doOnApplyInsets(listener: (SystemBarsSize) -> Unit) {
     }
 }
 
-fun View.observeSystemBarsSize(): Observable<SystemBarsSize> {
-    return Observable.create<SystemBarsSize> { emitter: ObservableEmitter<SystemBarsSize> ->
+fun View.observeSystemBarsSize(): Observable<AppInsets> {
+    return Observable.create<AppInsets> { emitter: ObservableEmitter<AppInsets> ->
         doOnApplyInsets(emitter::onNext)
     }
 }
