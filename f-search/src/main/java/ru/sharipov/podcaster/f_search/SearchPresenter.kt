@@ -1,5 +1,6 @@
 package ru.sharipov.podcaster.f_search
 
+import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
@@ -25,8 +26,18 @@ class SearchPresenter @Inject constructor(
         const val DEBOUNCE_MS = 500L
     }
 
-    fun subscribeOnQueryChanges(textChanges: Observable<String>) {
-        textChanges
+    private val searchQueryRelay = BehaviorRelay.create<String>()
+
+    override fun onFirstLoad() {
+        subscribeOnQueryChanges()
+    }
+
+    fun onQueryChanged(query: String) {
+        searchQueryRelay.accept(query)
+    }
+
+    private fun subscribeOnQueryChanges() {
+        searchQueryRelay
             .debounce(DEBOUNCE_MS, TimeUnit.MILLISECONDS)
             .doOnNext(reducer::onQueryChanged)
             .filter(String::isNotEmpty)
