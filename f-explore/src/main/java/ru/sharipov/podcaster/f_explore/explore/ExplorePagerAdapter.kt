@@ -9,6 +9,7 @@ import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.f_explore.R
 import ru.sharipov.podcaster.base_feature.ui.navigation.CuratedListFragmentRoute
 import ru.sharipov.podcaster.domain.Genre
+import ru.sharipov.podcaster.domain.Region
 
 @SuppressLint("WrongConstant")
 class ExplorePagerAdapter(
@@ -24,7 +25,7 @@ class ExplorePagerAdapter(
         val route = if (position == 0) {
             CuratedListFragmentRoute()
         } else {
-            BestFragmentRoute(Genre())
+            BestFragmentRoute(Genre(), Region())
         }
         return route.createFragment()
     }

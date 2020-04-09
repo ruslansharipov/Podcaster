@@ -52,8 +52,8 @@ ext {
     daggerVersion = '2.26'                      //https://vk.cc/7UFvQo
 
     //androidx
-    androidxVersion = '1.1.0'                   //http://bit.ly/2zjueqh
-    androidxMaterialVersion = '1.2.0-alpha05'    //http://bit.ly/2KAAq1y
+    androidxVersion = '1.2.0-alpha02'           //http://bit.ly/2zjueqh
+    androidxMaterialVersion = '1.2.0-alpha04'   //http://bit.ly/2KAAq1y
     androidxRecyclerViewVersion = '1.1.0'       //http://bit.ly/2RcUQjD
     androidxExitInterfaceVersion = '1.1.0'      //http://bit.ly/2DPqlw6
     androidxKtxVersion = '1.1.0'                //http://bit.ly/2qY7ffW

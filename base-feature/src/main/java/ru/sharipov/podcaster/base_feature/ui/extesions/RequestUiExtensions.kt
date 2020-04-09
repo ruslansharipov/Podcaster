@@ -1,5 +1,6 @@
 package ru.sharipov.podcaster.base_feature.ui.extesions
 
+import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
 
@@ -32,3 +33,8 @@ val RequestUi<*>.isLoading: Boolean
  * */
 val RequestUi<*>.hasError: Boolean
     get() = error != null
+
+fun <T> RequestUi<PaginationBundle<T>>.getNextPage(): Int {
+    return data?.list?.nextPage ?: 0
+}
+

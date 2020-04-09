@@ -1,11 +1,13 @@
 package ru.sharipov.podcaster.base_feature.ui.extesions
 
+import android.content.Context
 import android.graphics.PorterDuff
 import android.widget.ImageView
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import ru.sharipov.podcaster.base_feature.R
 import ru.surfstudio.android.imageloader.ImageLoader
+import ru.surfstudio.android.imageloader.ImageLoaderInterface
 import ru.surfstudio.android.imageloader.data.CacheStrategy
 
 /**
@@ -25,19 +27,42 @@ fun ImageView.bindPicture(
     onComplete: () -> Unit = { }
 ) {
     val radius = if (radiusRes != null) resources.getDimensionPixelOffset(radiusRes) else 0
-    ImageLoader.with(context)
+    ImageLoader.bindDefault(context, url, overlayRes)
+        .roundedCorners(isRoundedCorners = radiusRes != null, radiusPx = radius)
+        .centerCrop(centerCrop)
+        .intoView(this, onComplete)
+}
+
+fun ImageView.bindCirclePicture(
+    url: String,
+    @DrawableRes overlayRes: Int? = null,
+    onComplete: () -> Unit = { }
+) {
+    ImageLoader.bindDefault(context, url, overlayRes)
+        .circle()
+        .intoView(this, onComplete)
+}
+
+private fun ImageLoader.Companion.bindDefault(
+    context: Context,
+    url: String,
+    @DrawableRes overlayRes: Int? = null
+): ImageLoaderInterface {
+    return with(context)
         .cacheStrategy(CacheStrategy.CACHE_ORIGINAL)
         .url(url)
+        .centerCrop()
+        .mask(overlayRes != null, overlayRes ?: 0, PorterDuff.Mode.DST_OVER)
         .preview(R.drawable.bg_placeholder_loading_rounded_8_dp)
         .error(R.drawable.bg_placeholder_loading_rounded_8_dp)
-        .roundedCorners(isRoundedCorners = radiusRes != null, radiusPx = radius)
-        .mask(overlayRes != null, overlayRes ?: 0, PorterDuff.Mode.DST_OVER)
-        .centerCrop(centerCrop)
-        .into(
-            view = this,
-            onCompleteLambda = { drawable, _ ->
-                setImageDrawable(drawable)
-                onComplete()
-            }
-        )
+}
+
+private fun ImageLoaderInterface.intoView(view: ImageView, onComplete: () -> Unit = { }) {
+    into(
+        view = view,
+        onCompleteLambda = { drawable, _ ->
+            view.setImageDrawable(drawable)
+            onComplete()
+        }
+    )
 }

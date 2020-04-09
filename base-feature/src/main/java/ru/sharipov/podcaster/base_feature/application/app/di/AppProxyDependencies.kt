@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import ru.sharipov.podcaster.base.provider.StringsProvider
 import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
+import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
@@ -31,4 +32,5 @@ interface AppProxyDependencies {
 
     fun insetsInteractor(): InsetsInteractor
     fun podcastInteractor(): PodcastInteractor
+    fun regionInteractor(): RegionsInteractor
 }

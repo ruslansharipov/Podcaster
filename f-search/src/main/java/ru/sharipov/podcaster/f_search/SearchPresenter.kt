@@ -5,12 +5,15 @@ import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
+import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.PodcastTypeAhead
 import ru.sharipov.podcaster.domain.TypeAhead
+import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
+import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -21,7 +24,9 @@ class SearchPresenter @Inject constructor(
     private val sh: SearchStateHolder,
     private val reducer: SearchReducer,
     private val podcastInteractor: PodcastInteractor,
-    private val insetsInteractor: InsetsInteractor
+    private val insetsInteractor: InsetsInteractor,
+    private val regionsInteractor: RegionsInteractor,
+    private val tabNavigator: TabFragmentNavigator
 ) : StatePresenter(dependency) {
 
     private companion object {
@@ -64,7 +69,7 @@ class SearchPresenter @Inject constructor(
     }
 
     fun onGenreClick(genre: Genre) {
-        // TODO
+        tabNavigator.open(BestFragmentRoute(genre, regionsInteractor.region))
     }
 
     fun onPodcastClick(podcast: PodcastTypeAhead) {

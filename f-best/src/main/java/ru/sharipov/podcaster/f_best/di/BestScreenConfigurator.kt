@@ -12,7 +12,7 @@ import ru.sharipov.podcaster.f_best.BestFragmentView
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
-class BestScreenConfigurator : FragmentScreenConfigurator(Bundle.EMPTY) {
+class BestScreenConfigurator(args: Bundle?) : FragmentScreenConfigurator(args ?: Bundle.EMPTY) {
 
     @PerScreen
     @Component(
@@ -27,14 +27,14 @@ class BestScreenConfigurator : FragmentScreenConfigurator(Bundle.EMPTY) {
     override fun createScreenComponent(
         parentComponent: ActivityComponent?,
         fragmentScreenModule: FragmentScreenModule?,
-        args: Bundle?
+        args: Bundle
     ): ScreenComponent<*> {
         return DaggerBestScreenConfigurator_BestScreenComponent.builder()
             .activityComponent(parentComponent)
             .fragmentScreenModule(fragmentScreenModule)
             .bestScreenModule(
                 BestScreenModule(
-                    BestFragmentRoute()
+                    BestFragmentRoute(args)
                 )
             )
             .build()

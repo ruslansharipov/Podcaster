@@ -4,6 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.fragment_best.*
+import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
+import ru.sharipov.podcaster.base_feature.ui.extesions.isSwrLoading
+import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
 import ru.sharipov.podcaster.f_best.di.BestScreenConfigurator
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.CrossFeatureFragment
@@ -17,7 +25,10 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     @Inject
     lateinit var sh: BestStateHolder
 
-    override fun createConfigurator() = BestScreenConfigurator()
+    private val easyAdapter = PaginationableAdapter(R.layout.layout_best_podcast_row_skeleton){ presenter.loadMore() }
+    private val podcastController = BestPodcastController { presenter.onPodcastClick(it) }
+
+    override fun createConfigurator() = BestScreenConfigurator(arguments)
 
     override fun getScreenName(): String = "BestFragmentView"
 
@@ -33,10 +44,23 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     }
 
     private fun initView() {
-
+        best_region_btn.setOnClickListener { presenter.onRegionClick() }
+        best_podcasts_swr.setOnRefreshListener { presenter.onRefresh() }
+        best_podcasts_pv.errorClickListener = { presenter.onErrorClick() }
+        best_podcasts_rv.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = easyAdapter
+        }
     }
 
     private fun render(state: BestState) {
-
+        best_region_btn.performIfChanged(state.region, RegionButton::setRegion)
+        best_podcasts_pv.performIfChanged(state.podcasts.placeholderState, PlaceholderStateView::setState)
+        best_podcasts_swr.performIfChanged(state.podcasts.isSwrLoading, SwipeRefreshLayout::setRefreshing)
+        best_podcasts_rv.performIfChanged(state.podcasts.data) { bundle ->
+            bundle.safeGet { dataList, paginationState ->
+                easyAdapter.setData(dataList, podcastController, paginationState)
+            }
+        }
     }
 }

@@ -28,18 +28,12 @@ abstract class StatePresenter(
         dependency.eventDelegateManager.registerDelegate(StatePresenterGateway(this, screenState))
     }
 
-    fun <T> Observable<T>.subscribeIoDefault(
-        onNext: (T) -> Unit,
-        onError: (Throwable) -> Unit = {}
-    ): Disposable = io().subscribeDefault(onNext, onError)
+    fun <T> Observable<T>.subscribeIoDefault(onNext: (T) -> Unit): Disposable = io().subscribeDefault(onNext)
 
-    fun <T> Observable<T>.subscribeDefault(
-        onNext: (T) -> Unit,
-        onError: (Throwable) -> Unit = {}
-    ): Disposable {
+    fun <T> Observable<T>.subscribeDefault(onNext: (T) -> Unit): Disposable {
         val observer = LambdaObserver<T>(
             Consumer(onNext),
-            Consumer(onError),
+            Consumer {},
             ObservableUtil.EMPTY_ACTION,
             Functions.emptyConsumer()
         )

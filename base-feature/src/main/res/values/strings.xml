@@ -50,4 +50,7 @@
     <string name="search_podcasts_title">Podcasts</string>
     <string name="search_hint">Podcast, category</string>
     <string name="curated_list_title">Explore</string>
+
+    <!--  BestFragmentRoute  -->
+    <string name="current_region">Current region:</string>
 </resources>

@@ -5,6 +5,7 @@ import ru.sharipov.podcaster.base_feature.application.cache.di.CacheModule
 import ru.sharipov.podcaster.base_feature.application.network.NetworkModule
 import ru.sharipov.podcaster.base_feature.application.network.OkHttpModule
 import ru.sharipov.podcaster.base_feature.application.podcast.di.PodcastModule
+import ru.sharipov.podcaster.base_feature.application.region.di.RegionModule
 import ru.sharipov.podcaster.base_feature.application.storage.di.SharedPrefModule
 import ru.surfstudio.android.dagger.scope.PerApplication
 
@@ -18,7 +19,8 @@ import ru.surfstudio.android.dagger.scope.PerApplication
         CacheModule::class,
         NetworkModule::class,
         OkHttpModule::class,
-        PodcastModule::class
+        PodcastModule::class,
+        RegionModule::class
     ]
 )
 interface AppComponent : AppProxyDependencies

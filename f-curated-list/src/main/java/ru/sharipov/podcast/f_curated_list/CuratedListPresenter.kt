@@ -22,7 +22,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     override fun onFirstLoad() {
-        loadCuratedPodcasts(INITIAL_PAGE) //TODO раскомментить в релизной версии=)
+        //loadCuratedPodcasts(INITIAL_PAGE) //TODO раскомментить в релизной версии=)
     }
 
     fun loadMore() {
@@ -45,9 +45,7 @@ class CuratedListPresenter @Inject constructor(
     private fun loadCuratedPodcasts(nextPage: Int, isSwr: Boolean = false) {
         podcastInteractor.getCuratedPodcasts(nextPage)
             .asRequest()
-            .subscribeIoDefault (
-                onNext = { reducer.onCuratedLoaded(it, isSwr) }
-            )
+            .subscribeIoDefault { reducer.onCuratedLoaded(it, isSwr) }
     }
 
 }
