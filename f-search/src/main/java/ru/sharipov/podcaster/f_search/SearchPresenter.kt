@@ -48,12 +48,12 @@ class SearchPresenter @Inject constructor(
 
     fun onQueryChanged(query: String) {
         searchQueryRelay.accept(query)
+        reducer.onQueryChanged(query)
     }
 
     private fun subscribeOnQueryChanges() {
         searchQueryRelay
             .debounce(DEBOUNCE_MS, TimeUnit.MILLISECONDS)
-            .doOnNext(reducer::onQueryChanged)
             .filter(String::isNotEmpty)
             .switchMap(::createTypeAheadObservable)
             .subscribeDefault(reducer::onTypeAheadRequest)
