@@ -8,5 +8,13 @@
 
     <include layout="@layout/layout_best_podcast_row_skeleton"/>
 
+    <include layout="@layout/layout_best_podcast_row_skeleton"/>
+
+    <include layout="@layout/layout_best_podcast_row_skeleton"/>
+
+    <include layout="@layout/layout_best_podcast_row_skeleton"/>
+
+    <include layout="@layout/layout_best_podcast_row_skeleton"/>
+
 
 </LinearLayout>
