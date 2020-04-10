@@ -45,7 +45,6 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     }
 
     private fun initView() {
-        best_region_btn.setOnClickListener { presenter.onRegionClick() }
         best_podcasts_swr.setOnRefreshListener { presenter.onRefresh() }
         best_podcasts_pv.errorClickListener = { presenter.onErrorClick() }
         best_podcasts_rv.run {
@@ -61,7 +60,6 @@ class BestFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     private fun render(state: BestState) {
         best_podcasts_toolbar.performIfChanged(state.genre.name, ClickableSubtitleToolbar::titleText::set)
         best_podcasts_toolbar.performIfChanged(state.region.name, ClickableSubtitleToolbar::subtitleText::set)
-        best_region_btn.performIfChanged(state.region, RegionButton::setRegion)
         best_podcasts_pv.performIfChanged(state.podcasts.placeholderState, PlaceholderStateView::setState)
         best_podcasts_swr.performIfChanged(state.podcasts.isSwrLoading, SwipeRefreshLayout::setRefreshing)
         best_podcasts_rv.performIfChanged(state.podcasts.data) { bundle ->

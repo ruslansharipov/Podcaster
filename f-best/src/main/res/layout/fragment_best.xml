@@ -53,11 +53,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ru.sharipov.podcaster.f_best.RegionButton
-        android:id="@+id/best_region_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_gravity="bottom|end"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
