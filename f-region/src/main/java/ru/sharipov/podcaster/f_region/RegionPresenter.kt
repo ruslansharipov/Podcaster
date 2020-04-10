@@ -32,6 +32,15 @@ class RegionPresenter @Inject constructor(
     private fun loadAvailableRegions() {
         regionsInteractor.getRegions()
             .io()
+            .map { regions: List<Region> ->
+                val currentRegion = regionsInteractor.region
+                regions.map { region: Region ->
+                    SelectableRegion(
+                        region = region,
+                        isSelected = region == currentRegion
+                    )
+                }
+            }
             .asRequest()
             .subscribeDefault(reducer::onRegionsLoaded)
     }

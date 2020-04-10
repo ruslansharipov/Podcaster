@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 data class RegionState(
     val currentRegion: Region = Region(),
-    val regions: RequestUi<List<Region>> = RequestUi()
+    val regions: RequestUi<List<SelectableRegion>> = RequestUi()
 )
 
 @PerScreen
@@ -29,7 +29,7 @@ class RegionReducer @Inject constructor(
         }
     }
 
-    fun onRegionsLoaded(request: Request<List<Region>>) {
+    fun onRegionsLoaded(request: Request<List<SelectableRegion>>) {
         sh.emitNewState {
             copy(
                 regions = mapRequestDefault(request, regions)

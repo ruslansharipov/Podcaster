@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.extesions.getNextPage
+import ru.sharipov.podcaster.base_feature.ui.navigation.RegionDialogRoute
 import ru.sharipov.podcaster.domain.Podcast
 import ru.sharipov.podcaster.domain.Region
 import ru.sharipov.podcaster.i_genres.RegionsInteractor
@@ -13,6 +14,7 @@ import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
+import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
 
 @PerScreen
@@ -22,7 +24,8 @@ class BestFragmentPresenter @Inject constructor(
     private val reducer: BestReducer,
     private val podcastInteractor: PodcastInteractor,
     private val regionsInteractor: RegionsInteractor,
-    private val tabNavigator: TabFragmentNavigator
+    private val tabNavigator: TabFragmentNavigator,
+    private val dialogNavigator: DialogNavigator
 ) : StatePresenter(dependency) {
 
     companion object {
@@ -47,7 +50,7 @@ class BestFragmentPresenter @Inject constructor(
     }
 
     fun onRegionClick() {
-        // todo open regions dialog
+        dialogNavigator.show(RegionDialogRoute())
     }
 
     private fun loadPodcasts(
