@@ -2,10 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWindowBackgroundLight">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/regions_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
+        android:id="@+id/regions_sv"
+        app:isMiniStyle="true"
+        android:paddingBottom="40dp"
+        app:shimmerLayout="@layout/layout_region_skeleton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

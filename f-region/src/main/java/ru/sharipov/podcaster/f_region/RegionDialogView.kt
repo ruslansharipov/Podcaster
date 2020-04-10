@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.dialog_regions.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxPresenter
 import ru.surfstudio.android.easyadapter.EasyAdapter
@@ -45,10 +47,12 @@ class RegionDialogView : BaseRxBottomSheetDialogFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = easyAdapter
         }
+        regions_sv.errorClickListener = { presenter.onErrorClick() }
     }
 
     private fun render(state: RegionState) {
-        regions_rv.performIfChanged(state.regions.data){ regions: List<SelectableRegion> ->
+        regions_sv.performIfChanged(state.regions.placeholderState, PlaceholderStateView::setState)
+        regions_rv.performIfChanged(state.regions.data) { regions: List<SelectableRegion> ->
             easyAdapter.setData(regions, regionController)
         }
     }

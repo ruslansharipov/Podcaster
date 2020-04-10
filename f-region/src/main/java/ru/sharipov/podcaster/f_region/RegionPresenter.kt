@@ -29,6 +29,10 @@ class RegionPresenter @Inject constructor(
         dialogNavigator.dismiss(route)
     }
 
+    fun onErrorClick() {
+        loadAvailableRegions()
+    }
+
     private fun loadAvailableRegions() {
         regionsInteractor.getRegions()
             .io()

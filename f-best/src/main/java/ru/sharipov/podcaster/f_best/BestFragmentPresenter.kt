@@ -73,7 +73,7 @@ class BestFragmentPresenter @Inject constructor(
                     region = newRegion.code
                 )
             }.subscribeDefault{ request ->
-                reducer.onPodcastsLoaded(request, isSwr = false)
+                reducer.onPodcastsLoaded(request, isSwr = true)
             }
     }
 
