@@ -22,6 +22,7 @@ class RegionsInteractor @Inject constructor(
     }
 
     fun getRegions(): Observable<List<Region>> {
+        //TODO добавить кэш
         return regionsRepository.getRegions()
     }
 

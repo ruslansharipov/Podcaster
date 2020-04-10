@@ -11,4 +11,5 @@ include ':app',
         ':i-region',
         ':f-best',
         ':f-curated-list',
-        ':f-search'
+        ':f-search',
+        ':f-region'
