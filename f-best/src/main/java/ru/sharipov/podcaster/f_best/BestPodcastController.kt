@@ -1,6 +1,7 @@
 package ru.sharipov.podcaster.f_best
 
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import kotlinx.android.synthetic.main.list_item_best_podcast.view.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
 import ru.sharipov.podcaster.domain.Podcast
@@ -34,8 +35,9 @@ class BestPodcastController(
             payload = data
 
             titleTv.text = data.title
-            descriptionTv.text = data.description
             publisherTv.text = data.publisher
+            descriptionTv.text = HtmlCompat.fromHtml(data.description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+
             podcastIv.bindPicture(data.image)
         }
     }

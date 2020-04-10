@@ -35,6 +35,6 @@ val RequestUi<*>.hasError: Boolean
     get() = error != null
 
 fun <T> RequestUi<PaginationBundle<T>>.getNextPage(): Int {
-    return data?.list?.nextPage ?: 0
+    return data?.list?.nextPage ?: 1
 }
 

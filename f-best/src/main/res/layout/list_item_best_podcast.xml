@@ -3,66 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="96dp">
 
     <ImageView
         android:id="@+id/best_podcast_iv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/content_description"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/best_podcast_publisher_tv"
-        style="@style/Text.Regular.14.PrimaryColor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/best_podcast_iv"
-        tools:text="@string/content_description" />
-
-    <TextView
         android:id="@+id/best_podcast_title_tv"
-        style="@style/Text.Medium.16.PrimaryColor"
+        style="@style/Text.Medium.14.PrimaryColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         android:paddingStart="16dp"
-        android:paddingTop="8dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/best_podcast_iv"
         app:layout_constraintTop_toBottomOf="@id/best_podcast_publisher_tv"
-        tools:text="@string/content_description" />
+        app:layout_constraintTop_toTopOf="@id/best_podcast_iv"
+        tools:text="title \nde" />
+
+    <TextView
+        android:id="@+id/best_podcast_publisher_tv"
+        style="@style/Text.Regular.12.SecondaryColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/best_podcast_iv"
+        app:layout_constraintTop_toBottomOf="@id/best_podcast_title_tv"
+        tools:text="publisher" />
 
     <TextView
         android:id="@+id/best_podcast_description_tv"
         style="@style/Text.Regular.12.PrimaryColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
-        android:maxLines="6"
+        android:maxLines="2"
         android:paddingStart="16dp"
-        android:paddingTop="8dp"
         android:paddingEnd="16dp"
+        app:layout_goneMarginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/best_podcast_title_tv"
-        tools:text="@string/content_description" />
+        app:layout_constraintStart_toEndOf="@id/best_podcast_iv"
+        app:layout_constraintTop_toBottomOf="@id/best_podcast_publisher_tv"
+        tools:text="description \ndesc \n desc \n desc \n desc \n desc" />
 
     <View
         android:id="@+id/best_podcast_clickable"
@@ -71,7 +73,7 @@
         android:background="@drawable/bg_selectable_item"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@id/best_podcast_description_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
