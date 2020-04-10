@@ -15,6 +15,7 @@ class RegionsRepository @Inject constructor(
         return regionApi
             .getRegions()
             .transform()
+            .map { it.sortedBy(Region::name) }
             .toObservable()
     }
 }
