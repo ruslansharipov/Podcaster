@@ -10,6 +10,7 @@ import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
+import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import javax.inject.Inject
@@ -20,7 +21,8 @@ class BestFragmentPresenter @Inject constructor(
     private val sh: BestStateHolder,
     private val reducer: BestReducer,
     private val podcastInteractor: PodcastInteractor,
-    private val regionsInteractor: RegionsInteractor
+    private val regionsInteractor: RegionsInteractor,
+    private val tabNavigator: TabFragmentNavigator
 ) : StatePresenter(dependency) {
 
     companion object {
@@ -84,6 +86,10 @@ class BestFragmentPresenter @Inject constructor(
 
     fun onPodcastClick(podcast: Podcast) {
         // todo
+    }
+
+    fun onBackClick() {
+        tabNavigator.onBackPressed()
     }
 
 }

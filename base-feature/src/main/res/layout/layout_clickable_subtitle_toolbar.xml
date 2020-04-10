@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:maxHeight="56dp"
+    android:orientation="vertical"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <ImageButton
+        android:id="@+id/clickable_subtitle_toolbar_back_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:contentDescription="@string/content_description"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back" />
+
+    <ImageButton
+        android:id="@+id/clickable_subtitle_toolbar_close_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:contentDescription="@string/content_description"
+        android:padding="8dp"
+        android:src="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/clickable_subtitle_toolbar_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/toolbar_default_start_margin"
+        android:layout_marginTop="10dp"
+        tools:text="title"
+        android:textAppearance="@style/Text.Medium.16.PrimaryColor" />
+
+    <TextView
+        android:id="@+id/clickable_subtitle_toolbar_subtitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_text_btn"
+        android:drawableEnd="@drawable/ic_shevron_right_17"
+        android:padding="4dp"
+        android:textAppearance="@style/Text.Regular.11.AccentColor"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="United States" />
+</merge>

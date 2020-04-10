@@ -41,4 +41,10 @@
     <declare-styleable name="FixedRatioView">
         <attr name="ratio" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="ClickableSubtitleToolbar">
+        <attr name="title" />
+        <attr name="back_visible" format="boolean" />
+        <attr name="close_visible" format="boolean" />
+    </declare-styleable>
 </resources>
