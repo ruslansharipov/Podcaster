@@ -5,6 +5,9 @@
     android:layout_height="wrap_content"
     android:minHeight="56dp"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/region_container"
     android:background="@drawable/bg_region_selectable_item">
 
     <TextView

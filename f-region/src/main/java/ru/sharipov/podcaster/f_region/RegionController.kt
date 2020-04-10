@@ -20,16 +20,18 @@ class RegionController(
 
         private val titleTv = itemView.region_title_tv
         private val flagIv = itemView.region_flag_iv
+        private val container = itemView.region_container
 
         private var payload: Region? = null
 
         init {
-            itemView.setOnClickListener { payload?.let(clickListener) }
+            container.setOnClickListener { payload?.let(clickListener) }
         }
 
         override fun bind(data: SelectableRegion) {
             payload = data.region
 
+            container.isActivated = data.isSelected
             titleTv.text = data.region.name
             flagIv.bindPicture(data.region.flagUrl)
         }

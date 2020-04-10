@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Region(
+data class Region(
     val code: String = EMPTY_STRING,
     val name: String = EMPTY_STRING
 ) : Parcelable {
