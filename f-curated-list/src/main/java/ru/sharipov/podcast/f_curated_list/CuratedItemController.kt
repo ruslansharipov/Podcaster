@@ -16,8 +16,6 @@ class CuratedItemController(
     private val podcastClickListener: (PodcastShort) -> Unit
 ) : BindableItemController<CuratedItem, CuratedItemController.Holder>() {
 
-    private val viewPool = RecyclerView.RecycledViewPool()
-
     override fun getItemId(data: CuratedItem): String = data.id
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
@@ -39,7 +37,6 @@ class CuratedItemController(
         init {
             allBtn.setOnClickListener { payload?.let(allClickListener) }
             podcastsRv.run {
-                setRecycledViewPool(viewPool)
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                 adapter = easyAdapter
             }

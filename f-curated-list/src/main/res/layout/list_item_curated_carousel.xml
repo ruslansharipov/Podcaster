@@ -57,7 +57,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/curated_podcasts_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="160dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:clipToPadding="false"
