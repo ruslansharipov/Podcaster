@@ -3,7 +3,7 @@ package ru.sharipov.podcaster.f_region
 import android.os.Bundle
 import dagger.Component
 import dagger.Module
-import ru.rendezvous.app.ui.activity.di.BottomDialogScreenConfigurator
+import ru.rendezvous.app.ui.activity.di.DialogScreenConfigurator
 import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
 import ru.sharipov.podcaster.base_feature.ui.navigation.RegionDialogRoute
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
@@ -11,7 +11,7 @@ import ru.sharipov.podcaster.base_feature.ui.screen.FragmentScreenModule
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
-class RegionScreenConfigurator : BottomDialogScreenConfigurator(Bundle.EMPTY) {
+class RegionScreenConfigurator : DialogScreenConfigurator(Bundle.EMPTY) {
 
     @PerScreen
     @Component(

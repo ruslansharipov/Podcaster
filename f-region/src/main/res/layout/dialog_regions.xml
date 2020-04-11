@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWindowBackgroundLight">
+    android:background="@color/colorWindowBackgroundLight"
+    android:focusableInTouchMode="true">
+
+    <FrameLayout
+        android:id="@+id/regions_input_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/regions_et"
+            style="@style/SearchEditText"
+            android:drawableStart="@drawable/empty_drawable"
+            android:hint="@string/region_search_hint"
+            android:paddingStart="32dp" />
+
+        <ImageButton
+            android:id="@+id/regions_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_selectable_ripple_circle"
+            android:contentDescription="@string/content_description"
+            android:padding="8dp"
+            android:src="@drawable/ic_arrow_back" />
+
+        <ImageButton
+            android:id="@+id/regions_clear_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/bg_selectable_ripple_circle"
+            android:contentDescription="@string/content_description"
+            android:padding="8dp"
+            android:src="@drawable/ic_clear" />
+
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/regions_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/regions_input_container" />
 
     <ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
         android:id="@+id/regions_sv"
-        app:isMiniStyle="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:paddingBottom="40dp"
-        app:shimmerLayout="@layout/layout_region_skeleton"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        app:emptySubTitle="@string/region_search_empty_subtitle"
+        app:emptyTitle="@string/region_search_empty_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/regions_input_container"
+        app:shimmerLayout="@layout/layout_region_skeleton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

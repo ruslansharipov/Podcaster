@@ -53,4 +53,9 @@
 
     <!--  BestFragmentRoute  -->
     <string name="current_region">Current region:</string>
+
+    <!--  RegionDialogFragment  -->
+    <string name="region_search_hint">Region</string>
+    <string name="region_search_empty_title">Nothing found</string>
+    <string name="region_search_empty_subtitle">Try to change search query</string>
 </resources>
