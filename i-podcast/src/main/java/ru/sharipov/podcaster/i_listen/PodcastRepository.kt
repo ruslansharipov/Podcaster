@@ -27,7 +27,7 @@ class PodcastRepository @Inject constructor(
             .toObservable()
     }
 
-    fun getBestPodcasts(page: Int, region: String?, genreId: Int?): Single<DataList<Podcast>> {
+    fun getBestPodcasts(page: Int, region: String?, genreId: Int?): Single<DataList<PodcastFull>> {
         return listenApi
             .getBestPodcasts(page, region, genreId)
             .transform()
@@ -48,11 +48,11 @@ class PodcastRepository @Inject constructor(
             .toObservable()
     }
 
-    fun getPodcast(
+    fun getPodcastEpisodes(
         id: String,
         nextEpisodePubDate: Long,
         sortType: SortType
-    ): Observable<Podcast> {
+    ): Observable<PodcastFull> {
         return listenApi
             .getPodcast(id, nextEpisodePubDate, sortType.id)
             .transform()

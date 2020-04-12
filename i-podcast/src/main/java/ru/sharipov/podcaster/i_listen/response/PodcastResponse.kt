@@ -3,9 +3,8 @@ package ru.sharipov.podcaster.i_listen.response
 import com.google.gson.annotations.SerializedName
 import ru.sharipov.podcaster.domain.Extra
 import ru.sharipov.podcaster.domain.LookingFor
-import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.i_network.network.Transformable
-import ru.sharipov.podcaster.i_network.network.transformCollection
 import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 
 data class PodcastResponse(
@@ -29,13 +28,11 @@ data class PodcastResponse(
     @SerializedName("itunes_id") val itunesId: Int?,
     @SerializedName("looking_for") val lookingFor: LookingForResponse?,
     @SerializedName("extra") val extra: ExtraResponse?,
-    @SerializedName("genre_ids") val genreIds: List<Int>?,
-    @SerializedName("episodes") val episodes: List<EpisodeResponse>?,
-    @SerializedName("next_episode_pub_date") val nextEpisodePubDate: Long?
-) : Transformable<Podcast> {
+    @SerializedName("genre_ids") val genreIds: List<Int>?
+) : Transformable<PodcastFull> {
 
-    override fun transform(): Podcast {
-        return Podcast(
+    override fun transform(): PodcastFull {
+        return PodcastFull(
             id = id ?: EMPTY_STRING,
             isClaimed = isClaimed ?: false,
             explicitContent = explicitContent ?: false,
@@ -56,9 +53,7 @@ data class PodcastResponse(
             extra = extra?.transform() ?: Extra(),
             genreIds = genreIds ?: emptyList(),
             listennotesUrl = listennotesUrl ?: EMPTY_STRING,
-            episodes = episodes.transformCollection(),
-            latestPubDateMs = latestPubDateMs ?: 0,
-            nextEpisodePubDate = nextEpisodePubDate ?: 0
+            latestPubDateMs = latestPubDateMs ?: 0
         )
     }
 }

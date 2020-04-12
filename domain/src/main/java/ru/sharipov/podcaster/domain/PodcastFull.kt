@@ -1,9 +1,13 @@
 package ru.sharipov.podcaster.domain
 
-data class Podcast(
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class PodcastFull(
     val id: String = EMPTY_STRING,
-    val isClaimed: Boolean?,
-    val explicitContent: Boolean?,
+    val isClaimed: Boolean = false,
+    val explicitContent: Boolean = false,
     val website: String = EMPTY_STRING,
     val totalEpisodes: Int = 0,
     val earliestPubDateMs: Long = 0,
@@ -21,7 +25,5 @@ data class Podcast(
     val itunesId: Int = 0,
     val lookingFor: LookingFor = LookingFor(),
     val extra: Extra = Extra(),
-    val genreIds: List<Int?> = emptyList(),
-    val episodes: List<Episode> = emptyList(),
-    val nextEpisodePubDate: Long = 0
-)
+    val genreIds: List<Int> = emptyList()
+) : Parcelable

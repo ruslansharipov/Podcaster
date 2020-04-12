@@ -27,7 +27,7 @@ class PodcastInteractor @Inject constructor(
         page: Int,
         region: String? = null,
         genreId: Int? = null
-    ): Single<DataList<Podcast>> {
+    ): Single<DataList<PodcastFull>> {
         return podcastRepository.getBestPodcasts(page, region, genreId)
     }
 
@@ -39,11 +39,11 @@ class PodcastInteractor @Inject constructor(
         return podcastRepository.getTypeAhead(query, showPodcasts, showGenres)
     }
 
-    fun getPodcast(
-        id: String,
+    fun getPodcastEpisodes(
+        podcastId: String,
         nextEpisodePubDate: Long,
         sortType: SortType
-    ): Observable<Podcast> {
-        return podcastRepository.getPodcast(id, nextEpisodePubDate, sortType)
+    ): Observable<PodcastFull> {
+        return podcastRepository.getPodcastEpisodes(podcastId, nextEpisodePubDate, sortType)
     }
 }

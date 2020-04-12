@@ -5,7 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.extesions.getNextPage
 import ru.sharipov.podcaster.base_feature.ui.navigation.RegionDialogRoute
-import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.domain.Region
 import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
@@ -80,14 +80,14 @@ class BestFragmentPresenter @Inject constructor(
     private fun createPodcastsObservable(
         nextPage: Int,
         region: String
-    ): Observable<Request<DataList<Podcast>>> {
+    ): Observable<Request<DataList<PodcastFull>>> {
         return podcastInteractor
             .getBestPodcasts(nextPage, region, sh.value.genre.id)
             .io()
             .asRequest()
     }
 
-    fun onPodcastClick(podcast: Podcast) {
+    fun onPodcastClick(podcast: PodcastFull) {
         // todo
     }
 

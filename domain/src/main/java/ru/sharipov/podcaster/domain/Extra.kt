@@ -1,5 +1,9 @@
 package ru.sharipov.podcaster.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Extra(
     val youtubeUrl: String = EMPTY_STRING,
     val facebookHandle: String = EMPTY_STRING,
@@ -13,4 +17,4 @@ data class Extra(
     val url1: String = EMPTY_STRING,
     val url2: String = EMPTY_STRING,
     val url3: String = EMPTY_STRING
-)
+) : Parcelable

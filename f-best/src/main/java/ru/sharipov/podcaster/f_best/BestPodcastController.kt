@@ -4,20 +4,20 @@ import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import kotlinx.android.synthetic.main.list_item_best_podcast.view.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
-import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 
 class BestPodcastController(
-    private val clickListener: (Podcast) -> Unit
-) : BindableItemController<Podcast, BestPodcastController.Holder>() {
+    private val clickListener: (PodcastFull) -> Unit
+) : BindableItemController<PodcastFull, BestPodcastController.Holder>() {
 
-    override fun getItemId(data: Podcast): String = data.id
+    override fun getItemId(data: PodcastFull): String = data.id
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
 
     inner class Holder(parent: ViewGroup) :
-        BindableViewHolder<Podcast>(parent, R.layout.list_item_best_podcast) {
+        BindableViewHolder<PodcastFull>(parent, R.layout.list_item_best_podcast) {
 
         private val titleTv = itemView.best_podcast_title_tv
         private val descriptionTv = itemView.best_podcast_description_tv
@@ -25,13 +25,13 @@ class BestPodcastController(
         private val podcastIv = itemView.best_podcast_iv
         private val clickableView = itemView.best_podcast_clickable
 
-        private var payload: Podcast? = null
+        private var payload: PodcastFull? = null
 
         init {
             clickableView.setOnClickListener { payload?.let(clickListener) }
         }
 
-        override fun bind(data: Podcast) {
+        override fun bind(data: PodcastFull) {
             payload = data
 
             titleTv.text = data.title

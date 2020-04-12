@@ -2,17 +2,22 @@ package ru.sharipov.podcaster.base_feature.ui.navigation
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import ru.sharipov.podcaster.domain.EMPTY_STRING
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.surfstudio.android.core.ui.navigation.Route
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureWithParamsRoute
 
 class PodcastFragmentRoute(
-    val id: String
+    val podcast: PodcastFull
 ) : FragmentCrossFeatureWithParamsRoute() {
 
-    constructor(bundle: Bundle?) : this(bundle?.getString(Route.EXTRA_FIRST) ?: EMPTY_STRING)
+    companion object {
+        private fun extractFrom(bundle: Bundle?): PodcastFull =
+            bundle?.getParcelable<PodcastFull>(Route.EXTRA_FIRST) ?: PodcastFull()
+    }
 
-    override fun prepareBundle(): Bundle = bundleOf(Route.EXTRA_FIRST to id)
+    constructor(bundle: Bundle?) : this(extractFrom(bundle))
+
+    override fun prepareBundle(): Bundle = bundleOf(Route.EXTRA_FIRST to podcast)
 
     override fun targetClassPath(): String {
         return "ru.sharipov.podcaster.f_podcast.PodcastFragmentView"

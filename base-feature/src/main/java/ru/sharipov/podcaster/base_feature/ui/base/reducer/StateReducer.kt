@@ -1,7 +1,10 @@
 package ru.sharipov.podcaster.base_feature.ui.base.reducer
 
+import ru.sharipov.podcaster.base.datalist_date.MergeList
+import ru.sharipov.podcaster.base_feature.ui.pagination.MergePaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
+import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_network.error.server.SpecificServerException
 import ru.sharipov.podcaster.i_network.network.error.NoInternetException
 import ru.surfstudio.android.core.mvi.ui.relation.StateEmitter
@@ -13,11 +16,15 @@ import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 import ru.surfstudio.android.rx.extension.scheduler.MainThreadImmediateScheduler
 
-open class StateReducer(dependency: StateReducerDependency): StateEmitter {
+open class StateReducer(dependency: StateReducerDependency) : StateEmitter {
 
     protected val errorHandler: ErrorHandler = dependency.errorHandler
 
-    protected fun <T> mapLoading(type: Request<T>, hasData: Boolean, isSwr: Boolean = false): Loading {
+    protected fun <T> mapLoading(
+        type: Request<T>,
+        hasData: Boolean,
+        isSwr: Boolean = false
+    ): Loading {
         val isLoading = type is Request.Loading
         return when {
             isSwr ->
@@ -101,6 +108,22 @@ open class StateReducer(dependency: StateReducerDependency): StateEmitter {
             data
         }
 
+    protected fun <T> mapMergeList(
+        request: Request<MergeList<T>>,
+        data: MergeList<T>?,
+        isReload: Boolean,
+        hasData: Boolean = data != null
+    ): MergeList<T>? = if (request is Request.Success) {
+        if (hasData && !isReload) { // мержим, если уже есть dataList + это не перезагрузка списка
+            data?.merge(request.data)
+        } else {
+            request.data
+        }
+    } else {
+        data
+    }
+
+
     protected fun <T> mapPagination(
         request: Request<DataList<T>>,
         data: PaginationBundle<T>?
@@ -114,6 +137,22 @@ open class StateReducer(dependency: StateReducerDependency): StateEmitter {
             is Request.Error -> PaginationState.ERROR
         }
         return PaginationBundle(newDataList, state)
+    }
+
+    protected fun <T> mapMergePagination(
+        request: Request<MergeList<T>>,
+        data: MergePaginationBundle<T>?,
+        sortType: SortType
+    ): MergePaginationBundle<T> {
+        val hasData = data?.hasData ?: false
+        val newDataList = mapMergeList(request, data?.list, hasData)
+        val canGetMore = newDataList?.canGetMore(sortType) == true
+        val state = when (request) {
+            is Request.Loading -> null
+            is Request.Success -> if (canGetMore) PaginationState.READY else PaginationState.COMPLETE
+            is Request.Error -> PaginationState.ERROR
+        }
+        return MergePaginationBundle(newDataList, state)
     }
 
     protected fun <T> mapRequestDefault(

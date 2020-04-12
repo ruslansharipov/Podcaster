@@ -1,7 +1,7 @@
 package ru.sharipov.podcaster.i_listen.response
 
 import com.google.gson.annotations.SerializedName
-import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.i_network.network.Transformable
 import ru.sharipov.podcaster.i_network.network.transformCollection
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
@@ -18,9 +18,9 @@ data class BestResponse(
     @SerializedName("parent_id") val parentId: Int?,
     @SerializedName("total") val total: Int?,
     @SerializedName("podcasts") val podcasts: List<PodcastResponse>?
-) : Transformable<DataList<Podcast>> {
+) : Transformable<DataList<PodcastFull>> {
 
-    override fun transform(): DataList<Podcast> {
+    override fun transform(): DataList<PodcastFull> {
         val totalItemsCount = total ?: 0
         val items = podcasts.transformCollection()
         val page = pageNumber ?: 0

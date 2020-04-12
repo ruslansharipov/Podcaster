@@ -5,7 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.domain.Genre
-import ru.sharipov.podcaster.domain.Podcast
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.domain.Region
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
@@ -17,7 +17,7 @@ import javax.inject.Inject
 data class BestState(
     val genre: Genre,
     val region: Region,
-    val podcasts: RequestUi<PaginationBundle<Podcast>> = RequestUi()
+    val podcasts: RequestUi<PaginationBundle<PodcastFull>> = RequestUi()
 )
 
 @PerScreen
@@ -41,7 +41,7 @@ class BestReducer @Inject constructor(
     }
 
     fun onPodcastsLoaded(
-        request: Request<DataList<Podcast>>,
+        request: Request<DataList<PodcastFull>>,
         isSwr: Boolean
     ) {
         sh.emitNewState {
