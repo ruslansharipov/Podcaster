@@ -5,6 +5,7 @@ import retrofit2.http.*
 import ru.sharipov.podcaster.i_listen.response.BestResponse
 import ru.sharipov.podcaster.i_listen.response.CuratedResponse
 import ru.sharipov.podcaster.i_listen.response.GenresResponse
+import ru.sharipov.podcaster.i_listen.response.PodcastResponse
 import ru.sharipov.podcaster.i_listen.response.type_ahead.TypeAheadResponse
 import ru.sharipov.podcaster.i_network.ServerUrls
 import ru.sharipov.podcaster.i_network.network.BaseServerConstants
@@ -40,4 +41,11 @@ interface ListenApi {
         @Query("show_podcasts") showPodcasts: Int,
         @Query("show_genres") showGenres: Int
     ) : Single<TypeAheadResponse>
+
+    @GET(ServerUrls.PODCAST)
+    fun getPodcast(
+        @Path("id") id: String,
+        @Query("next_episode_pub_date") nextEpisodePubDate: Long,
+        @Query("sort") sort: String
+    ) : Single<PodcastResponse>
 }

@@ -1,6 +1,5 @@
 package ru.sharipov.podcaster.i_listen.response
 
-
 import com.google.gson.annotations.SerializedName
 import ru.sharipov.podcaster.domain.Podcast
 import ru.sharipov.podcaster.i_network.network.Transformable

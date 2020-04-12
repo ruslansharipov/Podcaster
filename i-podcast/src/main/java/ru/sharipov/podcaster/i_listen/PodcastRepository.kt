@@ -2,10 +2,7 @@ package ru.sharipov.podcaster.i_listen
 
 import io.reactivex.Observable
 import io.reactivex.Single
-import ru.sharipov.podcaster.domain.CuratedItem
-import ru.sharipov.podcaster.domain.Genre
-import ru.sharipov.podcaster.domain.Podcast
-import ru.sharipov.podcaster.domain.TypeAhead
+import ru.sharipov.podcaster.domain.*
 import ru.sharipov.podcaster.i_network.network.transform
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
@@ -47,6 +44,17 @@ class PodcastRepository @Inject constructor(
                 showPodcasts = if (showPodcasts) 1 else 0,
                 showGenres = if (showGenres) 1 else 0
             )
+            .transform()
+            .toObservable()
+    }
+
+    fun getPodcast(
+        id: String,
+        nextEpisodePubDate: Long,
+        sortType: SortType
+    ): Observable<Podcast> {
+        return listenApi
+            .getPodcast(id, nextEpisodePubDate, sortType.id)
             .transform()
             .toObservable()
     }

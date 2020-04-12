@@ -21,5 +21,7 @@ data class Podcast(
     val itunesId: Int = 0,
     val lookingFor: LookingFor = LookingFor(),
     val extra: Extra = Extra(),
-    val genreIds: List<Int?> = emptyList()
+    val genreIds: List<Int?> = emptyList(),
+    val episodes: List<Episode> = emptyList(),
+    val nextEpisodePubDate: Long = 0
 )
