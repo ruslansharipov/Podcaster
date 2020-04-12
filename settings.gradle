@@ -12,4 +12,5 @@ include ':app',
         ':f-best',
         ':f-curated-list',
         ':f-search',
-        ':f-region'
+        ':f-region',
+        ':f-podcast'
