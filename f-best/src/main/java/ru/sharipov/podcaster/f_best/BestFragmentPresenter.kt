@@ -4,6 +4,7 @@ import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.extesions.getNextPage
+import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.RegionDialogRoute
 import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.domain.Region
@@ -88,7 +89,7 @@ class BestFragmentPresenter @Inject constructor(
     }
 
     fun onPodcastClick(podcast: PodcastFull) {
-        // todo
+        tabNavigator.open(PodcastFragmentRoute(podcast))
     }
 
     fun onBackClick() {

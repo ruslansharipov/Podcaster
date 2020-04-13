@@ -52,7 +52,7 @@ data class PodcastResponse(
             lookingFor = lookingFor?.transform() ?: LookingFor(),
             extra = extra?.transform() ?: Extra(),
             genreIds = genreIds ?: emptyList(),
-            listennotesUrl = listennotesUrl ?: EMPTY_STRING,
+            listenNotesUrl = listennotesUrl ?: EMPTY_STRING,
             latestPubDateMs = latestPubDateMs ?: 0
         )
     }

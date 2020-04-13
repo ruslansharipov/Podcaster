@@ -26,10 +26,8 @@ fun ImageView.bindPicture(
     centerCrop: Boolean = true,
     onComplete: () -> Unit = { }
 ) {
-    val radius = if (radiusRes != null) resources.getDimensionPixelOffset(radiusRes) else 0
-    ImageLoader.bindDefault(context, url, overlayRes)
-        .roundedCorners(isRoundedCorners = radiusRes != null, radiusPx = radius)
-        .centerCrop(centerCrop)
+    ImageLoader
+        .loadPicture(context, url, radiusRes, overlayRes, centerCrop)
         .intoView(this, onComplete)
 }
 
@@ -43,7 +41,7 @@ fun ImageView.bindCirclePicture(
         .intoView(this, onComplete)
 }
 
-private fun ImageLoader.Companion.bindDefault(
+fun ImageLoader.Companion.bindDefault(
     context: Context,
     url: String,
     @DrawableRes overlayRes: Int? = null
@@ -55,6 +53,19 @@ private fun ImageLoader.Companion.bindDefault(
         .mask(overlayRes != null, overlayRes ?: 0, PorterDuff.Mode.DST_OVER)
         .preview(R.drawable.bg_placeholder_loading_rounded_8_dp)
         .error(R.drawable.bg_placeholder_loading_rounded_8_dp)
+}
+
+fun ImageLoader.Companion.loadPicture(
+    context: Context,
+    url: String,
+    @DimenRes radiusRes: Int? = R.dimen.placeholder_picture_corner_radius,
+    @DrawableRes overlayRes: Int? = null,
+    centerCrop: Boolean = true
+): ImageLoaderInterface {
+    val radius = if (radiusRes != null) context.resources.getDimensionPixelOffset(radiusRes) else 0
+    return bindDefault(context, url, overlayRes)
+        .roundedCorners(isRoundedCorners = radiusRes != null, radiusPx = radius)
+        .centerCrop(centerCrop)
 }
 
 private fun ImageLoaderInterface.intoView(view: ImageView, onComplete: () -> Unit = { }) {

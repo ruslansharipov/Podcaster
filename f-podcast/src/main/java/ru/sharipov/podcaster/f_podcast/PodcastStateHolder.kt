@@ -3,19 +3,21 @@ package ru.sharipov.podcaster.f_podcast
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
+import ru.sharipov.podcaster.domain.PodcastFull
 import ru.sharipov.podcaster.domain.SortType
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class PodcastState(
-    val id: String,
-    val sortType: SortType = SortType.RECENT_FIRST
+    val podcast: PodcastFull,
+    val sortType: SortType = SortType.RECENT_FIRST,
+    val isSubscribed: Boolean = false
 )
 
 @PerScreen
 class PodcastStateHolder @Inject constructor(route: PodcastFragmentRoute) :
-    State<PodcastState>(PodcastState(route.id))
+    State<PodcastState>(PodcastState(route.podcast))
 
 @PerScreen
 class PodcastReducer @Inject constructor(

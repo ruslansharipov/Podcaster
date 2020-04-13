@@ -2,10 +2,12 @@ package ru.sharipov.podcast.f_curated_list
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.domain.CuratedItem
 import ru.sharipov.podcaster.domain.PodcastShort
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
+import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
@@ -14,7 +16,8 @@ class CuratedListPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val sh: CuratedListStateHolder,
     private val reducer: CuratedListReducer,
-    private val podcastInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor,
+    private val tabNavigator: TabFragmentNavigator
 ) : StatePresenter(dependency) {
 
     private companion object {
@@ -39,7 +42,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     fun podcastClick(podcast: PodcastShort) {
-
+        tabNavigator.open(PodcastFragmentRoute(podcast.toFull()))
     }
 
     private fun loadCuratedPodcasts(nextPage: Int, isSwr: Boolean = false) {
