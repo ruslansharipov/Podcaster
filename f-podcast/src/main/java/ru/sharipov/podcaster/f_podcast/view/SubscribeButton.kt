@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.view_subscribe_btn.view.*
 import ru.sharipov.podcaster.f_podcast.R
 

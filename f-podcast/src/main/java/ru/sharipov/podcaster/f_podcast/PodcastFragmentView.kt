@@ -43,11 +43,12 @@ class PodcastFragmentView : BaseRxFragmentView() {
         val podcast = state.podcast
         val title = podcast.title
         val publisher = podcast.publisher
+        val isSubscribed = state.isSubscribed
         podcast_title_tv.performIfChanged(title, TextView::setText)
         podcast_publisher_tv.performIfChanged(publisher, TextView::setText)
         podcast_toolbar_title_tv.performIfChanged(title, TextView::setText)
         podcast_toolbar_publisher_tv.performIfChanged(publisher, TextView::setText)
-        podcast_subscribe_btn.performIfChanged(state.isSubscribed, SubscribeButton::setChecked)
+        podcast_subscribe_btn.performIfChanged(isSubscribed, SubscribeButton::setChecked)
         podcast_icon_iv.performIfChanged(podcast.image) { imageUrl ->
             podcast_icon_iv.bindPicture(imageUrl)
             podcast_toolbar_icon_iv.bindPicture(imageUrl)

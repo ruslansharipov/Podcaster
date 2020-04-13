@@ -58,6 +58,10 @@
     <string name="region_search_hint">Region</string>
     <string name="region_search_empty_title">Nothing found</string>
     <string name="region_search_empty_subtitle">Try to change search query</string>
+
+    <!--  PodcastFragmentView  -->
     <string name="podcast_subscribe_btn_unchecked_text">Subscribe</string>
     <string name="podcast_subscribe_btn_checked_text">Subscribed</string>
+    <string name="podcast_episodes_tab">Episodes</string>
+    <string name="podcast_details_tab">Details</string>
 </resources>
