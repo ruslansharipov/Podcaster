@@ -2,6 +2,7 @@ package ru.sharipov.podcaster.i_listen
 
 import io.reactivex.Observable
 import io.reactivex.Single
+import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.domain.*
 import ru.sharipov.podcaster.i_network.network.BaseNetworkInteractor
 import ru.surfstudio.android.connection.ConnectionProvider
@@ -41,9 +42,13 @@ class PodcastInteractor @Inject constructor(
 
     fun getPodcastEpisodes(
         podcastId: String,
-        nextEpisodePubDate: Long,
-        sortType: SortType
-    ): Observable<PodcastFull> {
-        return podcastRepository.getPodcastEpisodes(podcastId, nextEpisodePubDate, sortType)
+        sortType: SortType,
+        nextEpisodePubDate: Long?
+    ): Observable<MergeList<Episode>> {
+        return podcastRepository.getPodcastEpisodes(podcastId, sortType, nextEpisodePubDate)
+    }
+
+    fun getPodcast(podcastId: String): Observable<PodcastFull> {
+        return podcastRepository.getPodcast(podcastId)
     }
 }

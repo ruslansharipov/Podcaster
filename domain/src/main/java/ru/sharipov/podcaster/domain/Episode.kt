@@ -14,4 +14,10 @@ data class Episode(
     val audioLengthSec: Int = 0,
     val id: String = EMPTY_STRING,
     val link: String = EMPTY_STRING
-)
+) : Comparable<Episode> {
+
+    override fun compareTo(other: Episode): Int {
+        return (pubDateMs - other.pubDateMs).toInt()
+    }
+
+}

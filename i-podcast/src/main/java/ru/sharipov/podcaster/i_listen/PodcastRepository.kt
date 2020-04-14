@@ -2,6 +2,7 @@ package ru.sharipov.podcaster.i_listen
 
 import io.reactivex.Observable
 import io.reactivex.Single
+import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.domain.*
 import ru.sharipov.podcaster.i_network.network.transform
 import ru.surfstudio.android.dagger.scope.PerApplication
@@ -48,13 +49,22 @@ class PodcastRepository @Inject constructor(
             .toObservable()
     }
 
-    fun getPodcastEpisodes(
-        id: String,
-        nextEpisodePubDate: Long,
-        sortType: SortType
+    fun getPodcast(
+        id: String
     ): Observable<PodcastFull> {
         return listenApi
-            .getPodcast(id, nextEpisodePubDate, sortType.id)
+            .getPodcast(id)
+            .transform()
+            .toObservable()
+    }
+
+    fun getPodcastEpisodes(
+        id: String,
+        sortType: SortType,
+        nextEpisodePubDate: Long?
+    ): Observable<MergeList<Episode>> {
+        return listenApi
+            .getPodcastEpisodes(id, sortType.id, nextEpisodePubDate)
             .transform()
             .toObservable()
     }

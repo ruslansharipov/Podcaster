@@ -13,7 +13,7 @@ data class MergeList<T>(
     private val data: List<T>,
     private val earliestPubDateMs: Long,
     private val latestPubDateMs: Long,
-    private val nextEpisodePubDate: Long
+    val nextEpisodePubDate: Long
 ) : List<T>, Serializable {
 
     fun merge(mergeList: MergeList<T>): MergeList<T> {
@@ -22,7 +22,7 @@ data class MergeList<T>(
         set.addAll(mergeList)
 
         val isThisThePrevious = nextEpisodePubDate != 0L
-                && nextEpisodePubDate < mergeList.nextEpisodePubDate
+                && nextEpisodePubDate > mergeList.nextEpisodePubDate
 
         return MergeList(
             data = set.toList(),
@@ -49,7 +49,7 @@ data class MergeList<T>(
     fun canGetMore(sortType: SortType): Boolean {
         val hasMoreEpisodes = nextEpisodePubDate != 0L
         return when (sortType) {
-            SortType.RECENT_FIRST -> hasMoreEpisodes && nextEpisodePubDate < earliestPubDateMs
+            SortType.RECENT_FIRST -> hasMoreEpisodes && nextEpisodePubDate < latestPubDateMs
             SortType.OLDEST_FIRST -> hasMoreEpisodes && nextEpisodePubDate > earliestPubDateMs
         }
     }
