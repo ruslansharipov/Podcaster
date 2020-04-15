@@ -16,12 +16,17 @@ class EpisodeController(
     inner class Holder(parent: ViewGroup) :
         BindableViewHolder<Episode>(parent, R.layout.list_item_episode_short) {
 
-        private val titleTv = itemView.episode_title_tv
+        private val episodeView = itemView.list_item_episode
 
         private var payload: Episode? = null
 
+        init {
+            itemView.setOnClickListener { payload?.let(clickListener) }
+        }
+
         override fun bind(data: Episode) {
-            titleTv.text = data.title
+            payload = data
+            episodeView.setEpisode(data)
         }
     }
 

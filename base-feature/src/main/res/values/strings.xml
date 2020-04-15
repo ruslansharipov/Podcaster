@@ -64,4 +64,10 @@
     <string name="podcast_subscribe_btn_checked_text">Subscribed</string>
     <string name="podcast_episodes_tab">Episodes</string>
     <string name="podcast_details_tab">Details</string>
+
+    <!--  EpisodesFragmentView  -->
+    <string name="episode_length_format_full">%1$d h %2$d min</string>
+    <string name="episode_length_format_short">%1$d minutes</string>
+    <string name="episode_date_today">Today</string>
+    <string name="episode_date_yesterday">Yesterday</string>
 </resources>

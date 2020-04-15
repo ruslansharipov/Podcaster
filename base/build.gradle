@@ -20,6 +20,8 @@ dependencies {
     api "ru.surfstudio.android:animations:$animationsVersion"
     api "ru.surfstudio.android:util-ktx:$utilKtxVersion"
 
+    api "com.jakewharton.threetenabp:threetenabp:$threeTenAbpVersion"
+
     api "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     api "androidx.room:room-ktx:$roomVersion"

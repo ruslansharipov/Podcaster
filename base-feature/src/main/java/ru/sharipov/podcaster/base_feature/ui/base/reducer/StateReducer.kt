@@ -142,11 +142,10 @@ open class StateReducer(dependency: StateReducerDependency) : StateEmitter {
     protected fun <T> mapMergePagination(
         request: Request<MergeList<T>>,
         data: MergePaginationBundle<T>?,
-        sortType: SortType,
         isReload: Boolean
     ): MergePaginationBundle<T> {
         val newDataList = mapMergeList(request, data?.list, isReload)
-        val canGetMore = newDataList?.canGetMore(sortType) == true
+        val canGetMore = newDataList?.canGetMore() == true
         val state = when (request) {
             is Request.Loading -> null
             is Request.Success -> if (canGetMore) PaginationState.READY else PaginationState.COMPLETE
@@ -234,11 +233,10 @@ open class StateReducer(dependency: StateReducerDependency) : StateEmitter {
     protected fun <T> mapMergePaginationDefault(
         request: Request<MergeList<T>>,
         requestUi: RequestUi<MergePaginationBundle<T>>,
-        sortType: SortType = SortType.RECENT_FIRST,
         isSwr: Boolean = false
     ): RequestUi<MergePaginationBundle<T>> {
         val hasDataBeforeRequest = requestUi.data?.hasData ?: false
-        val newData = mapMergePagination(request, requestUi.data, sortType, isSwr)
+        val newData = mapMergePagination(request, requestUi.data, isSwr)
         val hasDataAfterRequest = newData.hasData
         val newLoadState =
             mapLoadState(request, hasDataBeforeRequest, hasDataAfterRequest, isSwr)

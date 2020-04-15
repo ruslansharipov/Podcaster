@@ -17,7 +17,7 @@ data class Episode(
 ) : Comparable<Episode> {
 
     override fun compareTo(other: Episode): Int {
-        return (pubDateMs - other.pubDateMs).toInt()
+        return (other.pubDateMs - pubDateMs).toInt()
     }
 
 }

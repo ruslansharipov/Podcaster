@@ -1,8 +1,6 @@
 package ru.sharipov.podcaster.base.datalist_date
 
-import ru.sharipov.podcaster.domain.SortType
 import java.io.Serializable
-import java.util.*
 
 /**
  * Позволяет мерджить списки для пагинации.
@@ -17,15 +15,15 @@ data class MergeList<T>(
 ) : List<T>, Serializable {
 
     fun merge(mergeList: MergeList<T>): MergeList<T> {
-        val set = TreeSet<T>()
-        set.addAll(this)
-        set.addAll(mergeList)
+        val resultList = mutableListOf<T>()
+        resultList.addAll(this)
+        resultList.addAll(mergeList)
 
         val isThisThePrevious = nextEpisodePubDate != 0L
                 && nextEpisodePubDate > mergeList.nextEpisodePubDate
 
         return MergeList(
-            data = set.toList(),
+            data = resultList,
             earliestPubDateMs = earliestPubDateMs,
             latestPubDateMs = latestPubDateMs,
             nextEpisodePubDate = if (isThisThePrevious) mergeList.nextEpisodePubDate else nextEpisodePubDate
@@ -46,12 +44,8 @@ data class MergeList<T>(
      *
      * @return
      */
-    fun canGetMore(sortType: SortType): Boolean {
-        val hasMoreEpisodes = nextEpisodePubDate != 0L
-        return when (sortType) {
-            SortType.RECENT_FIRST -> hasMoreEpisodes && nextEpisodePubDate < latestPubDateMs
-            SortType.OLDEST_FIRST -> hasMoreEpisodes && nextEpisodePubDate > earliestPubDateMs
-        }
+    fun canGetMore(): Boolean {
+        return nextEpisodePubDate != 0L && nextEpisodePubDate < latestPubDateMs
     }
 
     override val size: Int = data.size
