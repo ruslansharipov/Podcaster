@@ -28,6 +28,7 @@ class EpisodeView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_episode, this)
+        setBackgroundResource(R.drawable.bg_selectable_item_divider)
     }
 
     fun setEpisode(episode: Episode) {
@@ -39,7 +40,7 @@ class EpisodeView @JvmOverloads constructor(
     private fun createFormattedDate(episode: Episode): String {
         val date = LocalDateTime.ofEpochSecond(episode.pubDateMs / 1000, 0, ZoneOffset.MIN)
         val isToday = date == today
-        val isYesterday = today.minusDays(1).dayOfMonth == date.dayOfMonth
+        val isYesterday = today.minusDays(1).toLocalDate() == date.toLocalDate()
         val isThisYear = date.year == today.year
         return when {
             isToday -> string(R.string.episode_date_today)
