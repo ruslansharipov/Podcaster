@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_podcast.*
+import kotlinx.android.synthetic.main.layout_podcast_toolbar.*
 import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
-import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
-import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
-import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
+import ru.sharipov.podcaster.base_feature.ui.extesions.*
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.f_podcast.view.SubscribeButton
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
+import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
+import kotlin.math.abs
 
 class PodcastFragmentView : BaseRxFragmentView() {
 
@@ -50,6 +54,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
 
     private fun initView() {
         podcast_toolbar_back_btn.setOnClickListener { presenter.onBackClick() }
+        podcast_app_bar.addOnOffsetChangedListener(offsetListener)
         podcast_episodes_rv.run {
             layoutManager = LinearLayoutManager(context)
             adapter = easyAdapter
@@ -76,7 +81,24 @@ class PodcastFragmentView : BaseRxFragmentView() {
         podcast_episodes_rv.performIfChanged(episodes.data) { mergeBundle ->
             mergeBundle.safeGet { mergeList: MergeList<Episode>, paginationState: PaginationState ->
                 easyAdapter.setData(mergeList, episodeController, paginationState)
+                podcast_episodes_tv.isVisible = mergeList.isNotEmpty()
             }
         }
+        val podcastFull = state.details.data
+        podcast_details_tv.performIfChanged(podcastFull?.description){ htmlDescription ->
+            text = HtmlCompat.fromHtml(htmlDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
+        }
+        podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes){ episodesCount ->
+            text = string(R.string.podcast_episodes_count_format, episodesCount)
+        }
+    }
+
+    private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        Logger.d("offset: $verticalOffset")
+        val threshold = dpToPx(48)
+        val isToolbarVisible = threshold < abs(verticalOffset)
+        podcast_toolbar_icon_iv.isVisible = isToolbarVisible
+        podcast_toolbar_title_tv.isVisible = isToolbarVisible
+        podcast_toolbar_publisher_tv.isVisible = isToolbarVisible
     }
 }

@@ -26,4 +26,7 @@ data class PodcastFull(
     val lookingFor: LookingFor = LookingFor(),
     val extra: Extra = Extra(),
     val genreIds: List<Int> = emptyList()
-) : Parcelable
+) : Parcelable {
+
+    val isShort: Boolean get() = description.isEmpty() && country.isEmpty() && rss.isEmpty()
+}

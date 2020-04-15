@@ -18,7 +18,8 @@ data class PodcastState(
     val podcast: PodcastFull,
     val sortType: SortType = SortType.RECENT_FIRST,
     val isSubscribed: Boolean = false,
-    val episodes: RequestUi<MergePaginationBundle<Episode>> = RequestUi()
+    val episodes: RequestUi<MergePaginationBundle<Episode>> = RequestUi(),
+    val details: RequestUi<PodcastFull> = RequestUi()
 )
 
 @PerScreen
@@ -35,6 +36,14 @@ class PodcastReducer @Inject constructor(
         sh.emitNewState {
             copy(
                 episodes = mapMergePaginationDefault(request, episodes)
+            )
+        }
+    }
+
+    fun onDetailsLoad(request: Request<PodcastFull>) {
+        sh.emitNewState {
+            copy(
+                details = mapRequestDefault(request, details)
             )
         }
     }
