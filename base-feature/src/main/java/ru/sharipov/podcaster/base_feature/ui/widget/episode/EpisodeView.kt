@@ -39,11 +39,11 @@ class EpisodeView @JvmOverloads constructor(
     private fun createFormattedDate(episode: Episode): String {
         val date = LocalDateTime.ofEpochSecond(episode.pubDateMs / 1000, 0, ZoneOffset.MIN)
         val isToday = date == today
-        val isTomorrow = today.minusDays(1).dayOfMonth == date.dayOfMonth
+        val isYesterday = today.minusDays(1).dayOfMonth == date.dayOfMonth
         val isThisYear = date.year == today.year
         return when {
             isToday -> string(R.string.episode_date_today)
-            isTomorrow -> string(R.string.episode_date_yesterday)
+            isYesterday -> string(R.string.episode_date_yesterday)
             isThisYear -> dateShortFormatter.format(date)
             else -> dateFullFormatter.format(date)
         }
