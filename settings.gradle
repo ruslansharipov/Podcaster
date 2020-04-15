@@ -14,4 +14,3 @@ include ':app',
         ':f-search',
         ':f-region',
         ':f-podcast'
-include ':f-podcast-episodes'

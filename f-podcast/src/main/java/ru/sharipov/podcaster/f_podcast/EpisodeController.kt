@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.f_podcast_episodes
+package ru.sharipov.podcaster.f_podcast
 
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item_episode_short.view.*
