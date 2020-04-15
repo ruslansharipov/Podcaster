@@ -32,10 +32,10 @@ class PodcastReducer @Inject constructor(
     private val sh: PodcastStateHolder
 ) : StateReducer(dependency) {
 
-    fun onEpisodesLoad(request: Request<MergeList<Episode>>) {
+    fun onEpisodesLoad(request: Request<MergeList<Episode>>, isSwr: Boolean) {
         sh.emitNewState {
             copy(
-                episodes = mapMergePaginationDefault(request, episodes)
+                episodes = mapMergePaginationDefault(request, episodes, isSwr)
             )
         }
     }

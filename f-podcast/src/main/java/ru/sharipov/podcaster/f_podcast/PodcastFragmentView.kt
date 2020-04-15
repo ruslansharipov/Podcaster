@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_podcast.*
 import kotlinx.android.synthetic.main.layout_podcast_toolbar.*
@@ -36,6 +37,13 @@ class PodcastFragmentView : BaseRxFragmentView() {
         onShowMoreListener = { presenter.onShowMore() }
     )
     private val episodeController = EpisodeController { presenter.onEpisodeClick(it) }
+    private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val threshold = dpToPx(60)
+            val isToolbarVisible = threshold < abs(verticalOffset)
+            podcast_toolbar_icon_iv.isVisible = isToolbarVisible
+            podcast_toolbar_title_tv.isVisible = isToolbarVisible
+            podcast_toolbar_publisher_tv.isVisible = isToolbarVisible
+        }
 
     override fun createConfigurator() = PodcastScreenConfigurator(arguments)
 
@@ -53,6 +61,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
     }
 
     private fun initView() {
+        podcast_swr.setOnRefreshListener { presenter.onSwipeRefresh() }
         podcast_toolbar_back_btn.setOnClickListener { presenter.onBackClick() }
         podcast_app_bar.addOnOffsetChangedListener(offsetListener)
         podcast_episodes_rv.run {
@@ -67,6 +76,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
         val title = podcast.title
         val publisher = podcast.publisher
         val isSubscribed = state.isSubscribed
+        podcast_swr.performIfChanged(state.episodes.isSwrLoading, SwipeRefreshLayout::setRefreshing)
         podcast_title_tv.performIfChanged(title, TextView::setText)
         podcast_publisher_tv.performIfChanged(publisher, TextView::setText)
         podcast_toolbar_title_tv.performIfChanged(title, TextView::setText)
@@ -85,20 +95,11 @@ class PodcastFragmentView : BaseRxFragmentView() {
             }
         }
         val podcastFull = state.details.data
-        podcast_details_tv.performIfChanged(podcastFull?.description){ htmlDescription ->
+        podcast_details_tv.performIfChanged(podcastFull?.description) { htmlDescription ->
             text = HtmlCompat.fromHtml(htmlDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
         }
-        podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes){ episodesCount ->
+        podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes) { episodesCount ->
             text = string(R.string.podcast_episodes_count_format, episodesCount)
         }
-    }
-
-    private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-        Logger.d("offset: $verticalOffset")
-        val threshold = dpToPx(48)
-        val isToolbarVisible = threshold < abs(verticalOffset)
-        podcast_toolbar_icon_iv.isVisible = isToolbarVisible
-        podcast_toolbar_title_tv.isVisible = isToolbarVisible
-        podcast_toolbar_publisher_tv.isVisible = isToolbarVisible
     }
 }

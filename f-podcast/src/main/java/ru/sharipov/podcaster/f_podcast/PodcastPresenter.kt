@@ -26,25 +26,9 @@ class PodcastPresenter @Inject constructor(
         loadDetails()
     }
 
-    private fun loadDetails() {
-        val podcast = sh.value.podcast
-        if (podcast.isShort) {
-            podcastInteractor
-                .getPodcast(podcast.id)
-                .io()
-                .asRequest()
-                .subscribeDefault(reducer::onDetailsLoad)
-        } else {
-            reducer.onDetailsLoad(Request.Success(podcast))
-        }
-    }
-
-    private fun loadEpisodes(nextDate: Long? = null) {
-        podcastInteractor
-            .getPodcastEpisodes(sh.value.podcast.id, SortType.RECENT_FIRST, nextDate)
-            .io()
-            .asRequest()
-            .subscribeDefault(reducer::onEpisodesLoad)
+    fun onSwipeRefresh() {
+        loadEpisodes(isSwr = true)
+        loadDetails()
     }
 
     fun onErrorClick() {
@@ -62,6 +46,27 @@ class PodcastPresenter @Inject constructor(
 
     fun onBackClick() {
         tabNavigator.onBackPressed()
+    }
+
+    private fun loadDetails() {
+        val podcast = sh.value.podcast
+        if (podcast.isShort) {
+            podcastInteractor
+                .getPodcast(podcast.id)
+                .io()
+                .asRequest()
+                .subscribeDefault(reducer::onDetailsLoad)
+        } else {
+            reducer.onDetailsLoad(Request.Success(podcast))
+        }
+    }
+
+    private fun loadEpisodes(nextDate: Long? = null, isSwr: Boolean = false) {
+        podcastInteractor
+            .getPodcastEpisodes(sh.value.podcast.id, SortType.RECENT_FIRST, nextDate)
+            .io()
+            .asRequest()
+            .subscribeDefault { reducer.onEpisodesLoad(it, isSwr) }
     }
 
 }
