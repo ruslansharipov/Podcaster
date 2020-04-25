@@ -9,4 +9,8 @@ data class PodcastTypeAhead(
     val thumbnail: String = EMPTY_STRING,
     val titleHighlighted: String = EMPTY_STRING,
     val titleOriginal: String = EMPTY_STRING
-)
+) {
+    fun toPodcastFull(): PodcastFull {
+        return PodcastFull(id, publisherOriginal, titleOriginal, image, thumbnail)
+    }
+}

@@ -9,7 +9,7 @@ data class PodcastShort(
     val listenNotesUrl: String = EMPTY_STRING
 ) {
 
-    fun toFull(): PodcastFull {
+    fun toPodcastFull(): PodcastFull {
         return PodcastFull(id, publisher, title, image, thumbnail, listenNotesUrl)
     }
 }

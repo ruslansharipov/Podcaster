@@ -42,7 +42,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     fun podcastClick(podcast: PodcastShort) {
-        tabNavigator.open(PodcastFragmentRoute(podcast.toFull()))
+        tabNavigator.open(PodcastFragmentRoute(podcast.toPodcastFull()))
     }
 
     private fun loadCuratedPodcasts(nextPage: Int, isSwr: Boolean = false) {

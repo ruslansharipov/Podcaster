@@ -6,6 +6,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
 import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.PodcastTypeAhead
 import ru.sharipov.podcaster.domain.TypeAhead
@@ -73,7 +74,7 @@ class SearchPresenter @Inject constructor(
     }
 
     fun onPodcastClick(podcast: PodcastTypeAhead) {
-        // TODO
+        tabNavigator.open(PodcastFragmentRoute(podcast.toPodcastFull()))
     }
 
     fun onCrearClick() {
