@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_podcast.*
+import kotlinx.android.synthetic.main.layout_podcast_appbar.*
+import kotlinx.android.synthetic.main.layout_podcast_details_shimmer.*
 import kotlinx.android.synthetic.main.layout_podcast_toolbar.*
 import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
@@ -76,6 +78,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
         val title = podcast.title
         val publisher = podcast.publisher
         val isSubscribed = state.isSubscribed
+        podcast_details_shimmer.performIfChanged(state.details.isLoading, View::isVisible::set)
         podcast_swr.performIfChanged(state.episodes.isSwrLoading, SwipeRefreshLayout::setRefreshing)
         podcast_title_tv.performIfChanged(title, TextView::setText)
         podcast_publisher_tv.performIfChanged(publisher, TextView::setText)
