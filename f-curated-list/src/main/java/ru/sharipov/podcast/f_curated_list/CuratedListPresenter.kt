@@ -25,7 +25,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     override fun onFirstLoad() {
-        //loadCuratedPodcasts(INITIAL_PAGE) //TODO раскомментить в релизной версии=)
+        loadCuratedPodcasts(INITIAL_PAGE) //TODO раскомментить в релизной версии=)
     }
 
     fun loadMore() {

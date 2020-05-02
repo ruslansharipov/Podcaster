@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ProgressBar
+        android:id="@+id/state_btn_pv"
+        android:progressTint="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <ImageButton
+        android:id="@+id/state_btn_ibtn"
+        android:src="@drawable/empty_drawable"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</merge>

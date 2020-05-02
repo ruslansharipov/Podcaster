@@ -42,7 +42,7 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        tabNavigator.open(EpisodeFragmentRoute(episode))
+        tabNavigator.open(EpisodeFragmentRoute(sh.value.podcast.title, episode))
     }
 
     fun onBackClick() {
