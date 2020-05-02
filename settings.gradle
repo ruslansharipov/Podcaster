@@ -13,4 +13,6 @@ include ':app',
         ':f-curated-list',
         ':f-search',
         ':f-region',
-        ':f-podcast'
+        ':f-podcast',
+        ':f-player',
+        ':f-episode'

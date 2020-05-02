@@ -1,5 +1,9 @@
 package ru.sharipov.podcaster.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Episode(
     val maybeAudioInvalid: Boolean = false,
     val pubDateMs: Long = 0,
@@ -14,7 +18,7 @@ data class Episode(
     val audioLengthSec: Int = 0,
     val id: String = EMPTY_STRING,
     val link: String = EMPTY_STRING
-) : Comparable<Episode> {
+) : Comparable<Episode>, Parcelable {
 
     override fun compareTo(other: Episode): Int {
         return (other.pubDateMs - pubDateMs).toInt()

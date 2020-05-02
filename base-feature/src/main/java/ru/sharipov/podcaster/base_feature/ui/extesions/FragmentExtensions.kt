@@ -1,6 +1,7 @@
 package ru.sharipov.podcaster.base_feature.ui.extesions
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import androidx.annotation.*
 import androidx.fragment.app.Fragment
 import ru.surfstudio.android.utilktx.ktx.ui.context.getDisplayMetrics

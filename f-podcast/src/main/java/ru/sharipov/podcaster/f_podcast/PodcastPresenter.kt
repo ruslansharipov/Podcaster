@@ -2,14 +2,15 @@ package ru.sharipov.podcaster.f_podcast
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeDialogRoute
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
-import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
+import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
 
 @PerScreen
@@ -18,7 +19,8 @@ class PodcastPresenter @Inject constructor(
     private val reducer: PodcastReducer,
     private val sh: PodcastStateHolder,
     private val tabNavigator: TabFragmentNavigator,
-    private val podcastInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor,
+    private val dialogNavigator: DialogNavigator
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -41,7 +43,7 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-
+        dialogNavigator.show(EpisodeDialogRoute(episode))
     }
 
     fun onBackClick() {

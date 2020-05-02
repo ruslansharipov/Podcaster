@@ -38,6 +38,7 @@ dependencies {
     implementation project(":f-search")
     implementation project(":f-region")
     implementation project(":f-podcast")
+    implementation project(":f-episode")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
