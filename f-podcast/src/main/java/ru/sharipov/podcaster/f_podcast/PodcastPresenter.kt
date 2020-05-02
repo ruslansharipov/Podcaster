@@ -2,7 +2,7 @@ package ru.sharipov.podcaster.f_podcast
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
-import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeDialogRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
@@ -19,8 +19,7 @@ class PodcastPresenter @Inject constructor(
     private val reducer: PodcastReducer,
     private val sh: PodcastStateHolder,
     private val tabNavigator: TabFragmentNavigator,
-    private val podcastInteractor: PodcastInteractor,
-    private val dialogNavigator: DialogNavigator
+    private val podcastInteractor: PodcastInteractor
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -43,7 +42,7 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        dialogNavigator.show(EpisodeDialogRoute(episode))
+        tabNavigator.open(EpisodeFragmentRoute(episode))
     }
 
     fun onBackClick() {

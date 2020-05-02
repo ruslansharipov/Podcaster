@@ -2,13 +2,13 @@ package ru.sharipov.podcaster.base_feature.ui.navigation
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import ru.sharipov.podcaster.base_feature.ui.navigation.dialog.DialogWithParamsCrossFeatureRoute
 import ru.sharipov.podcaster.domain.Episode
 import ru.surfstudio.android.core.ui.navigation.Route
+import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureWithParamsRoute
 
-class EpisodeDialogRoute(
+class EpisodeFragmentRoute(
     val episode: Episode
-) : DialogWithParamsCrossFeatureRoute() {
+) : FragmentCrossFeatureWithParamsRoute() {
 
     constructor(bundle: Bundle): this(bundle.getParcelable<Episode>(Route.EXTRA_FIRST))
 
@@ -17,6 +17,6 @@ class EpisodeDialogRoute(
     }
 
     override fun targetClassPath(): String {
-        return "ru.sharipov.podcaster.f_episode.EpisodeDialogView"
+        return "ru.sharipov.podcaster.f_episode.EpisodeFragmentView"
     }
 }
