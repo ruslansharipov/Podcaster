@@ -17,4 +17,8 @@ class EpisodePresenter @Inject constructor(
         tabNavigator.onBackPressed()
     }
 
+    fun onPlayBtnClick() {
+        // todo
+    }
+
 }
