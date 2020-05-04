@@ -9,6 +9,7 @@ import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
 import ru.sharipov.podcaster.f_player.playback.PlaybackInterface
+import ru.surfstudio.android.logger.Logger
 import java.util.concurrent.TimeUnit
 
 private const val UPDATE_INTERVAL = 50L
@@ -51,26 +52,15 @@ class MediaManager constructor(
 
     }
 
-    fun subscribeQueue() {
-        val state = playerServiceBus.observeAction()
-            .subscribe { action ->
-                when (action) {
-                    is PlayerAction.Play -> handlePlayRequest(action.media, action.index)
-                    is PlayerAction.Add -> handleAddRequest(action.media)
-                    is PlayerAction.Seek -> handleSeekRequest(action.position)
-                    is PlayerAction.Pause -> handlePauseRequest()
-                    is PlayerAction.Resume -> handleResumeRequest()
-                    is PlayerAction.Stop -> handleStopRequest()
-                }
-            }
+    fun subscribePosition() {
         val position = Observable.interval(UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
             .timeInterval()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ playerServiceBus.emitPosition(playerCallback.position) }, { /* Ignore exception */ })
-        compositeDisposable.addAll(state, position)
+        compositeDisposable.add(position)
     }
 
-    fun unSubscribeQueue() {
+    fun unSubscribe() {
         compositeDisposable.clear()
     }
 
@@ -141,5 +131,19 @@ class MediaManager constructor(
                 queue.currentIndex
             )
         )
+    }
+
+    fun onNewAction(action: PlayerAction?) {
+        Logger.d("MediaManager.onNewAction: $action")
+        when (action) {
+            is PlayerAction.Play -> handlePlayRequest(action.media, action.index)
+            is PlayerAction.Add -> handleAddRequest(action.media)
+            is PlayerAction.Seek -> handleSeekRequest(action.position)
+            is PlayerAction.Pause -> handlePauseRequest()
+            is PlayerAction.Resume -> handleResumeRequest()
+            is PlayerAction.Stop -> handleStopRequest()
+            is PlayerAction.Next -> handleNextRequest()
+            is PlayerAction.Previous -> handlePrevRequest()
+        }
     }
 }

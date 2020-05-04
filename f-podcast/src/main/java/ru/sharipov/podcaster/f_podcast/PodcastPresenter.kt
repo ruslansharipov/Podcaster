@@ -3,6 +3,7 @@ package ru.sharipov.podcaster.f_podcast
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
+import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
@@ -19,7 +20,8 @@ class PodcastPresenter @Inject constructor(
     private val reducer: PodcastReducer,
     private val sh: PodcastStateHolder,
     private val tabNavigator: TabFragmentNavigator,
-    private val podcastInteractor: PodcastInteractor
+    private val podcastInteractor: PodcastInteractor,
+    private val dateFormatter: EpisodeDateFormatter
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -42,7 +44,13 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        tabNavigator.open(EpisodeFragmentRoute(sh.value.podcast.title, episode))
+        tabNavigator.open(
+            EpisodeFragmentRoute(
+                podcastTitle = sh.value.podcast.title,
+                episode = episode,
+                dateFormatted = dateFormatter.format(episode)
+            )
+        )
     }
 
     fun onBackClick() {

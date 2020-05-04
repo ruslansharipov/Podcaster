@@ -9,15 +9,15 @@ import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationManagerCompat
 import dagger.Module
 import dagger.Provides
-import ru.sharipov.podcaster.f_player.R
-import ru.sharipov.podcaster.f_player.media.MediaManager
-import ru.sharipov.podcaster.f_player.media.MediaQueue
+import ru.sharipov.podcaster.base_feature.R
 import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
 import ru.sharipov.podcaster.f_player.playback.PlaybackImpl
 import ru.sharipov.podcaster.f_player.playback.PlaybackInterface
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
-import ru.sharipov.podcaster.f_player.media.MediaSessionCallback
 import ru.sharipov.podcaster.f_player.service.PlayerService
+import ru.sharipov.podcaster.f_player.media.MediaManager
+import ru.sharipov.podcaster.f_player.media.MediaQueue
+import ru.sharipov.podcaster.f_player.media.MediaSessionCallback
 
 @Module
 class PlayerModule(

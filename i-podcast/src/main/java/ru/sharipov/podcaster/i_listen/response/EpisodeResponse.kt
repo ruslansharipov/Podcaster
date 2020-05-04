@@ -25,7 +25,7 @@ data class EpisodeResponse(
         return Episode(
             maybeAudioInvalid = maybeAudioInvalid ?: false,
             pubDateMs = pubDateMs ?: 0,
-            audio = audio ?: EMPTY_STRING,
+            streamUrl = audio ?: EMPTY_STRING,
             listennotesEditUrl = listennotesEditUrl ?: EMPTY_STRING,
             image = image ?: EMPTY_STRING,
             thumbnail = thumbnail ?: EMPTY_STRING,
@@ -33,7 +33,7 @@ data class EpisodeResponse(
             title = title ?: EMPTY_STRING,
             explicitContent = explicitContent ?: false,
             listennotesUrl = listennotesUrl ?: EMPTY_STRING,
-            audioLengthSec = audioLengthSec ?: 0,
+            duration = audioLengthSec ?: 0,
             id = id ?: EMPTY_STRING,
             link = link ?: EMPTY_STRING
         )

@@ -3,6 +3,7 @@ apply from: '../commonKaptModule.gradle'
 
 dependencies {
     implementation project(":base-feature")
+    implementation project(':f-player')
     implementation project(":i-network")
     implementation project(":i-podcast")
 }

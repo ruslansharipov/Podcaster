@@ -1,2 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.sharipov.podcaster.f_player" />
+    package="ru.sharipov.podcaster.f_player">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application>
+        <service
+            android:name="ru.sharipov.podcaster.f_player.service.PlayerService"
+            android:exported="false" />
+    </application>
+</manifest>

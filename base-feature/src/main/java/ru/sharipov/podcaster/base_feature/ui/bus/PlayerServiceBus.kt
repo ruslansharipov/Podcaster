@@ -25,10 +25,6 @@ class PlayerServiceBus @Inject constructor() {
         return queueRelay.hide()
     }
 
-    fun observeAction(): Observable<PlayerAction> {
-        return actionRelay.hide()
-    }
-
     fun observePosition() : Observable<Long>{
         return playbackPositionRelay.hide()
     }

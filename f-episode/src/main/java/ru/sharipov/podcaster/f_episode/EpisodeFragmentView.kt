@@ -44,9 +44,11 @@ class EpisodeFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
 
     private fun renderState(state: EpisodeState) {
         val episode = state.episode
-        episode_state_btn.performIfChanged(state.buttonState, StateButton::setState)
+        val dateFormatted = state.dateFormatted
+//        episode_state_btn.performIfChanged(state.playbackState, StateButton::setState)
+        episode_state_btn.setState(state.playbackState)
         episode_podcast_title_tv.performIfChanged(state.podcastTitle, TextView::setText)
-        episode_date_tv.performIfChanged(episode.pubDateMs.toString(), TextView::setText)
+        episode_date_tv.performIfChanged(dateFormatted, TextView::setText)
         episode_details_tv.performIfChanged(episode.description.fromHtmlCompact(), TextView::setText)
         episode_icon_iv.performIfChanged(episode.image, { bindPicture(it) } )
         episode_title_tv.performIfChanged(episode.title, TextView::setText)

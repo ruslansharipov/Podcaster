@@ -11,7 +11,7 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import ru.sharipov.podcaster.f_player.R
+import ru.sharipov.podcaster.base_feature.R
 
 class PlaybackImpl(
     context: Context,

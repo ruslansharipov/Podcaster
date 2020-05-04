@@ -7,23 +7,23 @@ import android.os.SystemClock
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import androidx.media.session.MediaButtonReceiver
 import ru.sharipov.podcaster.base_feature.application.app.di.AppInjector
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
+import ru.sharipov.podcaster.base_feature.ui.navigation.PlayerServiceRoute
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.Media
-import ru.sharipov.podcaster.f_player.media.MediaManager
 import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
 import ru.sharipov.podcaster.f_player.playback.PlaybackInterface
-import ru.sharipov.podcaster.f_player.service.di.DaggerPlayerServiceComponent
 import ru.sharipov.podcaster.f_player.service.di.PlayerModule
+import ru.sharipov.podcaster.f_player.media.MediaManager
+import ru.sharipov.podcaster.f_player.service.di.DaggerPlayerServiceComponent
+import ru.surfstudio.android.core.ui.navigation.Route
 import javax.inject.Inject
 
 class PlayerService : Service(), PlaybackInterface.ServiceCallback {
 
     companion object {
-        const val ARGS = "PlayerServiceArgs"
         const val ACTION_PAUSE = "ru.sharipov.podcaster.pause"
         const val ACTION_PLAY  = "ru.sharipov.podcaster.start"
         const val ACTION_PREV  = "ru.sharipov.podcaster.previous"
@@ -41,9 +41,7 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
     @Inject
     lateinit var playerServiceBus: PlayerServiceBus
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return null
-    }
+    override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -52,27 +50,33 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
             .playerModule(PlayerModule(this))
             .build()
             .inject(this)
-        mediaManager.subscribeQueue()
+        mediaManager.subscribePosition()
     }
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
         if (startIntent != null) {
+            if (startIntent.hasExtra(Route.EXTRA_FIRST)) {
+                val route = PlayerServiceRoute(startIntent)
+                val playerAction = route.playerAction
+                mediaManager.onNewAction(playerAction)
+            }
             val extras = startIntent.extras
             val action = startIntent.action
             when {
                 extras != null -> notificationManager.setIntent(extras.getParcelable(
-                    EXTRA_INTENT
+                    Route.EXTRA_SECOND
                 ))
                 action != null -> executeTask(action)
             }
-            MediaButtonReceiver.handleIntent(mediaSession, startIntent)
+            //MediaButtonReceiver.handleIntent(mediaSession, startIntent)
+            // TODO
         }
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
         mediaSession.release()
-        mediaManager.unSubscribeQueue()
+        mediaManager.unSubscribe()
         stopForeground(true)
         super.onDestroy()
     }
@@ -112,10 +116,10 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
                 PlaybackStateCompat.ACTION_SKIP_TO_NEXT or
                 PlaybackStateCompat.ACTION_SET_REPEAT_MODE or
                 PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE
-        if (state is PlaybackState.Playing || state is PlaybackState.Buffering) {
-            actions = actions or PlaybackStateCompat.ACTION_PAUSE
+        actions = if (state is PlaybackState.Playing || state is PlaybackState.Buffering) {
+            actions or PlaybackStateCompat.ACTION_PAUSE
         } else {
-            actions = actions or PlaybackStateCompat.ACTION_PLAY
+            actions or PlaybackStateCompat.ACTION_PLAY
         }
         return actions
     }
@@ -126,7 +130,7 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
             .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE, media?.title)
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, media?.podcast)
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, media?.streamUrl)
-            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, media?.id?.toString())
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, media?.id)
             .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, media?.duration?.toLong() ?: 0)
             .build()
     }

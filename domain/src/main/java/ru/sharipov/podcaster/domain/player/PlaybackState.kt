@@ -4,8 +4,9 @@ sealed class PlaybackState {
 
     object Idle : PlaybackState()
     object Stopped : PlaybackState()
-    data class Buffering(var media: Media?) : PlaybackState()
-    data class Playing(var media: Media?) : PlaybackState()
-    data class Paused(var media: Media?) : PlaybackState()
-    data class Completed(var media: Media?) : PlaybackState()
+
+    data class Buffering(override val media: Media?) : PlaybackState(), MediaState
+    data class Playing(override val media: Media?) : PlaybackState(), MediaState
+    data class Paused(override val media: Media?) : PlaybackState(), MediaState
+    data class Completed(override val media: Media?) : PlaybackState(), MediaState
 }

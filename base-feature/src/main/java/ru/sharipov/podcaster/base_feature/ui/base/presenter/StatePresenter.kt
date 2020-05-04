@@ -2,6 +2,7 @@ package ru.sharipov.podcaster.base_feature.ui.base.presenter
 
 import androidx.annotation.CallSuper
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
@@ -44,6 +45,10 @@ abstract class StatePresenter(
 
         disposables.add(disposable)
         return disposable
+    }
+
+    fun <T> Single<T>.subscribeDefault(onNext: (T) -> Unit): Disposable {
+        return this.toObservable().subscribeDefault(onNext)
     }
 
     @CallSuper

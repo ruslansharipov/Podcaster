@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 sealed class PlayerAction: Parcelable {
 
-    @Parcelize data class Play(val media: List<Media>, val index: Int) : PlayerAction()
+    @Parcelize data class Play(val media: List<Media>, val index: Int = 0) : PlayerAction()
     @Parcelize data class Add(val media: Media) : PlayerAction()
     @Parcelize data class Seek(val position: Long) : PlayerAction()
     @Parcelize object Next : PlayerAction()

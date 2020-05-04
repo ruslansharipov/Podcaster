@@ -8,11 +8,19 @@
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/state_btn_ibtn"
         android:src="@drawable/empty_drawable"
-        android:background="@drawable/bg_selectable_ripple_circle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <View
+        android:id="@+id/state_btn_clickable"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </merge>

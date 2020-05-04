@@ -18,9 +18,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import ru.sharipov.podcaster.f_player.R
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.Media
+import ru.sharipov.podcaster.base_feature.R
 import ru.sharipov.podcaster.f_player.service.PlayerService
 
 class AppNotificationManager(
@@ -40,7 +40,7 @@ class AppNotificationManager(
         private const val STOP_PENDING_INTENT_ID = 60
     }
 
-    private val channelId: String = service.getString(ru.sharipov.podcaster.f_player.R.string.app_name)
+    private val channelId: String = service.getString(R.string.app_name)
     private var intent: Intent? = null
 
     @Volatile
@@ -101,7 +101,7 @@ class AppNotificationManager(
             PAUSE_PENDING_INTENT_ID,
             PlayerService.ACTION_PAUSE
         )
-        return NotificationCompat.Action(R.drawable.ic_music_player_pause, "Pause", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_pause, "Pause", pendingIntent)
     }
 
     private fun next(context: Context): NotificationCompat.Action {
@@ -110,7 +110,7 @@ class AppNotificationManager(
             PLAY_NEXT_PENDING_INTENT_ID,
             PlayerService.ACTION_NEXT
         )
-        return NotificationCompat.Action(R.drawable.ic_music_player_next, "Next", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_next, "Next", pendingIntent)
     }
 
     private fun prev(context: Context): NotificationCompat.Action {
@@ -119,7 +119,7 @@ class AppNotificationManager(
             PLAY_PREV_PENDING_INTENT_ID,
             PlayerService.ACTION_PREV
         )
-        return NotificationCompat.Action(R.drawable.ic_music_player_prev, "Previous", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_previous, "Previous", pendingIntent)
     }
 
     private fun play(context: Context): NotificationCompat.Action {
@@ -128,7 +128,7 @@ class AppNotificationManager(
             PLAY_PENDING_INTENT_ID,
             PlayerService.ACTION_PLAY
         )
-        return NotificationCompat.Action(R.drawable.ic_music_player_play, "Start", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_play, "Start", pendingIntent)
     }
 
     private fun dismiss(context: Context): PendingIntent {
@@ -143,10 +143,7 @@ class AppNotificationManager(
         val prevIntent = Intent(context, PlayerService::class.java)
         prevIntent.action = action
 
-        return PendingIntent.getService(
-            context,
-            intentId, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        return PendingIntent.getService(context, intentId, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
     private fun startNotification() {
@@ -184,7 +181,7 @@ class AppNotificationManager(
             .setPriority(Notification.PRIORITY_MAX)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setUsesChronometer(false)
-            .setSmallIcon(R.drawable.ic_music_player_small_icon)
+            .setSmallIcon(R.drawable.ic_play)
             .setShowWhen(false)
             .setOnlyAlertOnce(true)
             .setContentTitle(media?.title)
