@@ -63,6 +63,6 @@
         android:clipToPadding="false"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        tools:listitem="@layout/list_item_podcast_short" />
+        tools:listitem="@layout/list_item_subscription" />
 
 </LinearLayout>

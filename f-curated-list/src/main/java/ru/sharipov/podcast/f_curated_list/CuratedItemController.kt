@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_curated_carousel.view.*
+import ru.sharipov.podcaster.base_feature.ui.controller.SubscriptionController
 import ru.sharipov.podcaster.base_feature.ui.extesions.distinctText
 import ru.sharipov.podcaster.domain.CuratedItem
 import ru.sharipov.podcaster.domain.PodcastShort
@@ -30,7 +31,7 @@ class CuratedItemController(
         private val podcastsRv = itemView.curated_podcasts_rv
 
         private val easyAdapter = EasyAdapter()
-        private val podcastController = PodcastShortController(podcastClickListener)
+        private val podcastController = SubscriptionController(podcastClickListener)
 
         private var payload: CuratedItem? = null
 

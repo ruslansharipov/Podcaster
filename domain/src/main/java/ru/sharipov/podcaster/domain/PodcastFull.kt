@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PodcastFull(
-    val id: String = EMPTY_STRING,
-    val publisher: String = EMPTY_STRING,
-    val title: String = EMPTY_STRING,
-    val image: String = EMPTY_STRING,
+    override val id: String = EMPTY_STRING,
+    override val publisher: String = EMPTY_STRING,
+    override val title: String = EMPTY_STRING,
+    override val image: String = EMPTY_STRING,
     val thumbnail: String = EMPTY_STRING,
     val listenNotesUrl: String = EMPTY_STRING,
     val isClaimed: Boolean = false,
@@ -26,7 +26,7 @@ data class PodcastFull(
     val lookingFor: LookingFor = LookingFor(),
     val extra: Extra = Extra(),
     val genreIds: List<Int> = emptyList()
-) : Parcelable {
+) : Subscription, Parcelable {
 
     val isShort: Boolean get() = description.isEmpty() && country.isEmpty() && rss.isEmpty()
 }
