@@ -17,3 +17,5 @@ include ':app',
         ':f-player',
         ':f-episode'
 include ':i-subscription'
+include ':f-profile'
+include ':f-subscription'

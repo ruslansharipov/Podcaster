@@ -3,6 +3,5 @@ package ru.sharipov.podcaster.f_main
 enum class MainTabType {
     EXPLORE,
     SEARCH,
-    FEED,
-    PLAYLIST
+    PROFILE
 }

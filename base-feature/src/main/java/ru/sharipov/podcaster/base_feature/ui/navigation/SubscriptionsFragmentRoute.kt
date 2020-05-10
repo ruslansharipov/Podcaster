@@ -1,0 +1,10 @@
+package ru.sharipov.podcaster.base_feature.ui.navigation
+
+import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureRoute
+
+class SubscriptionsFragmentRoute: FragmentCrossFeatureRoute() {
+
+    override fun targetClassPath(): String {
+        return "ru.sharipov.podcaster.f_subscription.SubscriptionFragmentView"
+    }
+}

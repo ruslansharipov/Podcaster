@@ -40,8 +40,7 @@ class MainPresenter @Inject constructor(
         return when (tabType) {
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
             MainTabType.SEARCH -> SearchFragmentRoute()
-            MainTabType.FEED -> FeedFragmentRoute()
-            MainTabType.PLAYLIST -> PlaylistFragmentRoute()
+            MainTabType.PROFILE -> ProfileFragmentRoute()
         }
     }
 
