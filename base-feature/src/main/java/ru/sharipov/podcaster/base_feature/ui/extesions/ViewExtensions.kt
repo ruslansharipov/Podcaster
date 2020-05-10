@@ -207,8 +207,26 @@ fun <T : Any, V : View> V.performIfChanged(data: T?, action: V.(T) -> Unit) {
     actionIfChanged(data, { if (data != null) action(data) })
 }
 
-fun <T1 : Any, T2 : Any, V : View> V.performIfChanged(data1: T1?, data2: T2, action: V.(T1, T2) -> Unit) {
+fun <T1 : Any, T2 : Any, V : View> V.performIfChanged(
+    data1: T1?,
+    data2: T2,
+    action: V.(T1, T2) -> Unit
+) {
     actionIfChanged(data1, data2, { d1, d2 -> if (d1 != null && d2 != null) action(d1, d2) })
+}
+
+fun <T1 : Any, T2 : Any, T3 : Any, V : View> V.performIfChanged(
+    data1: T1?,
+    data2: T2,
+    data3: T3,
+    action: V.(T1, T2, T3) -> Unit
+) {
+    actionIfChanged(
+        data1 = data1,
+        data2 = data2,
+        data3 = data3,
+        action = { d1, d2, d3 -> if (d1 != null && d2 != null && d3 != null) action(d1, d2, d3) }
+    )
 }
 
 /**
@@ -346,6 +364,7 @@ fun View.doOnApplyInsets(listener: (AppInsets) -> Unit) {
                 v.removeOnAttachStateChangeListener(this)
                 v.requestApplyInsets()
             }
+
             override fun onViewDetachedFromWindow(v: View) = Unit
         })
     }

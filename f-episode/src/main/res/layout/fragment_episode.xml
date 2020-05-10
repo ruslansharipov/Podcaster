@@ -12,65 +12,27 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/episode_back_btn"
+                android:id="@+id/episode_toolbar_back_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/bg_selectable_ripple_circle"
                 android:contentDescription="@string/content_description"
                 android:padding="8dp"
-                android:src="@drawable/ic_arrow_back"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/ic_arrow_back" />
 
-            <ImageView
-                android:id="@+id/episode_icon_iv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/content_description"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/episode_back_btn"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/episode_podcast_title_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/Text.Medium.16.PrimaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/episode_icon_iv"
-                app:layout_constraintTop_toTopOf="@id/episode_icon_iv"
-                tools:text="title" />
-
-            <TextView
-                android:id="@+id/episode_date_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/Text.Regular.11.SecondaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/episode_podcast_title_tv"
-                app:layout_constraintTop_toBottomOf="@id/episode_podcast_title_tv"
-                tools:text="today"
-                tools:visibility="visible" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ru.sharipov.podcaster.base_feature.ui.widget.PodcastHeaderView
+                android:id="@+id/episode_podcast_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_scrollFlags="scroll|enterAlways" />
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -86,14 +48,12 @@
 
             <TextView
                 android:id="@+id/episode_title_tv"
-                android:textAppearance="@style/Text.Medium.16.PrimaryColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/episode_icon_iv"
+                android:textAppearance="@style/Text.Medium.16.PrimaryColor"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
@@ -104,8 +64,6 @@
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/episode_icon_iv"
                 tools:text="@tools:sample/lorem" />
 
             <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
@@ -113,7 +71,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp" />
 
         </LinearLayout>
 

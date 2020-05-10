@@ -13,13 +13,11 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_podcast.*
 import kotlinx.android.synthetic.main.layout_podcast_appbar.*
 import kotlinx.android.synthetic.main.layout_podcast_details_shimmer.*
-import kotlinx.android.synthetic.main.layout_podcast_toolbar.*
 import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
 import ru.sharipov.podcaster.base_feature.ui.extesions.*
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
 import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.f_podcast.view.SubscribeButton
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
 import javax.inject.Inject
@@ -38,13 +36,11 @@ class PodcastFragmentView : BaseRxFragmentView() {
         onShowMoreListener = { presenter.onShowMore() }
     )
     private val episodeController = EpisodeController { presenter.onEpisodeClick(it) }
-    private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val threshold = dpToPx(60)
-            val isToolbarVisible = threshold < abs(verticalOffset)
-            podcast_toolbar_icon_iv.isVisible = isToolbarVisible
-            podcast_toolbar_title_tv.isVisible = isToolbarVisible
-            podcast_toolbar_publisher_tv.isVisible = isToolbarVisible
-        }
+    private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBar, offset ->
+        val threshold = dpToPx(60)
+        val isToolbarVisible = threshold < abs(offset)
+        podcast_toolbar.isVisible = isToolbarVisible
+    }
 
     override fun createConfigurator() = PodcastScreenConfigurator(arguments)
 
@@ -83,18 +79,23 @@ class PodcastFragmentView : BaseRxFragmentView() {
         podcast_swr.performIfChanged(state.episodes.isSwrLoading, SwipeRefreshLayout::setRefreshing)
         podcast_title_tv.performIfChanged(title, TextView::setText)
         podcast_publisher_tv.performIfChanged(publisher, TextView::setText)
-        podcast_toolbar_title_tv.performIfChanged(title, TextView::setText)
-        podcast_toolbar_publisher_tv.performIfChanged(publisher, TextView::setText)
+        podcast_toolbar.performIfChanged(title, publisher) { _, _ ->
+            setTitle(title)
+            setSubtitle(publisher)
+        }
         podcast_subscribe_btn.performIfChanged(isSubscribed, isDetailsLoading) { _, _ ->
             isVisible = !isDetailsLoading
             setChecked(isSubscribed)
         }
         podcast_icon_iv.performIfChanged(podcast.image) { imageUrl ->
             podcast_icon_iv.bindPicture(imageUrl)
-            podcast_toolbar_icon_iv.bindPicture(imageUrl)
+            podcast_toolbar.setIcon(imageUrl)
         }
         val episodes = state.episodes
-        podcast_episodes_pv.performIfChanged(episodes.placeholderState, PlaceholderStateView::setState)
+        podcast_episodes_pv.performIfChanged(
+            episodes.placeholderState,
+            PlaceholderStateView::setState
+        )
         podcast_episodes_rv.performIfChanged(episodes.data) { mergeBundle ->
             mergeBundle.safeGet { mergeList: MergeList<Episode>, paginationState: PaginationState ->
                 easyAdapter.setData(mergeList, episodeController, paginationState)
@@ -108,6 +109,5 @@ class PodcastFragmentView : BaseRxFragmentView() {
         podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes) { episodesCount ->
             text = string(R.string.podcast_episodes_count_format, episodesCount)
         }
-
     }
 }
