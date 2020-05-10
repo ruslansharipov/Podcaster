@@ -207,6 +207,10 @@ fun <T : Any, V : View> V.performIfChanged(data: T?, action: V.(T) -> Unit) {
     actionIfChanged(data, { if (data != null) action(data) })
 }
 
+fun <T1 : Any, T2 : Any, V : View> V.performIfChanged(data1: T1?, data2: T2, action: V.(T1, T2) -> Unit) {
+    actionIfChanged(data1, data2, { d1, d2 -> if (d1 != null && d2 != null) action(d1, d2) })
+}
+
 /**
  * Анимирует `View.translationY` до состояния, когда `View.translationX == 0f`.
  * */

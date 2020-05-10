@@ -8,6 +8,7 @@ dependencies {
     implementation project(":i-network")
     implementation project(":i-podcast")
     implementation project(':i-region')
+    implementation project(':i-subscription')
 
     implementation "androidx.multidex:multidex:$androidxMultidexVersion"
 

@@ -17,9 +17,9 @@ import javax.inject.Inject
 data class PodcastState(
     val podcast: PodcastFull,
     val sortType: SortType = SortType.RECENT_FIRST,
-    val isSubscribed: Boolean = false,
     val episodes: RequestUi<MergePaginationBundle<Episode>> = RequestUi(),
-    val details: RequestUi<PodcastFull> = RequestUi()
+    val details: RequestUi<PodcastFull> = RequestUi(),
+    val isSubscribed: Boolean = false
 )
 
 @PerScreen
@@ -43,7 +43,16 @@ class PodcastReducer @Inject constructor(
     fun onDetailsLoad(request: Request<PodcastFull>) {
         sh.emitNewState {
             copy(
-                details = mapRequestDefault(request, details)
+                details = mapRequestDefault(request, details),
+                podcast = if (request is Request.Success) request.data else podcast
+            )
+        }
+    }
+
+    fun onSubscriptionChange(isSubscribed: Boolean){
+        sh.emitNewState {
+            copy(
+                isSubscribed = isSubscribed
             )
         }
     }

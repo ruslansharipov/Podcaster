@@ -51,3 +51,11 @@ fun <T : Collection<Transformable<R>>, R> Single<T>.transformCollection(): Singl
         }
 
 fun <T : Any> T.toObservable(): Observable<T> = Observable.just(this)
+
+fun <A, T : TransformableWithArgs<A, R>, R> Observable<T>.transformWithArgs(args: A) : Observable<R> {
+    return map { it.transformWithArgs(args) }
+}
+
+fun <A, T : TransformableWithArgs<A, R>, R> Single<T>.transformWithArgs(args: A) : Single<R> {
+    return map { it.transformWithArgs(args) }
+}

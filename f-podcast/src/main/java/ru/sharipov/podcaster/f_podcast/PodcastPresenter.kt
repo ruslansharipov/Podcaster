@@ -7,6 +7,7 @@ import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
+import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
@@ -21,8 +22,15 @@ class PodcastPresenter @Inject constructor(
     private val sh: PodcastStateHolder,
     private val tabNavigator: TabFragmentNavigator,
     private val podcastInteractor: PodcastInteractor,
-    private val dateFormatter: EpisodeDateFormatter
+    private val dateFormatter: EpisodeDateFormatter,
+    private val subscriptionInteractor: SubscriptionInteractor
 ) : StatePresenter(dependency) {
+
+    init {
+        subscriptionInteractor
+            .observeIsSubscribed(sh.value.podcast.id)
+            .subscribeIoDefault(reducer::onSubscriptionChange)
+    }
 
     override fun onFirstLoad() {
         loadEpisodes()
@@ -76,6 +84,15 @@ class PodcastPresenter @Inject constructor(
             .io()
             .asRequest()
             .subscribeDefault { reducer.onEpisodesLoad(it, isSwr) }
+    }
+
+    fun onSubscribeClick() {
+        val podcast = sh.value.podcast
+        if (sh.value.isSubscribed){
+            subscriptionInteractor.remove(podcast)
+        } else {
+            subscriptionInteractor.add(podcast)
+        }
     }
 
 }

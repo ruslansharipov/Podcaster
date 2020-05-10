@@ -7,6 +7,7 @@ import ru.sharipov.podcaster.base_feature.application.network.OkHttpModule
 import ru.sharipov.podcaster.base_feature.application.podcast.di.PodcastModule
 import ru.sharipov.podcaster.base_feature.application.region.di.RegionModule
 import ru.sharipov.podcaster.base_feature.application.storage.di.SharedPrefModule
+import ru.sharipov.podcaster.base_feature.application.subscription.di.SubscriptionModule
 import ru.surfstudio.android.dagger.scope.PerApplication
 
 // PerApplication модули здесь, в том числе интеракторы
@@ -20,7 +21,8 @@ import ru.surfstudio.android.dagger.scope.PerApplication
         NetworkModule::class,
         OkHttpModule::class,
         PodcastModule::class,
-        RegionModule::class
+        RegionModule::class,
+        SubscriptionModule::class
     ]
 )
 interface AppComponent : AppProxyDependencies

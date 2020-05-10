@@ -22,7 +22,6 @@ import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.f_podcast.view.SubscribeButton
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.easyadapter.pagination.PaginationState
-import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -71,6 +70,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
             adapter = easyAdapter
         }
         podcast_episodes_pv.errorClickListener = { presenter.onErrorClick() }
+        podcast_subscribe_btn.setOnClickListener { presenter.onSubscribeClick() }
     }
 
     private fun renderState(state: PodcastState) {
@@ -78,13 +78,17 @@ class PodcastFragmentView : BaseRxFragmentView() {
         val title = podcast.title
         val publisher = podcast.publisher
         val isSubscribed = state.isSubscribed
-        podcast_details_shimmer.performIfChanged(state.details.isLoading, View::isVisible::set)
+        val isDetailsLoading = state.details.isLoading
+        podcast_details_shimmer.performIfChanged(isDetailsLoading, View::isVisible::set)
         podcast_swr.performIfChanged(state.episodes.isSwrLoading, SwipeRefreshLayout::setRefreshing)
         podcast_title_tv.performIfChanged(title, TextView::setText)
         podcast_publisher_tv.performIfChanged(publisher, TextView::setText)
         podcast_toolbar_title_tv.performIfChanged(title, TextView::setText)
         podcast_toolbar_publisher_tv.performIfChanged(publisher, TextView::setText)
-        podcast_subscribe_btn.performIfChanged(isSubscribed, SubscribeButton::setChecked)
+        podcast_subscribe_btn.performIfChanged(isSubscribed, isDetailsLoading) { _, _ ->
+            isVisible = !isDetailsLoading
+            setChecked(isSubscribed)
+        }
         podcast_icon_iv.performIfChanged(podcast.image) { imageUrl ->
             podcast_icon_iv.bindPicture(imageUrl)
             podcast_toolbar_icon_iv.bindPicture(imageUrl)
@@ -104,5 +108,6 @@ class PodcastFragmentView : BaseRxFragmentView() {
         podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes) { episodesCount ->
             text = string(R.string.podcast_episodes_count_format, episodesCount)
         }
+
     }
 }

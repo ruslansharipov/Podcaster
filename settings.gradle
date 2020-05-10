@@ -16,3 +16,4 @@ include ':app',
         ':f-podcast',
         ':f-player',
         ':f-episode'
+include ':i-subscription'
