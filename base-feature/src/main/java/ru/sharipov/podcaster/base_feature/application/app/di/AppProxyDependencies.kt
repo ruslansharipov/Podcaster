@@ -3,7 +3,6 @@ package ru.sharipov.podcaster.base_feature.application.app.di
 import android.content.Context
 import android.content.SharedPreferences
 import ru.sharipov.podcaster.base.provider.StringsProvider
-import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.service.ping.PingBus
@@ -35,7 +34,6 @@ interface AppProxyDependencies {
     @Named(NO_BACKUP_SHARED_PREF)
     fun sharedPreferences(): SharedPreferences
 
-    fun insetsInteractor(): InsetsInteractor
     fun podcastInteractor(): PodcastInteractor
     fun regionInteractor(): RegionsInteractor
     fun playerServiceBus(): PlayerServiceBus

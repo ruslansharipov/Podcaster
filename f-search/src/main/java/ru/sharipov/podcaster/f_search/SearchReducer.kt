@@ -14,8 +14,7 @@ import javax.inject.Inject
 data class SearchState(
     val input: String = EMPTY_STRING,
     val typeAhead: RequestUi<TypeAhead> = RequestUi(),
-    val typeAheadList: List<TypeAheadItem> = emptyList(),
-    val insets: AppInsets = AppInsets()
+    val typeAheadList: List<TypeAheadItem> = emptyList()
 ) {
     val isClearBtnVisible: Boolean = input.isNotEmpty()
 }
@@ -28,12 +27,6 @@ class SearchReducer @Inject constructor(
     dependency: StateReducerDependency,
     private val sh: SearchStateHolder
 ) : StateReducer(dependency) {
-
-    fun onNewInsets(newInsets: AppInsets) {
-        sh.emitNewState {
-            copy(insets = newInsets)
-        }
-    }
 
     fun onQueryChanged(query: String) {
         sh.emitNewState {

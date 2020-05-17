@@ -4,7 +4,6 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
-import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
 import ru.sharipov.podcaster.base_feature.ui.navigation.BestFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.domain.Genre
@@ -25,7 +24,6 @@ class SearchPresenter @Inject constructor(
     private val sh: SearchStateHolder,
     private val reducer: SearchReducer,
     private val podcastInteractor: PodcastInteractor,
-    private val insetsInteractor: InsetsInteractor,
     private val regionsInteractor: RegionsInteractor,
     private val tabNavigator: TabFragmentNavigator
 ) : StatePresenter(dependency) {
@@ -38,13 +36,6 @@ class SearchPresenter @Inject constructor(
 
     override fun onFirstLoad() {
         subscribeOnQueryChanges()
-        subscribeOnInsetChanges()
-    }
-
-    private fun subscribeOnInsetChanges() {
-        insetsInteractor
-            .observeInsets()
-            .subscribeDefault(reducer::onNewInsets)
     }
 
     fun onQueryChanged(query: String) {

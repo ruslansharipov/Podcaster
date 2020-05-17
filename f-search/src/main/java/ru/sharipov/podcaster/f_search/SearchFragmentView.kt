@@ -58,7 +58,6 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
             layoutManager = FlexboxLayoutManager(context)
             adapter = easyAdapter
         }
-        search_et.showKeyboard()
         search_pv.errorClickListener = { presenter.retryClick() }
         search_clear_iv.setOnClickListener { presenter.onCrearClick() }
         search_et.textChangesStringSkipFirst().bindTo(presenter::onQueryChanged)
@@ -82,13 +81,15 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
         search_pv.performIfChanged(state.typeAhead.placeholderState){ placeholderState: PlaceholderState ->
             setState(placeholderState)
         }
-        search_container.performIfChanged(state.insets.keyboard){ keyboardHeight: Int ->
-            updatePadding(bottom = keyboardHeight)
-        }
     }
 
     override fun onPause() {
         search_et.hideSoftKeyboard()
         super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        search_et.showKeyboard()
     }
 }

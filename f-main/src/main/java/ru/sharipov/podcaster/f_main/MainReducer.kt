@@ -2,13 +2,11 @@ package ru.sharipov.podcaster.f_main
 
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
-import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class MainState(
-    val insets: AppInsets = AppInsets(),
     val currentTabType: MainTabType = MainTabType.EXPLORE
 )
 
@@ -24,12 +22,6 @@ class MainReducer @Inject constructor(
     fun onTabSelected(tabType: MainTabType) {
         sh.emitNewState {
             copy(currentTabType = tabType)
-        }
-    }
-
-    fun onNewInsets(newInsets: AppInsets) {
-        sh.emitNewState {
-            copy(insets = newInsets)
         }
     }
 }

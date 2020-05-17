@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/player_title_expanded"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:text="Conan O'Brian"
+        app:layout_constraintEnd_toEndOf="@id/player_iv_expanded"
+        app:layout_constraintStart_toStartOf="@id/player_iv_expanded"
+        app:layout_constraintTop_toBottomOf="@id/player_iv_expanded"/>
+
+    <TextView
+        tools:text="Needs a friend"
+        android:id="@+id/player_subtitle_expanded"
+        android:layout_width="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/player_iv_expanded"
+        app:layout_constraintStart_toStartOf="@id/player_iv_expanded"
+        app:layout_constraintTop_toBottomOf="@id/player_title_expanded" />
+
+    <ImageView
+        android:id="@+id/player_iv_expanded"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="32dp"
+        android:alpha="1"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/player_play_ib_expanded"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded" />
+
+</merge>

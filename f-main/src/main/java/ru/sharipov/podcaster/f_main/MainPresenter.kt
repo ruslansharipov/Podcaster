@@ -2,8 +2,6 @@ package ru.sharipov.podcaster.f_main
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
-import ru.sharipov.podcaster.base_feature.ui.bus.InsetsInteractor
-import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.base_feature.ui.navigation.*
 import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
@@ -15,8 +13,7 @@ class MainPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val stateHolder: MainStateHolder,
     private val mainReducer: MainReducer,
-    private val tabNavigator: TabFragmentNavigator,
-    private val insetsInteractor: InsetsInteractor
+    private val tabNavigator: TabFragmentNavigator
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -29,11 +26,6 @@ class MainPresenter @Inject constructor(
         val route: FragmentRoute = createRouteForTab(tabType)
         tabNavigator.open(route)// TODO раскоментить когда появятся роуты
         mainReducer.onTabSelected(tabType)
-    }
-
-    fun onNewInsets(insets: AppInsets) {
-        insetsInteractor.emitInsets(insets)
-        mainReducer.onNewInsets(insets)
     }
 
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
