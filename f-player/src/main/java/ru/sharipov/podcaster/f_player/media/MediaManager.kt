@@ -4,7 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
-import ru.sharipov.podcaster.domain.player.Media
+import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
@@ -64,19 +64,19 @@ class MediaManager constructor(
         compositeDisposable.clear()
     }
 
-    private fun handlePlayRequest(media: List<Media>, index: Int = 0) {
+    private fun handlePlayRequest(media: List<Episode>, index: Int = 0) {
         if (media.isNotEmpty()) {
             queue.setQueue(media, index)
             play(queue.current)
         }
     }
 
-    private fun handleAddRequest(media: Media) {
+    private fun handleAddRequest(media: Episode) {
         queue.addQueue(media)
         onNextQueue()
     }
 
-    private fun handleRemoveRequest(media: Media) {
+    private fun handleRemoveRequest(media: Episode) {
         queue.removeQueue(media)
         onNextQueue()
     }
@@ -112,7 +112,7 @@ class MediaManager constructor(
         updatePlaybackState(PlaybackState.Stopped, 0)
     }
 
-    private fun play(media: Media?) {
+    private fun play(media: Episode?) {
         playerCallback.play(media)
         serviceCallback.onPlaybackMediaChanged(media)
         updatePlaybackState(PlaybackState.Playing(media), playerCallback.position)

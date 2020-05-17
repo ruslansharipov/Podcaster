@@ -17,7 +17,7 @@ class SubscriptionStorage(
 ) {
 
     private companion object {
-        const val STORAGE_DIR = "cart_storage"
+        const val STORAGE_DIR = "subscription_storage"
         const val STORAGE_MAX_FILES = 255
     }
 

@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import kotlinx.android.synthetic.main.layout_player_expanded.*
+import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
+import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxDialogView
 import javax.inject.Inject
 
@@ -38,6 +41,10 @@ class PlayerDialogView : BaseRxDialogView() {
     }
 
     private fun renderState(state: PlayerState) {
-
+        player_title_expanded.performIfChanged(state.title, TextView::setText)
+        player_subtitle_expanded.performIfChanged(state.podcast, TextView::setText)
+        player_iv_expanded.performIfChanged(state.image){ imageUrl: String ->
+            bindPicture(imageUrl)
+        }
     }
 }

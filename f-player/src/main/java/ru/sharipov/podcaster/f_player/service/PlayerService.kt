@@ -10,9 +10,9 @@ import android.support.v4.media.session.PlaybackStateCompat
 import ru.sharipov.podcaster.base_feature.application.app.di.AppInjector
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlayerServiceRoute
+import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
-import ru.sharipov.podcaster.domain.player.Media
 import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
 import ru.sharipov.podcaster.f_player.playback.PlaybackInterface
 import ru.sharipov.podcaster.f_player.service.di.PlayerModule
@@ -86,7 +86,7 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
         notificationManager.updateState(state)
     }
 
-    override fun onPlaybackMediaChanged(media: Media?) {
+    override fun onPlaybackMediaChanged(media: Episode?) {
         mediaSession.setMetadata(getMetadata(media))
         notificationManager.updateMedia(media)
     }
@@ -124,11 +124,11 @@ class PlayerService : Service(), PlaybackInterface.ServiceCallback {
         return actions
     }
 
-    private fun getMetadata(media: Media?): MediaMetadataCompat {
+    private fun getMetadata(media: Episode?): MediaMetadataCompat {
         return MediaMetadataCompat.Builder()
             .putString(MediaMetadataCompat.METADATA_KEY_ART_URI, media?.image)
             .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE, media?.title)
-            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, media?.podcast)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, media?.podcastTitle)
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, media?.streamUrl)
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, media?.id)
             .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, media?.duration?.toLong() ?: 0)

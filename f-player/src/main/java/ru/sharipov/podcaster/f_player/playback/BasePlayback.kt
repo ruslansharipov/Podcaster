@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
 import android.net.wifi.WifiManager
-import ru.sharipov.podcaster.domain.player.Media
+import ru.sharipov.podcaster.domain.Episode
 
 abstract class BasePlayback(
     protected val context: Context,
@@ -15,7 +15,7 @@ abstract class BasePlayback(
 ) : PlaybackInterface.PlayerCallback, AudioManager.OnAudioFocusChangeListener {
 
     @Volatile
-    protected var currentMedia: Media? = null
+    protected var currentMedia: Episode? = null
     protected var playbackCallback: PlaybackInterface.ManagerCallback? = null
 
     private var receiverRegistered = false
@@ -37,7 +37,7 @@ abstract class BasePlayback(
 
     abstract fun stopPlayer()
 
-    override fun play(media: Media?) {
+    override fun play(media: Episode?) {
         if (media != null) {
             requestFocus()
             registerWifiLock()

@@ -4,21 +4,24 @@ import android.content.Context
 import android.os.Build
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlayerServiceRoute
+import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlayerAction
-import ru.sharipov.podcaster.domain.player.Media
 import ru.sharipov.podcaster.domain.player.MediaState
 import ru.sharipov.podcaster.domain.player.PlaybackState
+import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerApplication
 import javax.inject.Inject
 
 @PerApplication
 class PlayerInteractor @Inject constructor(
     private val serviceBus: PlayerServiceBus,
-    private val context: Context
+    private val context: Context,
+    private val historyInteractor: HistoryInteractor
 ) {
 
-    fun play(media: Media) {
+    fun play(media: Episode) {
         emitAction(PlayerAction.Play(listOf(media)))
+        historyInteractor.add(media)
     }
 
     fun pause() {
@@ -41,7 +44,11 @@ class PlayerInteractor @Inject constructor(
             }
     }
 
-    private fun emitAction(action: PlayerAction){
+    fun observeAllStates(): Observable<PlaybackState> {
+        return serviceBus.observePlaybackState()
+    }
+
+    private fun emitAction(action: PlayerAction) {
         val intent = PlayerServiceRoute(action).prepareIntent(context)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent)

@@ -12,11 +12,11 @@ data class PodcastEpisodesResponse(
     @SerializedName("earliest_pub_date_ms") val earliestPubDateMs: Long?,
     @SerializedName("next_episode_pub_date") val nextEpisodePubDate: Long?,
     @SerializedName("total_episodes") val totalEpisodes: Int?
-) : Transformable<MergeList<Episode>> {
+) {
 
-    override fun transform(): MergeList<Episode> {
+    fun transform(podcastTitle: String): MergeList<Episode> {
         return MergeList(
-            data = episodes.transformCollection(),
+            data = episodes?.map { it.transform(podcastTitle) } ?: emptyList(),
             earliestPubDateMs = earliestPubDateMs ?: 0,
             latestPubDateMs = latestPubDateMs ?: 0,
             nextEpisodePubDate = nextEpisodePubDate ?: 0

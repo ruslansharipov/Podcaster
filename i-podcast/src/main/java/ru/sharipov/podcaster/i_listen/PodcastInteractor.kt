@@ -61,12 +61,13 @@ class PodcastInteractor @Inject constructor(
 
     fun getPodcastEpisodes(
         podcastId: String,
+        podcastTitle: String,
         sortType: SortType,
         nextEpisodePubDate: Long?
     ): Observable<MergeList<Episode>> {
         return listenApi
             .getPodcastEpisodes(podcastId, sortType.id, nextEpisodePubDate)
-            .transform()
+            .map { it.transform(podcastTitle) }
             .toObservable()
     }
 

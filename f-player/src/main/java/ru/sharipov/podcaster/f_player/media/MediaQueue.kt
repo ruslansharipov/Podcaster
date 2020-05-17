@@ -1,38 +1,38 @@
 package ru.sharipov.podcaster.f_player.media
 
-import ru.sharipov.podcaster.domain.player.Media
+import ru.sharipov.podcaster.domain.Episode
 
 class MediaQueue {
 
-    private val queue: MutableList<Media> = mutableListOf()
+    private val queue: MutableList<Episode> = mutableListOf()
     private var index: Int = 0
 
-    val list: List<Media>
+    val list: List<Episode>
         get() = queue
 
     val currentIndex: Int
         get() = index
 
-    val current: Media?
+    val current: Episode?
         get() = if (!isEmpty()) queue[index] else null
 
-    val next: Media?
+    val next: Episode?
         get() = if (hasNext()) queue[++index] else current
 
-    val previous: Media?
+    val previous: Episode?
         get() = if (hasPrevious()) queue[--index] else current
 
-    fun setQueue(media: List<Media>, newIndex: Int = 0) {
+    fun setQueue(media: List<Episode>, newIndex: Int = 0) {
         queue.clear()
         queue.addAll(media)
         index = newIndex
     }
 
-    fun addQueue(media: Media) {
+    fun addQueue(media: Episode) {
         queue.add(media)
     }
 
-    fun removeQueue(media: Media) {
+    fun removeQueue(media: Episode) {
         if (!hasNext()) index -= 1
         queue.remove(media)
     }

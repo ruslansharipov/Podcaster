@@ -4,4 +4,5 @@ apply from: '../commonKaptModule.gradle'
 dependencies {
     implementation project(":base-feature")
     implementation project(":i-network")
+    implementation project(":i-history")
 }

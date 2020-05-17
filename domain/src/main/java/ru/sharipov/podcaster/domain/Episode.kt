@@ -2,15 +2,15 @@ package ru.sharipov.podcaster.domain
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import ru.sharipov.podcaster.domain.player.Media
 
 @Parcelize
 data class Episode(
-    override val id: String = EMPTY_STRING,
-    override val image: String = EMPTY_STRING,
-    override val title: String = EMPTY_STRING,
-    override val streamUrl: String = EMPTY_STRING,
-    override val duration: Int = 0,
+    val id: String = EMPTY_STRING,
+    val image: String = EMPTY_STRING,
+    val title: String = EMPTY_STRING,
+    val podcastTitle: String = EMPTY_STRING,
+    val streamUrl: String = EMPTY_STRING,
+    val duration: Int = 0,
     val maybeAudioInvalid: Boolean = false,
     val pubDateMs: Long = 0,
     val listennotesEditUrl: String = EMPTY_STRING,
@@ -19,7 +19,7 @@ data class Episode(
     val explicitContent: Boolean = false,
     val listennotesUrl: String = EMPTY_STRING,
     val link: String = EMPTY_STRING
-) : Comparable<Episode>, Parcelable, Media {
+) : Comparable<Episode>, Parcelable {
 
     override fun compareTo(other: Episode): Int {
         return (other.pubDateMs - pubDateMs).toInt()

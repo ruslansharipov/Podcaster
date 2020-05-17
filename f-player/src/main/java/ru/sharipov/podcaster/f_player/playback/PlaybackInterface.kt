@@ -1,7 +1,7 @@
 package ru.sharipov.podcaster.f_player.playback
 
+import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
-import ru.sharipov.podcaster.domain.player.Media
 
 interface PlaybackInterface {
 
@@ -14,7 +14,7 @@ interface PlaybackInterface {
 
         val duration: Long
 
-        fun play(media: Media?)
+        fun play(media: Episode?)
 
         fun pause()
 
@@ -51,7 +51,7 @@ interface PlaybackInterface {
 
         fun onPlaybackStateChanged(state: PlaybackState, position: Long)
 
-        fun onPlaybackMediaChanged(media: Media?)
+        fun onPlaybackMediaChanged(media: Episode?)
 
     }
 

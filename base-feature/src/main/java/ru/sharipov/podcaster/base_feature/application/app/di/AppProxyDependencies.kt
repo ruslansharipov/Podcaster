@@ -8,6 +8,7 @@ import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.service.ping.PingBus
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.i_genres.RegionsInteractor
+import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
@@ -34,6 +35,7 @@ interface AppProxyDependencies {
     @Named(NO_BACKUP_SHARED_PREF)
     fun sharedPreferences(): SharedPreferences
 
+    fun historyInteractor(): HistoryInteractor
     fun podcastInteractor(): PodcastInteractor
     fun regionInteractor(): RegionsInteractor
     fun playerServiceBus(): PlayerServiceBus

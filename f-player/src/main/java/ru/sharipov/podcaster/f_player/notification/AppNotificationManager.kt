@@ -19,8 +19,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import ru.sharipov.podcaster.domain.player.PlaybackState
-import ru.sharipov.podcaster.domain.player.Media
 import ru.sharipov.podcaster.base_feature.R
+import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.f_player.service.PlayerService
 
 class AppNotificationManager(
@@ -47,7 +47,7 @@ class AppNotificationManager(
     private var hasStarted: Boolean = false
     private var handler = Handler()
     private var state: PlaybackState = PlaybackState.Idle
-    private var media: Media? = null
+    private var media: Episode? = null
 
     init {
         createNotificationChannels()
@@ -57,7 +57,7 @@ class AppNotificationManager(
         this.intent = intent
     }
 
-    fun updateMedia(media: Media?) {
+    fun updateMedia(media: Episode?) {
         this.media = media
     }
 
@@ -185,7 +185,7 @@ class AppNotificationManager(
             .setShowWhen(false)
             .setOnlyAlertOnce(true)
             .setContentTitle(media?.title)
-            .setContentText(media?.podcast)
+            .setContentText(media?.podcastTitle)
             .setDeleteIntent(dismiss(service))
             .addAction(prev(service))
 

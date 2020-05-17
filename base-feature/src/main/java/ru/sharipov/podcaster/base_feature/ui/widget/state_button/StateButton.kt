@@ -18,7 +18,6 @@ class StateButton @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_state_button, this)
-        radius = dpToPx(24).toFloat()
         elevation = 0f
     }
 
@@ -26,7 +25,7 @@ class StateButton @JvmOverloads constructor(
         val isLoading = state is PlaybackState.Buffering
         state_btn_pv.isVisible = isLoading
         state_btn_ibtn.isVisible = !isLoading
-        val buttonImageRes = if (state is PlaybackState.Playing){
+        val buttonImageRes = if (state is PlaybackState.Playing) {
             R.drawable.ic_pause
         } else {
             R.drawable.ic_play

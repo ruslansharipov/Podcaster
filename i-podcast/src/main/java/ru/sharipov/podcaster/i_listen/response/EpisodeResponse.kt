@@ -19,10 +19,11 @@ data class EpisodeResponse(
     @SerializedName("audio_length_sec") val audioLengthSec: Int?,
     @SerializedName("id") val id: String?,
     @SerializedName("link") val link: String?
-) : Transformable<Episode> {
+) {
 
-    override fun transform(): Episode {
+    fun transform(podcastTitle: String): Episode {
         return Episode(
+            podcastTitle = podcastTitle,
             maybeAudioInvalid = maybeAudioInvalid ?: false,
             pubDateMs = pubDateMs ?: 0,
             streamUrl = audio ?: EMPTY_STRING,

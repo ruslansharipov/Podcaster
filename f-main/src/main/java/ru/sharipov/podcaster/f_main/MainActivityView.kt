@@ -6,9 +6,11 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
+import ru.sharipov.podcaster.base_feature.ui.extesions.dpToPx
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.sharipov.podcaster.f_main.view.BottomTabView
+import ru.sharipov.podcaster.f_main.view.PlayerCollapsedView
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
 import ru.surfstudio.android.core.ui.FragmentContainer
 import ru.surfstudio.android.logger.Logger
@@ -53,5 +55,11 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     private fun render(state: MainState) {
         main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
+        main_player_collapsed.performIfChanged(state.playbackState, state.lastPlayed, PlayerCollapsedView::render)
+        main_fragment_container.performIfChanged(state.lastPlayed) { optionalMedia ->
+            updatePadding(
+                bottom = if (optionalMedia.hasValue) dpToPx(48) else 0
+            )
+        }
     }
 }

@@ -2,6 +2,7 @@ package ru.sharipov.podcaster.base_feature.application.app.di
 
 import dagger.Component
 import ru.sharipov.podcaster.base_feature.application.cache.di.CacheModule
+import ru.sharipov.podcaster.base_feature.application.history.di.HistoryModule
 import ru.sharipov.podcaster.base_feature.application.network.NetworkModule
 import ru.sharipov.podcaster.base_feature.application.network.OkHttpModule
 import ru.sharipov.podcaster.base_feature.application.podcast.di.PodcastModule
@@ -22,7 +23,8 @@ import ru.surfstudio.android.dagger.scope.PerApplication
         OkHttpModule::class,
         PodcastModule::class,
         RegionModule::class,
-        SubscriptionModule::class
+        SubscriptionModule::class,
+        HistoryModule::class
     ]
 )
 interface AppComponent : AppProxyDependencies
