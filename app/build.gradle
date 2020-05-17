@@ -40,6 +40,7 @@ dependencies {
     implementation project(":f-podcast")
     implementation project(":f-episode")
     implementation project(':f-player')
+    implementation project(':f-player-dialog')
     implementation project(':f-profile')
     implementation project(':f-subscription')
 

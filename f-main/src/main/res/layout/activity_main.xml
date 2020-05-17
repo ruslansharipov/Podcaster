@@ -1,41 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ru.sharipov.podcaster.base_feature.ui.widget.inset.view.InsetMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ru.sharipov.podcaster.base_feature.ui.widget.inset.view.InsetConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    app:layoutDescription="@xml/motion_scene">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/player_collapsed"
+        app:layout_constraintBottom_toTopOf="@id/main_player_collapsed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/player_bg"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@color/colorPlaceholderLoading" />
-
     <ru.sharipov.podcaster.f_main.view.PlayerCollapsed
-        android:id="@+id/player_collapsed"
+        android:id="@+id/main_player_collapsed"
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
-
-    <ru.sharipov.podcaster.f_main.view.PlayerExpanded
-        android:id="@+id/player_expanded"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@id/main_tab_view" />
 
     <ru.sharipov.podcaster.f_main.view.BottomTabView
         android:id="@+id/main_tab_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</ru.sharipov.podcaster.base_feature.ui.widget.inset.view.InsetMotionLayout>
+</ru.sharipov.podcaster.base_feature.ui.widget.inset.view.InsetConstraintLayout>

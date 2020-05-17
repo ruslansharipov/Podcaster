@@ -3,11 +3,9 @@ package ru.sharipov.podcaster.f_main
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
-import ru.sharipov.podcaster.base_feature.ui.extesions.dpToPx
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.sharipov.podcaster.f_main.view.BottomTabView
@@ -43,13 +41,13 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     private fun initView() {
         main_tab_view.selectedTabObservable.bindTo(presenter::onBottomTabClick)
+        main_player_collapsed.setOnClickListener { presenter.onPlayerClick() }
         main_container.addOnInsetsChangedListener{ insets: AppInsets ->
             Logger.d("$insets")
-            player_bg.isVisible = !insets.hasKeyboard
-            main_tab_view.isVisible = !insets.hasKeyboard
 
-            player_collapsed.updateLayoutParams { height = if (insets.hasKeyboard) 0 else dpToPx(48) }
-            main_container.updatePadding(top = insets.statusBar)
+            main_tab_view.isVisible = !insets.hasKeyboard
+            main_player_collapsed.isVisible = !insets.hasKeyboard
+            main_container.updatePadding(bottom = insets.keyboard)
         }
     }
 

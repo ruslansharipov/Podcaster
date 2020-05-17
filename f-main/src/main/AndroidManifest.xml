@@ -4,7 +4,6 @@
     <application>
         <activity
             android:name="ru.sharipov.podcaster.f_main.MainActivityView"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

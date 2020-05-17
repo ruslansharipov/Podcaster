@@ -6,6 +6,7 @@ import ru.sharipov.podcaster.base_feature.ui.navigation.*
 import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
+import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
 
 @PerScreen
@@ -13,7 +14,8 @@ class MainPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val stateHolder: MainStateHolder,
     private val mainReducer: MainReducer,
-    private val tabNavigator: TabFragmentNavigator
+    private val tabNavigator: TabFragmentNavigator,
+    private val dialogNavigator: DialogNavigator
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -34,6 +36,10 @@ class MainPresenter @Inject constructor(
             MainTabType.SEARCH -> SearchFragmentRoute()
             MainTabType.PROFILE -> SubscriptionsFragmentRoute()
         }
+    }
+
+    fun onPlayerClick() {
+        dialogNavigator.show(PlayerDialogRoute())
     }
 
 }

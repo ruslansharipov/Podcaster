@@ -14,6 +14,9 @@ class PlayerCollapsed @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.layout_player_collapsed, this)
+        setBackgroundResource(R.drawable.bg_selectable_item)
+        isClickable = true
+        isFocusable = true
     }
 
 

@@ -19,3 +19,4 @@ include ':app',
 include ':i-subscription'
 include ':f-profile'
 include ':f-subscription'
+include ':f-player-dialog'
