@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_subscriptions.*
-import ru.sharipov.podcaster.base_feature.ui.controller.SubscriptionController
+import ru.sharipov.podcaster.base_feature.ui.controller.subscription.SubscriptionController
+import ru.sharipov.podcaster.base_feature.ui.controller.subscription.SubscriptionControllerType
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.domain.PodcastFull
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
@@ -23,9 +24,12 @@ class SubscriptionsFragmentView : BaseRxFragmentView() {
     lateinit var presenter: SubscriptionsPresenter
 
     private val subscriptionsAdapter = EasyAdapter()
-    private val subscriptionController = SubscriptionController { podcast: PodcastFull ->
-        presenter.onSubscriptionClick(podcast)
-    }
+    private val subscriptionController = SubscriptionController(
+            type = SubscriptionControllerType.LIST_ITEM,
+            clickListener = { podcast: PodcastFull ->
+                presenter.onSubscriptionClick(podcast)
+            }
+        )
 
 
     override fun createConfigurator() = SubscriptionsScreenConfigurator()
