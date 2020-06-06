@@ -44,6 +44,7 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
     private fun initView() {
         main_tab_view.selectedTabObservable.bindTo(presenter::onBottomTabClick)
         main_player_collapsed.setOnClickListener { presenter.onPlayerClick() }
+        main_player_collapsed.onPlayPauseClick { presenter.onPlayPauseClick() }
         main_container.addOnInsetsChangedListener{ insets: AppInsets ->
             Logger.d("$insets")
 

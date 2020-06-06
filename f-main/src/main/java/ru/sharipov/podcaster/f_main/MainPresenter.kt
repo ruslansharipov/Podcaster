@@ -4,6 +4,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.navigation.*
+import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
@@ -39,8 +40,11 @@ class MainPresenter @Inject constructor(
             .subscribeDefault(mainReducer::onLastPlayedChanged)
     }
 
+    private val mainState: MainState
+        get() = stateHolder.value
+
     override fun onFirstLoad() {
-        val tabType = stateHolder.value.currentTabType
+        val tabType = mainState.currentTabType
         val route: FragmentRoute = createRouteForTab(tabType)
         tabNavigator.open(route)
     }
@@ -60,6 +64,15 @@ class MainPresenter @Inject constructor(
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
             MainTabType.SEARCH -> SearchFragmentRoute()
             MainTabType.PROFILE -> SubscriptionsFragmentRoute()
+        }
+    }
+
+    fun onPlayPauseClick() {
+        val playbackState = mainState.playbackState
+        val lastPlayed = mainState.lastPlayed.getOrNull()
+        when {
+            playbackState is PlaybackState.Playing -> playerInteractor.pause()
+            lastPlayed != null -> playerInteractor.play(lastPlayed)
         }
     }
 
