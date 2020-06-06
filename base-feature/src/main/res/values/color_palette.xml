@@ -12,10 +12,10 @@
     <color name="black_70">#B3000000</color>
     <color name="black_30">#4D000000</color>
     <color name="black_06">#10000000</color>
-    <color name="medium_violet_red">#E51888</color>
-    <color name="deep_cerise">#CD217F</color>\
-    <color name="french_lilac">#E6C8D9</color>
-    <color name="classic_rose">#F5D3E5</color>
+    <color name="medium_violet_red">#b300ff</color>
+    <color name="deep_cerise">#9200d1</color>\
+    <color name="french_lilac">#20b300ff</color>
+    <color name="classic_rose">#10b300ff</color>
     <color name="fire_engine_red">#ED1515</color>
     <color name="grey_suit">#8E8D95</color>
     <color name="grey_suit_40">#648E8D95</color>

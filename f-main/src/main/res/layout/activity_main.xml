@@ -18,7 +18,7 @@
 
     <ru.sharipov.podcaster.f_main.view.PlayerCollapsedView
         android:id="@+id/main_player_collapsed"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

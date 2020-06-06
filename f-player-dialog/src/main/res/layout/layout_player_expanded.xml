@@ -3,35 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageButton
-        android:id="@+id/player_close_ib"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end"
-        android:layout_margin="8dp"
-        android:background="@drawable/bg_selectable_ripple_circle"
-        android:contentDescription="@string/content_description"
-        android:padding="8dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_rounded_top_16_dp">
 
     <ImageView
         android:id="@+id/player_iv_expanded"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="32dp"
         android:alpha="1"
-        android:background="@color/colorPrimaryDark"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_close_ib" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/player_title_expanded"
@@ -48,31 +35,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintEnd_toEndOf="@id/player_iv_expanded"
         app:layout_constraintStart_toStartOf="@id/player_iv_expanded"
         app:layout_constraintTop_toBottomOf="@id/player_title_expanded"
         tools:text="Needs a friend" />
 
-    <ImageView
-        android:id="@+id/player_play_ib_expanded"
+    <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
+        android:id="@+id/player_play_btn"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:background="@color/colorPrimaryDark"
-        android:src="@drawable/ic_play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded" />
-
-    <ImageView
-        android:id="@+id/player_pause_ib_expanded"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@color/colorPrimaryDark"
-        android:src="@drawable/ic_pause"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded" />
+        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

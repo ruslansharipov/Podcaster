@@ -3,7 +3,7 @@ package ru.sharipov.podcaster.f_main.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.layout_player_collapsed.view.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
@@ -16,14 +16,11 @@ class PlayerCollapsedView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
         View.inflate(context, R.layout.layout_player_collapsed, this)
         setBackgroundResource(R.drawable.bg_selectable_item)
-        orientation = HORIZONTAL
-        isClickable = true
-        isFocusable = true
     }
 
     fun render(state: PlaybackState, optionalMedia: Optional<Episode>) {

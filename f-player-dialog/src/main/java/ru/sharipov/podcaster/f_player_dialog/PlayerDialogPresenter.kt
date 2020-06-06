@@ -3,6 +3,7 @@ package ru.sharipov.podcaster.f_player_dialog
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
+import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
@@ -25,12 +26,12 @@ class PlayerDialogPresenter @Inject constructor(
         subscribeOnPlaybackStateChanges()
     }
 
-    fun onPlayClick() {
-        playerInteractor.play(state.episode)
-    }
-
-    fun onPauseClick() {
-        playerInteractor.pause()
+    fun onStateBtnClick() {
+        if (state.playbackState !is PlaybackState.Playing) {
+            playerInteractor.play(state.episode)
+        } else {
+            playerInteractor.pause()
+        }
     }
 
     private fun subscribeOnPlaybackStateChanges() {

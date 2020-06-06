@@ -40,7 +40,7 @@
     </LinearLayout>
 
     <View
-        android:background="@drawable/bg_selectable_item"
+        android:background="@drawable/bg_selectable_item_white"
         android:id="@+id/subscription_clickable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

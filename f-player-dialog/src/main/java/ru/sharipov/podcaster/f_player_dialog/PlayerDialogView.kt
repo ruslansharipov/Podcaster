@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.layout_player_expanded.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
-import ru.sharipov.podcaster.domain.player.PlaybackState
-import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxDialogView
+import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
+import ru.surfstudio.android.core.mvp.presenter.CorePresenter
+import ru.surfstudio.android.core.mvp.view.CoreView
 import javax.inject.Inject
 
-class PlayerDialogView : BaseRxDialogView() {
+class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
     @Inject
     lateinit var presenter: PlayerDialogPresenter
@@ -21,9 +21,9 @@ class PlayerDialogView : BaseRxDialogView() {
     @Inject
     lateinit var sh: PlayerStateHolder
 
-    override fun getTheme(): Int = R.style.AppTheme_Light_ModalAnimationDialog
-
     override fun createConfigurator() = PlayerScreenConfigurator()
+
+    override fun getPresenters() = emptyArray<CorePresenter<CoreView>>()
 
     override fun getScreenName(): String = "PlayerDialogView"
 
@@ -39,9 +39,7 @@ class PlayerDialogView : BaseRxDialogView() {
     }
 
     private fun initView() {
-        player_close_ib.setOnClickListener { dismiss() }
-        player_play_ib_expanded.setOnClickListener { presenter.onPlayClick() }
-        player_pause_ib_expanded.setOnClickListener { presenter.onPauseClick() }
+        player_play_btn.setOnClickListener { presenter.onStateBtnClick() }
     }
 
     private fun renderState(state: PlayerState) {
@@ -51,8 +49,6 @@ class PlayerDialogView : BaseRxDialogView() {
         player_iv_expanded.performIfChanged(episode.image){ imageUrl: String ->
             bindPicture(imageUrl)
         }
-        val isPlaying = state.playbackState is PlaybackState.Playing
-        player_play_ib_expanded.performIfChanged(!isPlaying, View::isVisible::set)
-        player_pause_ib_expanded.performIfChanged(isPlaying, View::isVisible::set)
+        player_play_btn.setState(state.playbackState)
     }
 }

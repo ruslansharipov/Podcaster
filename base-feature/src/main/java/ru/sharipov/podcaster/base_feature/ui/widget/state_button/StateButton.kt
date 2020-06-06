@@ -3,22 +3,20 @@ package ru.sharipov.podcaster.base_feature.ui.widget.state_button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.cardview.widget.CardView
+import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.view_state_button.view.*
 import ru.sharipov.podcaster.base_feature.R
-import ru.sharipov.podcaster.base_feature.ui.extesions.dpToPx
 import ru.sharipov.podcaster.domain.player.PlaybackState
 
 class StateButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CardView(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
         View.inflate(context, R.layout.view_state_button, this)
-        elevation = 0f
     }
 
     fun setState(state: PlaybackState) {
