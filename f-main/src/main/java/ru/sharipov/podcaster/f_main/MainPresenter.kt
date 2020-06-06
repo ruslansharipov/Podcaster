@@ -23,9 +23,37 @@ class MainPresenter @Inject constructor(
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
 
+    private val mainState: MainState
+        get() = stateHolder.value
+
     init {
         subscribeOnPlaybackState()
         subscribeOnLastPlayed()
+    }
+
+    override fun onFirstLoad() {
+        val tabType = mainState.currentTabType
+        val route: FragmentRoute = createRouteForTab(tabType)
+        tabNavigator.open(route)
+    }
+
+    fun onBottomTabClick(tabType: MainTabType) {
+        val route: FragmentRoute = createRouteForTab(tabType)
+        tabNavigator.open(route)
+        mainReducer.onTabSelected(tabType)
+    }
+
+    fun onPlayerClick() {
+        dialogNavigator.show(PlayerDialogRoute())
+    }
+
+    fun onPlayPauseClick() {
+        val playbackState = mainState.playbackState
+        val lastPlayed = mainState.lastPlayed.getOrNull()
+        when {
+            playbackState is PlaybackState.Playing -> playerInteractor.pause()
+            lastPlayed != null -> playerInteractor.play(lastPlayed)
+        }
     }
 
     private fun subscribeOnPlaybackState() {
@@ -40,39 +68,11 @@ class MainPresenter @Inject constructor(
             .subscribeDefault(mainReducer::onLastPlayedChanged)
     }
 
-    private val mainState: MainState
-        get() = stateHolder.value
-
-    override fun onFirstLoad() {
-        val tabType = mainState.currentTabType
-        val route: FragmentRoute = createRouteForTab(tabType)
-        tabNavigator.open(route)
-    }
-
-    fun onBottomTabClick(tabType: MainTabType) {
-        val route: FragmentRoute = createRouteForTab(tabType)
-        tabNavigator.open(route)// TODO раскоментить когда появятся роуты
-        mainReducer.onTabSelected(tabType)
-    }
-
-    fun onPlayerClick() {
-        dialogNavigator.show(PlayerDialogRoute())
-    }
-
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
         return when (tabType) {
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
             MainTabType.SEARCH -> SearchFragmentRoute()
             MainTabType.PROFILE -> SubscriptionsFragmentRoute()
-        }
-    }
-
-    fun onPlayPauseClick() {
-        val playbackState = mainState.playbackState
-        val lastPlayed = mainState.lastPlayed.getOrNull()
-        when {
-            playbackState is PlaybackState.Playing -> playerInteractor.pause()
-            lastPlayed != null -> playerInteractor.play(lastPlayed)
         }
     }
 

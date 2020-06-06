@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.layout_player_expanded.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxDialogView
 import javax.inject.Inject
 
@@ -38,13 +40,19 @@ class PlayerDialogView : BaseRxDialogView() {
 
     private fun initView() {
         player_close_ib.setOnClickListener { dismiss() }
+        player_play_ib_expanded.setOnClickListener { presenter.onPlayClick() }
+        player_pause_ib_expanded.setOnClickListener { presenter.onPauseClick() }
     }
 
     private fun renderState(state: PlayerState) {
-        player_title_expanded.performIfChanged(state.title, TextView::setText)
-        player_subtitle_expanded.performIfChanged(state.podcast, TextView::setText)
-        player_iv_expanded.performIfChanged(state.image){ imageUrl: String ->
+        val episode = state.episode
+        player_title_expanded.performIfChanged(episode.title, TextView::setText)
+        player_subtitle_expanded.performIfChanged(episode.podcastTitle, TextView::setText)
+        player_iv_expanded.performIfChanged(episode.image){ imageUrl: String ->
             bindPicture(imageUrl)
         }
+        val isPlaying = state.playbackState is PlaybackState.Playing
+        player_play_ib_expanded.performIfChanged(!isPlaying, View::isVisible::set)
+        player_pause_ib_expanded.performIfChanged(isPlaying, View::isVisible::set)
     }
 }

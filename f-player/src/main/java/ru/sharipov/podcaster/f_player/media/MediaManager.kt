@@ -21,8 +21,6 @@ import ru.sharipov.podcaster.f_player.playback.*
 import ru.surfstudio.android.logger.Logger
 import java.util.concurrent.TimeUnit
 
-private const val UPDATE_INTERVAL = 50L
-
 class MediaManager constructor(
     context: Context,
     audioManager: AudioManager,
@@ -158,7 +156,6 @@ class MediaManager constructor(
         player.play(media)
         mediaSession.setMetadata(getMetadata(media))
         notificationManager.updateMedia(media)
-        updatePlaybackState(PlaybackState.Playing(media), player.position)
         onNextQueue()
     }
 
