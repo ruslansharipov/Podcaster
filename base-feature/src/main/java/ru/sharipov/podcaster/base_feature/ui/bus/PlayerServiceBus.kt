@@ -7,6 +7,7 @@ import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
 import ru.surfstudio.android.dagger.scope.PerApplication
+import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
 @PerApplication
@@ -42,6 +43,7 @@ class PlayerServiceBus @Inject constructor() {
     }
 
     fun emitPlaybackState(playbackState: PlaybackState) {
+        Logger.d("state: $playbackState")
         playbackStateRelay.accept(playbackState)
     }
 }

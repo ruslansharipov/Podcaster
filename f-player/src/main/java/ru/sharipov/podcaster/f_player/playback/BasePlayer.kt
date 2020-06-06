@@ -8,15 +8,14 @@ import android.media.AudioManager
 import android.net.wifi.WifiManager
 import ru.sharipov.podcaster.domain.Episode
 
-abstract class BasePlayback(
+abstract class BasePlayer(
     protected val context: Context,
     private val audioManager: AudioManager,
     private val wifiLock: WifiManager.WifiLock
-) : PlaybackInterface.PlayerCallback, AudioManager.OnAudioFocusChangeListener {
+) : PlayerInterface, AudioManager.OnAudioFocusChangeListener {
 
     @Volatile
     protected var currentMedia: Episode? = null
-    protected var playbackCallback: PlaybackInterface.ManagerCallback? = null
 
     private var receiverRegistered = false
     private val audioBecomingNoisyIntent = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
@@ -87,10 +86,6 @@ abstract class BasePlayback(
                 pause()
             }
         }
-    }
-
-    override fun setCallback(callback: PlaybackInterface.ManagerCallback) {
-        playbackCallback = callback
     }
 
     private fun requestFocus() {

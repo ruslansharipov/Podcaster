@@ -11,12 +11,9 @@ import dagger.Module
 import dagger.Provides
 import ru.sharipov.podcaster.base_feature.R
 import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
-import ru.sharipov.podcaster.f_player.playback.PlaybackImpl
-import ru.sharipov.podcaster.f_player.playback.PlaybackInterface
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.f_player.service.PlayerService
 import ru.sharipov.podcaster.f_player.media.MediaManager
-import ru.sharipov.podcaster.f_player.media.MediaQueue
 import ru.sharipov.podcaster.f_player.media.MediaSessionCallback
 
 @Module
@@ -27,10 +24,6 @@ class PlayerModule(
     @Provides
     @PerService
     fun providesService(): Service = service
-
-    @Provides
-    @PerService
-    fun providesServiceCallback(): PlaybackInterface.ServiceCallback = service
 
     @Provides
     @PerService
@@ -72,21 +65,22 @@ class PlayerModule(
     @PerService
     fun providesMediaManager(
         context: Context,
-        serviceCallback: PlaybackInterface.ServiceCallback,
-        playerServiceBus: PlayerServiceBus
+        playerServiceBus: PlayerServiceBus,
+        notificationManager: AppNotificationManager,
+        mediaSession: MediaSessionCompat
     ): MediaManager {
-        val mediaQueue = MediaQueue()
+        val audioManager =
+            context.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val wifiLock =
             (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager)
                 .createWifiLock(WifiManager.WIFI_MODE_FULL, context.getString(R.string.app_name))
-        val audioManager =
-            context.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        val playerCallback = PlaybackImpl(context, audioManager, wifiLock)
         return MediaManager(
+            context,
+            audioManager,
+            wifiLock,
             playerServiceBus,
-            mediaQueue,
-            playerCallback,
-            serviceCallback
-        ).apply { playerCallback.setCallback(this) }
+            notificationManager,
+            mediaSession
+        )
     }
 }

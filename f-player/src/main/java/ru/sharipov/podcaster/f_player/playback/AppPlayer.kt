@@ -13,11 +13,12 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import ru.sharipov.podcaster.base_feature.R
 
-class PlaybackImpl(
+class AppPlayer(
     context: Context,
     audioManager: AudioManager,
-    wifiLock: WifiManager.WifiLock
-) : BasePlayback(context, audioManager, wifiLock), Player.EventListener {
+    wifiLock: WifiManager.WifiLock,
+    private val playerEventListener: Player.EventListener
+) : BasePlayer(context, audioManager, wifiLock) {
 
     private var player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(
         context,
@@ -49,7 +50,7 @@ class PlaybackImpl(
 
     override fun stopPlayer() {
         player.release()
-        player.removeListener(this)
+        player.removeListener(playerEventListener)
         player.playWhenReady = false
     }
 
@@ -61,27 +62,15 @@ class PlaybackImpl(
         player.seekTo(position)
     }
 
-    override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-        when (playbackState) {
-            Player.STATE_IDLE -> playbackCallback?.onIdle()
-            Player.STATE_READY -> if (playWhenReady) playbackCallback?.onPlay() else playbackCallback?.onPause()
-            Player.STATE_BUFFERING -> if(playWhenReady) playbackCallback?.onBuffer() else playbackCallback?.onPause()
-            Player.STATE_ENDED -> playbackCallback?.onCompletion()
-        }
-    }
-
-    override fun onPlayerError(error: ExoPlaybackException){
-        playbackCallback?.onError()
-    }
-
     private fun play() {
+        // TODO listener через который можно отслеживать загрузку данных
         val dataSourceFactory = DefaultDataSourceFactory(
             context, Util.getUserAgent(context, context.getString(R.string.app_name)), null
         )
         val mediaSource = ExtractorMediaSource.Factory(dataSourceFactory)
             .setExtractorsFactory(DefaultExtractorsFactory())
             .createMediaSource(Uri.parse(currentMedia?.streamUrl))
-        player.addListener(this)
+        player.addListener(playerEventListener)
         player.prepare(mediaSource)
         player.playWhenReady = true
     }
