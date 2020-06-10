@@ -14,10 +14,10 @@ class PlayerServiceRoute(
         intent.getParcelableExtra<PlayerAction>(Route.EXTRA_FIRST)
     )
 
-    override fun prepareIntent(context: Context?): Intent? {
+    override fun prepareIntent(context: Context?): Intent {
         return super
             .prepareIntent(context)
-            ?.putExtra(Route.EXTRA_FIRST, playerAction)
+            .putExtra(Route.EXTRA_FIRST, playerAction)
     }
 
     override fun targetClassPath(): String {
