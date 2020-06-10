@@ -3,7 +3,7 @@ package ru.sharipov.podcaster.f_player_dialog
 import android.os.Bundle
 import dagger.Component
 import dagger.Module
-import ru.rendezvous.app.ui.activity.di.DialogScreenConfigurator
+import ru.rendezvous.app.ui.activity.di.BottomDialogScreenConfigurator
 import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlayerDialogRoute
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
@@ -11,7 +11,7 @@ import ru.sharipov.podcaster.base_feature.ui.screen.FragmentScreenModule
 import ru.surfstudio.android.core.mvp.configurator.ScreenComponent
 import ru.surfstudio.android.dagger.scope.PerScreen
 
-class PlayerScreenConfigurator : DialogScreenConfigurator(Bundle.EMPTY) {
+class PlayerScreenConfigurator : BottomDialogScreenConfigurator(Bundle.EMPTY) {
 
     @PerScreen
     @Component(

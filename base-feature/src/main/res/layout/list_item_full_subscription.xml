@@ -51,7 +51,7 @@
 
     <View
         android:id="@+id/subscription_clickable"
-        android:background="@drawable/bg_selectable_item"
+        android:background="@drawable/bg_selectable_item_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
