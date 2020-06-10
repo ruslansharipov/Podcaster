@@ -1,7 +1,7 @@
 package ru.sharipov.podcaster.base_feature.ui.bus
 
 import android.content.Context
-import android.os.Build
+import androidx.core.content.ContextCompat
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.navigation.PlayerServiceRoute
 import ru.sharipov.podcaster.domain.Episode
@@ -50,10 +50,6 @@ class PlayerInteractor @Inject constructor(
 
     private fun emitAction(action: PlayerAction) {
         val intent = PlayerServiceRoute(action).prepareIntent(context)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intent)
-        } else {
-            context.startService(intent)
-        }
+        ContextCompat.startForegroundService(context, intent)
     }
 }

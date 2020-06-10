@@ -9,15 +9,15 @@ abstract class ServiceCrossFeatureWithParamsRoute: ServiceRoute(), CrossFeatureR
 
     abstract override fun targetClassPath(): String
 
-    override fun prepareIntent(context: Context?): Intent? {
-        try {
-            return Intent(context, Class.forName(targetClassPath()))
+    override fun prepareIntent(context: Context?): Intent {
+        return try {
+            Intent(context, Class.forName(targetClassPath()))
         } catch (e: ClassNotFoundException) {
             Logger.e("Service with the following classpath was not found in the current " +
                     "application: ${targetClassPath()}. If this service is the part of Dynamic Feature, " +
                     "please check if this Dynamic Feature is downloaded and installed on the device" +
                     "successfully.")
+            throw e
         }
-        return null
     }
 }
