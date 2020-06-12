@@ -2,9 +2,11 @@
 <resources>
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/white</color>
-    <color name="colorAccent">@color/medium_violet_red</color>
+    <color name="colorAccent">@color/electric_purple</color>
     <color name="colorAccentDisabled">@color/deep_cerise</color>
     <color name="colorError">@color/fire_engine_red</color>
+    <color name="colorBuffered">@color/electric_purple_05</color>
+    <color name="colorProgress">@color/electric_purple_10</color>
 
     <color name="textColorPrimary">@color/nero_grey</color>
     <color name="textColorSecondary">@color/grey_suit</color>
@@ -29,7 +31,7 @@
     <color name="controlNormalColor">@color/grey_suit</color>
     <color name="controlActivatedColor">@color/colorAccent</color>
     <color name="contentBlockRippleColor">@color/white_50</color>
-    <color name="defaultRippleColor">@color/french_lilac</color>
+    <color name="defaultRippleColor">@color/electric_purple_15</color>
 
     <color name="normalAppProgressColor">@color/colorAccent</color>
     <color name="whiteAppProgressColor">@color/white</color>

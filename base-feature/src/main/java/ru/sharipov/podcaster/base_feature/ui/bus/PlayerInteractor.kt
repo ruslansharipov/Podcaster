@@ -48,6 +48,10 @@ class PlayerInteractor @Inject constructor(
         return serviceBus.observePlaybackState()
     }
 
+    fun observePosition(): Observable<Int> {
+        return serviceBus.observePosition()
+    }
+
     private fun emitAction(action: PlayerAction) {
         val intent = PlayerServiceRoute(action).prepareIntent(context)
         ContextCompat.startForegroundService(context, intent)

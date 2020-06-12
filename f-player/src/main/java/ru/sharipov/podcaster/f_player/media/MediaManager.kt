@@ -10,7 +10,8 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.Timeline
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
@@ -30,6 +31,20 @@ class MediaManager constructor(
     private val mediaSession: MediaSessionCompat
 ) : Player.EventListener {
 
+    companion object {
+        const val POSITION_UPDATE_INTERVAL_MS = 1000L
+    }
+
+    private val positionDisposable: Disposable
+
+    init {
+        positionDisposable = Observable
+            .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+            .map { (player.position / 1000).toInt() }
+            .distinctUntilChanged()
+            .subscribe(playerServiceBus::emitPosition)
+    }
+
     private val queue = MediaQueue()
     private val player: PlayerInterface = AppPlayer(
         context = context,
@@ -37,10 +52,6 @@ class MediaManager constructor(
         wifiLock = wifiLock,
         playerEventListener = this
     )
-
-    override fun onTimelineChanged(timeline: Timeline, reason: Int) {
-        playerServiceBus.emitPosition(player.position)
-    }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
@@ -74,6 +85,7 @@ class MediaManager constructor(
     }
 
     fun onDestroy() {
+        positionDisposable.dispose()
         mediaSession.release()
     }
 

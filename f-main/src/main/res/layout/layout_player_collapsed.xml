@@ -5,6 +5,13 @@
     tools:layout_height="48dp"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/player_pb_collapsed"
+        android:progressDrawable="@drawable/bg_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <ImageView
         android:id="@+id/player_iv_collapsed"
         android:layout_width="32dp"

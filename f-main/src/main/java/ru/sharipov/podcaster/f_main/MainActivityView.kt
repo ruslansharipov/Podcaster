@@ -55,6 +55,6 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     private fun render(state: MainState) {
         main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
-        main_player_collapsed.render(state.playbackState, state.lastPlayed)
+        main_player_collapsed.render(state.playbackState, state.lastPlayed, state.position)
     }
 }

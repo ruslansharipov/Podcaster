@@ -16,7 +16,7 @@ class PlayerServiceBus @Inject constructor() {
     private val playbackStateRelay = BehaviorRelay.create<PlaybackState>()
     private val queueRelay = BehaviorRelay.create<QueueData>()
     private val actionRelay = PublishRelay.create<PlayerAction>()
-    private val playbackPositionRelay = PublishRelay.create<Long>()
+    private val positionRelay = BehaviorRelay.create<Int>()
 
     fun observePlaybackState(): Observable<PlaybackState> {
         return playbackStateRelay.hide()
@@ -26,15 +26,16 @@ class PlayerServiceBus @Inject constructor() {
         return queueRelay.hide()
     }
 
-    fun observePosition() : Observable<Long>{
-        return playbackPositionRelay.hide()
+    fun observePosition(): Observable<Int> {
+        return positionRelay.hide()
     }
 
-    fun emitPosition(position: Long){
-        playbackPositionRelay.accept(position)
+    fun emitPosition(newPositionSec: Int) {
+        Logger.d("positionRelay emit: $positionRelay")
+        positionRelay.accept(newPositionSec)
     }
 
-    fun emitAction(action: PlayerAction){
+    fun emitAction(action: PlayerAction) {
         actionRelay.accept(action)
     }
 
