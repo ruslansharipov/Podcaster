@@ -43,9 +43,7 @@ class AppNotificationManager(
     private val channelId: String = service.getString(R.string.app_name)
     private var intent: Intent? = null
 
-    @Volatile
-    private var hasStarted: Boolean = false
-    private var handler = Handler()
+    private val handler = Handler()
     private var state: PlaybackState = PlaybackState.Idle
     private var media: Episode? = null
 
@@ -73,10 +71,6 @@ class AppNotificationManager(
     }
 
     private fun updateNotification() {
-        if (!hasStarted) {
-            val intent = Intent(service, PlayerService::class.java)
-            ContextCompat.startForegroundService(service, intent)
-        }
         startNotification()
     }
 
@@ -84,12 +78,10 @@ class AppNotificationManager(
         startNotification()
         handler.postDelayed({
             service.stopForeground(false)
-            hasStarted = false
         }, 100)
     }
 
     private fun stopNotification() {
-        hasStarted = false
         media = null
         notificationManager.cancel(NOTIFICATION_ID)
         service.stopSelf()
@@ -210,11 +202,8 @@ class AppNotificationManager(
     }
 
     private fun notify(notification: Notification) {
+        service.startForeground(NOTIFICATION_ID, notification)
         notificationManager.notify(NOTIFICATION_ID, notification)
-        if (!hasStarted) {
-            service.startForeground(NOTIFICATION_ID, notification)
-            hasStarted = true
-        }
     }
 
     private fun createBuilder(): NotificationCompat.Builder {
