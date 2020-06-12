@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import kotlinx.android.synthetic.main.layout_player_expanded.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
+import ru.sharipov.podcaster.base_feature.ui.extesions.distinctText
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
 import ru.surfstudio.android.core.mvp.presenter.CorePresenter
@@ -44,8 +44,8 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
     private fun renderState(state: PlayerState) {
         val episode = state.episode
-        player_title_expanded.performIfChanged(episode.title, TextView::setText)
-        player_subtitle_expanded.performIfChanged(episode.podcastTitle, TextView::setText)
+        player_title_expanded.distinctText = episode.title
+        player_subtitle_expanded.distinctText = episode.podcastTitle
         player_iv_expanded.performIfChanged(episode.image){ imageUrl: String ->
             bindPicture(imageUrl)
         }

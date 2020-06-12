@@ -16,6 +16,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+
+        style="@style/Text.Regular.10.SecondaryColor"
         android:id="@+id/player_title_collapsed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -30,6 +32,7 @@
         tools:text="Conan O'Brian" />
 
     <TextView
+        style="@style/Text.Regular.10.SecondaryColor"
         android:id="@+id/player_subtitle_collapsed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -16,13 +16,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ru.sharipov.podcaster.f_main.view.PlayerCollapsedView
-        android:id="@+id/main_player_collapsed"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/main_tab_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/main_tab_view" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ru.sharipov.podcaster.f_main.view.PlayerCollapsedView
+            android:id="@+id/main_player_collapsed"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+    </androidx.cardview.widget.CardView>
 
     <ru.sharipov.podcaster.f_main.view.BottomTabView
         android:id="@+id/main_tab_view"

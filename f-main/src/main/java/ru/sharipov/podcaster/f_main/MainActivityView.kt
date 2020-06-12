@@ -55,11 +55,6 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
 
     private fun render(state: MainState) {
         main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
-        main_fragment_container.performIfChanged(state.lastPlayed) { optionalMedia ->
-            updatePadding(
-                bottom = if (optionalMedia.hasValue) dpToPx(48) else 0
-            )
-        }
         main_player_collapsed.render(state.playbackState, state.lastPlayed)
     }
 }

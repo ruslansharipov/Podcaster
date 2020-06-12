@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageButton
-import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
@@ -15,7 +15,7 @@ import ru.sharipov.podcaster.f_main.R
 class BottomTabView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
-) : LinearLayout(context, attributeSet) {
+) : CardView(context, attributeSet) {
 
     private val tabButtonsMap: Map<MainTabType, ImageButton>
     private val selectedTabRelay = BehaviorRelay.create<MainTabType>()
@@ -30,8 +30,6 @@ class BottomTabView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_bottom_tab, this)
-
-        orientation = HORIZONTAL
 
         tabButtonsMap = hashMapOf<MainTabType, ImageButton>(
             MainTabType.EXPLORE to bottom_tab_explore_btn,
