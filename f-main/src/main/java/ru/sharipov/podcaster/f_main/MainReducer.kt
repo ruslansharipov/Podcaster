@@ -14,7 +14,8 @@ data class MainState(
     val currentTabType: MainTabType = MainTabType.EXPLORE,
     val playbackState: PlaybackState = PlaybackState.Idle,
     val lastPlayed: Optional<Episode> = Optional.empty(),
-    val position: Int = 0
+    val position: Int = 0,
+    val bufferingPosition: Int = 0
 )
 
 @PerScreen
@@ -25,6 +26,12 @@ class MainReducer @Inject constructor(
     dependency: StateReducerDependency,
     private val sh: MainStateHolder
 ) : StateReducer(dependency) {
+
+    fun onBufferingPositionChange(newBufferingPosition: Int){
+        sh.emitNewState {
+            copy(bufferingPosition = newBufferingPosition)
+        }
+    }
 
     fun onPositionChange(newPosition: Int) {
         val lastPlayed = sh.value.lastPlayed.getOrNull()

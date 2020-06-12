@@ -2,11 +2,13 @@ package ru.sharipov.podcaster.f_main
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
-import ru.sharipov.podcaster.base_feature.ui.extesions.dpToPx
+import ru.sharipov.podcaster.base_feature.ui.extesions.bindPictureDefault
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.sharipov.podcaster.f_main.view.BottomTabView
@@ -43,7 +45,7 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
     private fun initView() {
         main_tab_view.selectedTabObservable.bindTo(presenter::onBottomTabClick)
         main_player_collapsed.setOnClickListener { presenter.onPlayerClick() }
-        main_player_collapsed.onPlayPauseClick { presenter.onPlayPauseClick() }
+        main_play_ib_collapsed.setOnClickListener { presenter.onPlayPauseClick() }
         main_container.addOnInsetsChangedListener{ insets: AppInsets ->
             Logger.d("$insets")
 
@@ -54,7 +56,21 @@ class MainActivityView: BaseRxActivityView(), FragmentContainer {
     }
 
     private fun render(state: MainState) {
+        val lastPlayedEpisode = state.lastPlayed.getOrNull()
         main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
-        main_player_collapsed.render(state.playbackState, state.lastPlayed, state.position)
+        main_title_collapsed.performIfChanged(lastPlayedEpisode?.title, TextView::setText)
+        main_subtitle_collapsed.performIfChanged(lastPlayedEpisode?.podcastTitle, TextView::setText)
+        main_iv_collapsed.performIfChanged(lastPlayedEpisode?.image, ImageView::bindPictureDefault)
+        main_pb_collapsed.performIfChanged(
+            lastPlayedEpisode?.duration,
+            state.position,
+            state.bufferingPosition,
+            { duration, position, bufferedPosition ->
+                max = duration
+                progress = position
+                secondaryProgress = bufferedPosition
+            }
+        )
+        main_play_ib_collapsed.setState(state.playbackState)
     }
 }

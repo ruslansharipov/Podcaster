@@ -9,7 +9,6 @@ import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute
 import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.logger.Logger
 import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
 
@@ -31,6 +30,7 @@ class MainPresenter @Inject constructor(
         subscribeOnPlaybackState()
         subscribeOnLastPlayed()
         subscribeOnPositionChanges()
+        subscribeOnBufferingChanges()
 
         val tabType = mainState.currentTabType
         val route: FragmentRoute = createRouteForTab(tabType)
@@ -74,10 +74,13 @@ class MainPresenter @Inject constructor(
     private fun subscribeOnPositionChanges() {
         playerInteractor
             .observePosition()
-            .subscribeDefault {
-                Logger.d("subscribeOnPositionChanges: $it")
-                mainReducer.onPositionChange(it)
-            }
+            .subscribeDefault (mainReducer::onPositionChange)
+    }
+
+    private fun subscribeOnBufferingChanges() {
+        playerInteractor
+            .observeBufferingPosition()
+            .subscribeDefault(mainReducer::onBufferingPositionChange)
     }
 
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {

@@ -52,6 +52,10 @@ class PlayerInteractor @Inject constructor(
         return serviceBus.observePosition()
     }
 
+    fun observeBufferingPosition(): Observable<Int>{
+        return serviceBus.observeBufferedPosition()
+    }
+
     private fun emitAction(action: PlayerAction) {
         val intent = PlayerServiceRoute(action).prepareIntent(context)
         ContextCompat.startForegroundService(context, intent)

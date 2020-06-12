@@ -40,9 +40,13 @@ class MediaManager constructor(
     init {
         positionDisposable = Observable
             .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-            .map { (player.position / 1000).toInt() }
-            .distinctUntilChanged()
-            .subscribe(playerServiceBus::emitPosition)
+            .subscribe {
+                val positionSec = player.position.toSeconds()
+                playerServiceBus.emitPosition(positionSec)
+
+                val bufferedPosition = player.bufferedPosition.toSeconds()
+                playerServiceBus.emitBufferedPosition(bufferedPosition)
+            }
     }
 
     private val queue = MediaQueue()
@@ -228,5 +232,9 @@ class MediaManager constructor(
             actions or PlaybackStateCompat.ACTION_PLAY
         }
         return actions
+    }
+
+    private fun Long.toSeconds(): Int {
+        return (this / 1000).toInt()
     }
 }

@@ -7,7 +7,6 @@ import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
 import ru.surfstudio.android.dagger.scope.PerApplication
-import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
 @PerApplication
@@ -17,6 +16,7 @@ class PlayerServiceBus @Inject constructor() {
     private val queueRelay = BehaviorRelay.create<QueueData>()
     private val actionRelay = PublishRelay.create<PlayerAction>()
     private val positionRelay = BehaviorRelay.create<Int>()
+    private val bufferedRelay = BehaviorRelay.create<Int>()
 
     fun observePlaybackState(): Observable<PlaybackState> {
         return playbackStateRelay.hide()
@@ -27,11 +27,12 @@ class PlayerServiceBus @Inject constructor() {
     }
 
     fun observePosition(): Observable<Int> {
-        return positionRelay.hide()
+        return positionRelay
+            .hide()
+            .distinctUntilChanged()
     }
 
     fun emitPosition(newPositionSec: Int) {
-        Logger.d("positionRelay emit: $positionRelay")
         positionRelay.accept(newPositionSec)
     }
 
@@ -44,7 +45,16 @@ class PlayerServiceBus @Inject constructor() {
     }
 
     fun emitPlaybackState(playbackState: PlaybackState) {
-        Logger.d("state: $playbackState")
         playbackStateRelay.accept(playbackState)
+    }
+
+    fun emitBufferedPosition(newBufferedPositionSec: Int){
+        bufferedRelay.accept(newBufferedPositionSec)
+    }
+
+    fun observeBufferedPosition(): Observable<Int>{
+        return bufferedRelay
+            .hide()
+            .distinctUntilChanged()
     }
 }

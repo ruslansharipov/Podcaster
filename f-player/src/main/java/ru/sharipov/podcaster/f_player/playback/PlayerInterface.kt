@@ -7,6 +7,8 @@ interface PlayerInterface {
 
     val isPlaying: Boolean
 
+    val bufferedPosition: Long
+
     val position: Long
 
     val duration: Long

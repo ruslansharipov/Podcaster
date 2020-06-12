@@ -30,6 +30,9 @@ class AppPlayer(
             .setContentType(C.CONTENT_TYPE_MUSIC)
             .build()
     }
+    
+    override val bufferedPosition: Long
+        get() = player.bufferedPosition
 
     override val isPlaying: Boolean
         get() = player.playWhenReady
