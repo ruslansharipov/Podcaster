@@ -27,10 +27,10 @@ class PlayerDialogPresenter @Inject constructor(
     }
 
     fun onStateBtnClick() {
-        if (state.playbackState !is PlaybackState.Playing) {
-            playerInteractor.play(state.episode)
-        } else {
-            playerInteractor.pause()
+        when(state.playbackState){
+            is PlaybackState.Buffering,
+            is PlaybackState.Playing -> playerInteractor.pause()
+            else -> playerInteractor.play(state.episode)
         }
     }
 

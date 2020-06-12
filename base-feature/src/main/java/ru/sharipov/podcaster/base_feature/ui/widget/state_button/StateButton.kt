@@ -22,7 +22,6 @@ class StateButton @JvmOverloads constructor(
     fun setState(state: PlaybackState) {
         val isLoading = state is PlaybackState.Buffering
         state_btn_pv.isVisible = isLoading
-        state_btn_ibtn.isVisible = !isLoading
         val buttonImageRes = if (state is PlaybackState.Playing) {
             R.drawable.ic_pause
         } else {

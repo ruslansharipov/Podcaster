@@ -50,8 +50,11 @@ class MainPresenter @Inject constructor(
     fun onPlayPauseClick() {
         val playbackState = mainState.playbackState
         val lastPlayed = mainState.lastPlayed.getOrNull()
+
+        val isPlaying = playbackState is PlaybackState.Playing
+        val isBuffering = playbackState is PlaybackState.Buffering
         when {
-            playbackState is PlaybackState.Playing -> playerInteractor.pause()
+            isBuffering || isPlaying -> playerInteractor.pause()
             lastPlayed != null -> playerInteractor.play(lastPlayed)
         }
     }

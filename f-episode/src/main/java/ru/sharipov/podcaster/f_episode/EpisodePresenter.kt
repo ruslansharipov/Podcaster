@@ -24,16 +24,18 @@ class EpisodePresenter @Inject constructor(
             .subscribeDefault(episodeReducer::onStateChange)
     }
 
+    private val state: EpisodeState
+        get() = episodeStateHolder.value
+
     fun onBackPressed() {
         tabNavigator.onBackPressed()
     }
 
     fun onPlayBtnClick() {
-        val episodeState = episodeStateHolder.value
-        if (episodeState.playbackState is PlaybackState.Playing){
-            playerInteractor.pause()
-        } else {
-            playerInteractor.play(episodeState.episode)
+        when(state.playbackState){
+            is PlaybackState.Buffering,
+            is PlaybackState.Playing -> playerInteractor.pause()
+            else -> playerInteractor.play(state.episode)
         }
     }
 
