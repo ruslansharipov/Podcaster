@@ -41,10 +41,10 @@ class MediaManager constructor(
         positionDisposable = Observable
             .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
             .subscribe {
-                val positionSec = player.position.toSeconds()
+                val positionSec = player.positionMs.toSeconds()
                 playerServiceBus.emitPosition(positionSec)
 
-                val bufferedPosition = player.bufferedPosition.toSeconds()
+                val bufferedPosition = player.bufferedPositionMs.toSeconds()
                 playerServiceBus.emitBufferedPosition(bufferedPosition)
             }
     }
@@ -67,7 +67,7 @@ class MediaManager constructor(
     }
 
     override fun onPlayerError(error: ExoPlaybackException) {
-        updatePlaybackState(PlaybackState.Error(error), player.position)
+        updatePlaybackState(PlaybackState.Error(error), player.positionMs)
     }
 
     fun onNewIntent(intent: Intent?) {
@@ -79,7 +79,7 @@ class MediaManager constructor(
         when (action) {
             is PlayerAction.Play -> handlePlayRequest(action.media, action.index)
             is PlayerAction.Add -> handleAddRequest(action.media)
-            is PlayerAction.Seek -> handleSeekRequest(action.position)
+            is PlayerAction.Seek -> handleSeekRequest(action.positionMs)
             is PlayerAction.Pause -> handlePauseRequest()
             is PlayerAction.Resume -> handleResumeRequest()
             is PlayerAction.Stop -> handleStopRequest()
@@ -94,11 +94,12 @@ class MediaManager constructor(
     }
 
     private fun onStateBuffering(playWhenReady: Boolean) {
-        if (playWhenReady) {
-            updatePlaybackState(PlaybackState.Buffering(queue.current), player.position)
+        val newState = if (playWhenReady) {
+            PlaybackState.Buffering(queue.current)
         } else {
-            updatePlaybackState(PlaybackState.Paused(queue.current), player.position)
+            PlaybackState.Paused(queue.current)
         }
+        updatePlaybackState(newState, player.positionMs)
     }
 
     private fun onStateReady(playWhenReady: Boolean) {
@@ -108,14 +109,14 @@ class MediaManager constructor(
         } else {
             PlaybackState.Paused(currentMedia)
         }
-        updatePlaybackState(state, player.position)
+        updatePlaybackState(state, player.positionMs)
     }
 
     private fun onCompletion() {
         if (queue.hasNext()) {
             play(queue.next)
         } else {
-            updatePlaybackState(PlaybackState.Completed(queue.current), player.position)
+            updatePlaybackState(PlaybackState.Completed(queue.current), player.positionMs)
             player.complete()
         }
     }
@@ -142,7 +143,7 @@ class MediaManager constructor(
     }
 
     private fun handlePrevRequest() {
-        val position = TimeUnit.MILLISECONDS.toSeconds(player.position)
+        val position = TimeUnit.MILLISECONDS.toSeconds(player.positionMs)
         player.invalidateCurrent()
         if (position <= 3) {
             play(queue.previous)

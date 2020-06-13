@@ -10,7 +10,9 @@ import javax.inject.Inject
 
 data class PlayerState(
     val episode: Episode = Episode(),
-    val playbackState: PlaybackState = PlaybackState.Idle
+    val playbackState: PlaybackState = PlaybackState.Idle,
+    val position: Int = 0,
+    val bufferingPosition: Int = 0
 )
 
 @PerScreen
@@ -21,6 +23,18 @@ class PlayerReducer @Inject constructor(
     dependency: StateReducerDependency,
     private val sh: PlayerStateHolder
 ) : StateReducer(dependency) {
+
+    fun onBufferingPositionChange(newBufferingPosition: Int){
+        sh.emitNewState {
+            copy(bufferingPosition = newBufferingPosition)
+        }
+    }
+
+    fun onPositionChange(newPosition: Int) {
+        sh.emitNewState {
+            copy(position = newPosition)
+        }
+    }
 
     fun onLastPlayedChange(episode: Episode) {
         sh.emitNewState {

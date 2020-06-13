@@ -28,8 +28,8 @@ class PlayerInteractor @Inject constructor(
         emitAction(PlayerAction.Pause)
     }
 
-    fun seek(position: Long) {
-        emitAction(PlayerAction.Seek(position))
+    fun seek(positionMs: Long) {
+        emitAction(PlayerAction.Seek(positionMs))
     }
 
     fun stop() {

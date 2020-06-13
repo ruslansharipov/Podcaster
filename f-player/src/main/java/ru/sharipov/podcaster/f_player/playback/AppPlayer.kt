@@ -31,13 +31,13 @@ class AppPlayer(
             .build()
     }
     
-    override val bufferedPosition: Long
+    override val bufferedPositionMs: Long
         get() = player.bufferedPosition
 
     override val isPlaying: Boolean
         get() = player.playWhenReady
 
-    override val position: Long
+    override val positionMs: Long
         get() = player.currentPosition
 
     override val duration: Long
@@ -61,8 +61,8 @@ class AppPlayer(
         player.playWhenReady = true
     }
 
-    override fun seekTo(position: Long) {
-        player.seekTo(position)
+    override fun seekTo(positionMs: Long) {
+        player.seekTo(positionMs)
     }
 
     private fun play() {

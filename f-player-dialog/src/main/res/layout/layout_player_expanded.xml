@@ -38,11 +38,17 @@
         android:layout_marginBottom="12dp"
         tools:text="Needs a friend" />
 
+    <SeekBar
+        android:id="@+id/player_sb_expanded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
         android:id="@+id/player_play_btn"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="48dp" />
 
 </LinearLayout>

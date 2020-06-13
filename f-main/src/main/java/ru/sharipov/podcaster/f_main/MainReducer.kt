@@ -35,9 +35,6 @@ class MainReducer @Inject constructor(
 
     fun onPositionChange(newPosition: Int) {
         val lastPlayed = sh.value.lastPlayed.getOrNull()
-        Logger.d(
-            "newPosition: $newPosition, duration: ${lastPlayed?.duration}"
-        )
         if (lastPlayed != null){
             sh.emitNewState {
                 copy(position = newPosition)
