@@ -26,12 +26,12 @@ class MainPresenter @Inject constructor(
     private val mainState: MainState
         get() = stateHolder.value
 
-    init {
+    override fun onFirstLoad() {
         subscribeOnPlaybackState()
         subscribeOnLastPlayed()
-    }
+        subscribeOnPositionChanges()
+        subscribeOnBufferingChanges()
 
-    override fun onFirstLoad() {
         val tabType = mainState.currentTabType
         val route: FragmentRoute = createRouteForTab(tabType)
         tabNavigator.open(route)
@@ -50,8 +50,11 @@ class MainPresenter @Inject constructor(
     fun onPlayPauseClick() {
         val playbackState = mainState.playbackState
         val lastPlayed = mainState.lastPlayed.getOrNull()
+
+        val isPlaying = playbackState is PlaybackState.Playing
+        val isBuffering = playbackState is PlaybackState.Buffering
         when {
-            playbackState is PlaybackState.Playing -> playerInteractor.pause()
+            isBuffering || isPlaying -> playerInteractor.pause()
             lastPlayed != null -> playerInteractor.play(lastPlayed)
         }
     }
@@ -66,6 +69,18 @@ class MainPresenter @Inject constructor(
         historyInteractor
             .observeLastPlayed()
             .subscribeDefault(mainReducer::onLastPlayedChanged)
+    }
+
+    private fun subscribeOnPositionChanges() {
+        playerInteractor
+            .observePosition()
+            .subscribeDefault (mainReducer::onPositionChange)
+    }
+
+    private fun subscribeOnBufferingChanges() {
+        playerInteractor
+            .observeBufferingPosition()
+            .subscribeDefault(mainReducer::onBufferingPositionChange)
     }
 
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {

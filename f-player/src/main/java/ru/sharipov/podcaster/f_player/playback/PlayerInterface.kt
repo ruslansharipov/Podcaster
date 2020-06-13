@@ -7,7 +7,9 @@ interface PlayerInterface {
 
     val isPlaying: Boolean
 
-    val position: Long
+    val bufferedPositionMs: Long
+
+    val positionMs: Long
 
     val duration: Long
 
@@ -19,7 +21,7 @@ interface PlayerInterface {
 
     fun stop()
 
-    fun seekTo(position: Long)
+    fun seekTo(positionMs: Long)
 
     fun invalidateCurrent()
 }

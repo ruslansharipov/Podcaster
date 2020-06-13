@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.layout_player_expanded.*
-import ru.sharipov.podcaster.base_feature.ui.extesions.bindPicture
-import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.extesions.*
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
 import ru.surfstudio.android.core.mvp.presenter.CorePresenter
 import ru.surfstudio.android.core.mvp.view.CoreView
@@ -40,15 +39,24 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
     private fun initView() {
         player_play_btn.setOnClickListener { presenter.onStateBtnClick() }
+        player_sb_expanded.setOnUserSeekChanges{ presenter.onUserSeeks(it) }
     }
 
     private fun renderState(state: PlayerState) {
         val episode = state.episode
-        player_title_expanded.performIfChanged(episode.title, TextView::setText)
-        player_subtitle_expanded.performIfChanged(episode.podcastTitle, TextView::setText)
-        player_iv_expanded.performIfChanged(episode.image){ imageUrl: String ->
-            bindPicture(imageUrl)
-        }
+        player_title_expanded.distinctText = episode.title
+        player_subtitle_expanded.distinctText = episode.podcastTitle
+        player_iv_expanded.performIfChanged(episode.image, ImageView::bindPictureDefault)
+        player_sb_expanded.performIfChanged(
+            episode.duration,
+            state.position,
+            state.bufferingPosition,
+            { duration, position, bufferedPosition ->
+                max = duration
+                progress = position
+                secondaryProgress = bufferedPosition
+            }
+        )
         player_play_btn.setState(state.playbackState)
     }
 }

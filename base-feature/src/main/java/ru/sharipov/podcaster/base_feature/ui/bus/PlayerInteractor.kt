@@ -28,8 +28,8 @@ class PlayerInteractor @Inject constructor(
         emitAction(PlayerAction.Pause)
     }
 
-    fun seek(position: Long) {
-        emitAction(PlayerAction.Seek(position))
+    fun seek(positionMs: Long) {
+        emitAction(PlayerAction.Seek(positionMs))
     }
 
     fun stop() {
@@ -46,6 +46,14 @@ class PlayerInteractor @Inject constructor(
 
     fun observeAllStates(): Observable<PlaybackState> {
         return serviceBus.observePlaybackState()
+    }
+
+    fun observePosition(): Observable<Int> {
+        return serviceBus.observePosition()
+    }
+
+    fun observeBufferingPosition(): Observable<Int>{
+        return serviceBus.observeBufferedPosition()
     }
 
     private fun emitAction(action: PlayerAction) {

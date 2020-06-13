@@ -19,6 +19,10 @@ fun ImageView.setDrawableColor(color: Int) = drawable
     .mutate()
     .setColorFilter(color, PorterDuff.Mode.SRC_IN)
 
+fun ImageView.bindPictureDefault(url: String){
+    bindPicture(url)
+}
+
 fun ImageView.bindPicture(
     url: String,
     @DimenRes radiusRes: Int? = R.dimen.placeholder_picture_corner_radius,

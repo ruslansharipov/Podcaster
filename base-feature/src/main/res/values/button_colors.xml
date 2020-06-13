@@ -5,7 +5,7 @@
     <color name="primaryButtonDisabledColor">@color/colorAccent</color>
     <color name="primaryButtonTextColor">@color/white</color>
     <color name="primaryButtonDisabledTextColor">@color/white</color>
-    <color name="primaryButtonPressedTextColor">@color/classic_rose</color>
+    <color name="primaryButtonPressedTextColor">@color/electric_purple_05</color>
 
     <color name="transparentButtonRippleColor">@color/defaultRippleColor</color>
     <color name="transparentButtonStrokeColor">@color/colorAccent</color>

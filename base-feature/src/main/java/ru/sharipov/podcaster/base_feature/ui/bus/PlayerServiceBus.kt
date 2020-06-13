@@ -7,7 +7,6 @@ import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
 import ru.surfstudio.android.dagger.scope.PerApplication
-import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
 @PerApplication
@@ -16,7 +15,8 @@ class PlayerServiceBus @Inject constructor() {
     private val playbackStateRelay = BehaviorRelay.create<PlaybackState>()
     private val queueRelay = BehaviorRelay.create<QueueData>()
     private val actionRelay = PublishRelay.create<PlayerAction>()
-    private val playbackPositionRelay = PublishRelay.create<Long>()
+    private val positionRelay = BehaviorRelay.create<Int>()
+    private val bufferedRelay = BehaviorRelay.create<Int>()
 
     fun observePlaybackState(): Observable<PlaybackState> {
         return playbackStateRelay.hide()
@@ -26,15 +26,17 @@ class PlayerServiceBus @Inject constructor() {
         return queueRelay.hide()
     }
 
-    fun observePosition() : Observable<Long>{
-        return playbackPositionRelay.hide()
+    fun observePosition(): Observable<Int> {
+        return positionRelay
+            .hide()
+            .distinctUntilChanged()
     }
 
-    fun emitPosition(position: Long){
-        playbackPositionRelay.accept(position)
+    fun emitPosition(newPositionSec: Int) {
+        positionRelay.accept(newPositionSec)
     }
 
-    fun emitAction(action: PlayerAction){
+    fun emitAction(action: PlayerAction) {
         actionRelay.accept(action)
     }
 
@@ -43,7 +45,16 @@ class PlayerServiceBus @Inject constructor() {
     }
 
     fun emitPlaybackState(playbackState: PlaybackState) {
-        Logger.d("state: $playbackState")
         playbackStateRelay.accept(playbackState)
+    }
+
+    fun emitBufferedPosition(newBufferedPositionSec: Int){
+        bufferedRelay.accept(newBufferedPositionSec)
+    }
+
+    fun observeBufferedPosition(): Observable<Int>{
+        return bufferedRelay
+            .hide()
+            .distinctUntilChanged()
     }
 }

@@ -11,7 +11,6 @@ import android.os.Handler
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -43,11 +42,8 @@ class AppNotificationManager(
     private val channelId: String = service.getString(R.string.app_name)
     private var intent: Intent? = null
 
-    @Volatile
-    private var hasStarted: Boolean = false
-    private var handler = Handler()
+    private val handler = Handler()
     private var state: PlaybackState = PlaybackState.Idle
-    private var media: Episode? = null
 
     init {
         createNotificationChannels()
@@ -58,39 +54,28 @@ class AppNotificationManager(
     }
 
     fun updateMedia(media: Episode?) {
-        this.media = media
+        updateNotification(media)
     }
 
     fun updateState(state: PlaybackState) {
         this.state = state
         when (state) {
-            is PlaybackState.Buffering -> updateNotification()
-            is PlaybackState.Playing -> updateNotification()
-            is PlaybackState.Paused -> pauseNotification()
-            is PlaybackState.Completed -> pauseNotification()
+            is PlaybackState.Buffering -> updateNotification(state.media)
+            is PlaybackState.Playing -> updateNotification(state.media)
+            is PlaybackState.Paused -> pauseNotification(state.media)
+            is PlaybackState.Completed -> pauseNotification(state.media)
             else -> stopNotification()
         }
     }
 
-    private fun updateNotification() {
-        if (!hasStarted) {
-            val intent = Intent(service, PlayerService::class.java)
-            ContextCompat.startForegroundService(service, intent)
-        }
-        startNotification()
-    }
-
-    private fun pauseNotification() {
-        startNotification()
+    private fun pauseNotification(media: Episode?) {
+        updateNotification(media)
         handler.postDelayed({
             service.stopForeground(false)
-            hasStarted = false
         }, 100)
     }
 
     private fun stopNotification() {
-        hasStarted = false
-        media = null
         notificationManager.cancel(NOTIFICATION_ID)
         service.stopSelf()
     }
@@ -146,7 +131,7 @@ class AppNotificationManager(
         return PendingIntent.getService(context, intentId, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    private fun startNotification() {
+    private fun updateNotification(media: Episode?) {
         val builder = createBuilder()
         Glide.with(service)
             .asBitmap()
@@ -159,16 +144,16 @@ class AppNotificationManager(
             )
             .into(object : SimpleTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    showNotification(builder, resource)
+                    showNotification(builder, resource, media)
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
-                    showNotification(builder, null)
+                    showNotification(builder, null, media)
                 }
             })
     }
 
-    private fun showNotification(builder: NotificationCompat.Builder, bitmap: Bitmap?) {
+    private fun showNotification(builder: NotificationCompat.Builder, bitmap: Bitmap?, media: Episode?) {
         if (media == null || state == PlaybackState.Idle) {
             return
         }
@@ -184,8 +169,8 @@ class AppNotificationManager(
             .setSmallIcon(R.drawable.ic_play)
             .setShowWhen(false)
             .setOnlyAlertOnce(true)
-            .setContentTitle(media?.title)
-            .setContentText(media?.podcastTitle)
+            .setContentTitle(media.title)
+            .setContentText(media.podcastTitle)
             .setDeleteIntent(dismiss(service))
             .addAction(prev(service))
 
@@ -206,15 +191,14 @@ class AppNotificationManager(
                 PLAYER_PENDING_INTENT_ID, notificationIntent, 0
             )
         )
-        notify(builder.build())
+        val notification = builder.build()
+        service.startForeground(NOTIFICATION_ID, notification)
+        notify(notification)
     }
 
     private fun notify(notification: Notification) {
+        service.startForeground(NOTIFICATION_ID, notification)
         notificationManager.notify(NOTIFICATION_ID, notification)
-        if (!hasStarted) {
-            service.startForeground(NOTIFICATION_ID, notification)
-            hasStarted = true
-        }
     }
 
     private fun createBuilder(): NotificationCompat.Builder {

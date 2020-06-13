@@ -10,7 +10,8 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.Timeline
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
@@ -30,6 +31,24 @@ class MediaManager constructor(
     private val mediaSession: MediaSessionCompat
 ) : Player.EventListener {
 
+    companion object {
+        const val POSITION_UPDATE_INTERVAL_MS = 1000L
+    }
+
+    private val positionDisposable: Disposable
+
+    init {
+        positionDisposable = Observable
+            .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+            .subscribe {
+                val positionSec = player.positionMs.toSeconds()
+                playerServiceBus.emitPosition(positionSec)
+
+                val bufferedPosition = player.bufferedPositionMs.toSeconds()
+                playerServiceBus.emitBufferedPosition(bufferedPosition)
+            }
+    }
+
     private val queue = MediaQueue()
     private val player: PlayerInterface = AppPlayer(
         context = context,
@@ -37,10 +56,6 @@ class MediaManager constructor(
         wifiLock = wifiLock,
         playerEventListener = this
     )
-
-    override fun onTimelineChanged(timeline: Timeline, reason: Int) {
-        playerServiceBus.emitPosition(player.position)
-    }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
@@ -52,7 +67,7 @@ class MediaManager constructor(
     }
 
     override fun onPlayerError(error: ExoPlaybackException) {
-        updatePlaybackState(PlaybackState.Error(error), player.position)
+        updatePlaybackState(PlaybackState.Error(error), player.positionMs)
     }
 
     fun onNewIntent(intent: Intent?) {
@@ -64,7 +79,7 @@ class MediaManager constructor(
         when (action) {
             is PlayerAction.Play -> handlePlayRequest(action.media, action.index)
             is PlayerAction.Add -> handleAddRequest(action.media)
-            is PlayerAction.Seek -> handleSeekRequest(action.position)
+            is PlayerAction.Seek -> handleSeekRequest(action.positionMs)
             is PlayerAction.Pause -> handlePauseRequest()
             is PlayerAction.Resume -> handleResumeRequest()
             is PlayerAction.Stop -> handleStopRequest()
@@ -74,15 +89,17 @@ class MediaManager constructor(
     }
 
     fun onDestroy() {
+        positionDisposable.dispose()
         mediaSession.release()
     }
 
     private fun onStateBuffering(playWhenReady: Boolean) {
-        if (playWhenReady) {
-            updatePlaybackState(PlaybackState.Buffering(queue.current), player.position)
+        val newState = if (playWhenReady) {
+            PlaybackState.Buffering(queue.current)
         } else {
-            updatePlaybackState(PlaybackState.Paused(queue.current), player.position)
+            PlaybackState.Paused(queue.current)
         }
+        updatePlaybackState(newState, player.positionMs)
     }
 
     private fun onStateReady(playWhenReady: Boolean) {
@@ -92,14 +109,14 @@ class MediaManager constructor(
         } else {
             PlaybackState.Paused(currentMedia)
         }
-        updatePlaybackState(state, player.position)
+        updatePlaybackState(state, player.positionMs)
     }
 
     private fun onCompletion() {
         if (queue.hasNext()) {
             play(queue.next)
         } else {
-            updatePlaybackState(PlaybackState.Completed(queue.current), player.position)
+            updatePlaybackState(PlaybackState.Completed(queue.current), player.positionMs)
             player.complete()
         }
     }
@@ -126,7 +143,7 @@ class MediaManager constructor(
     }
 
     private fun handlePrevRequest() {
-        val position = TimeUnit.MILLISECONDS.toSeconds(player.position)
+        val position = TimeUnit.MILLISECONDS.toSeconds(player.positionMs)
         player.invalidateCurrent()
         if (position <= 3) {
             play(queue.previous)
@@ -216,5 +233,9 @@ class MediaManager constructor(
             actions or PlaybackStateCompat.ACTION_PLAY
         }
         return actions
+    }
+
+    private fun Long.toSeconds(): Int {
+        return (this / 1000).toInt()
     }
 }
