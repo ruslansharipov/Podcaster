@@ -41,6 +41,5 @@ interface AppProxyDependencies {
     fun playerServiceBus(): PlayerServiceBus
     fun playerInteractor(): PlayerInteractor
     fun pingBus(): PingBus
-    fun episodeDateFormatter(): EpisodeDateFormatter
     fun subscriptionInteractor() : SubscriptionInteractor
 }
