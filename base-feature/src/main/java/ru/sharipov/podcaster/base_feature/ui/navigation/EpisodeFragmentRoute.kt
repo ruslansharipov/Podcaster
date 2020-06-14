@@ -7,22 +7,16 @@ import ru.surfstudio.android.core.ui.navigation.Route
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureWithParamsRoute
 
 class EpisodeFragmentRoute(
-    val podcastTitle: String,
-    val episode: Episode,
-    val dateFormatted: String
+    val episode: Episode
 ) : FragmentCrossFeatureWithParamsRoute() {
 
     constructor(bundle: Bundle): this(
-        bundle.getString(Route.EXTRA_FIRST),
-        bundle.getParcelable<Episode>(Route.EXTRA_SECOND),
-        bundle.getString(Route.EXTRA_THIRD)
+        bundle.getParcelable<Episode>(Route.EXTRA_FIRST)
     )
 
     override fun prepareBundle(): Bundle {
         return bundleOf(
-            Route.EXTRA_FIRST to podcastTitle,
-            Route.EXTRA_SECOND to episode,
-            Route.EXTRA_THIRD to dateFormatted
+            Route.EXTRA_FIRST to episode
         )
     }
 

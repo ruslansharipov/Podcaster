@@ -10,16 +10,14 @@ import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class EpisodeState(
-    val podcastTitle: String,
     val episode: Episode,
-    val dateFormatted: String,
     val playbackState: PlaybackState = PlaybackState.Idle
 )
 
 @PerScreen
 class EpisodeStateHolder @Inject constructor(
     route: EpisodeFragmentRoute
-) : State<EpisodeState>(EpisodeState(route.podcastTitle, route.episode, route.dateFormatted))
+) : State<EpisodeState>(EpisodeState(route.episode))
 
 @PerScreen
 class EpisodeReducer @Inject constructor(

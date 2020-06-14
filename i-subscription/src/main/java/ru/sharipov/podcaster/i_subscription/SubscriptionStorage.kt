@@ -1,5 +1,6 @@
 package ru.sharipov.podcaster.i_subscription
 
+import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 import ru.sharipov.podcaster.domain.PodcastFull
@@ -21,13 +22,10 @@ class SubscriptionStorage(
         const val STORAGE_MAX_FILES = 255
     }
 
-    private val subscriptionsRelay = PublishRelay.create<List<PodcastFull>>()
+    private val subscriptionsRelay = BehaviorRelay.createDefault<List<PodcastFull>>(all)
 
     fun observeSubscriptions(): Observable<List<PodcastFull>> {
-        return Observable.merge(
-            subscriptionsRelay.hide(),
-            Observable.just(all)
-        )
+        return subscriptionsRelay.hide()
     }
 
     fun add(podcastFull: PodcastFull) {

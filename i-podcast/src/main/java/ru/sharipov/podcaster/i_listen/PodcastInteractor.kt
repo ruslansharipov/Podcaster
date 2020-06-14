@@ -6,7 +6,6 @@ import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.domain.*
 import ru.sharipov.podcaster.i_network.network.BaseNetworkInteractor
 import ru.sharipov.podcaster.i_network.network.transform
-import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
@@ -62,8 +61,8 @@ class PodcastInteractor @Inject constructor(
     fun getPodcastEpisodes(
         podcastId: String,
         podcastTitle: String,
-        sortType: SortType,
-        nextEpisodePubDate: Long?
+        sortType: SortType = SortType.RECENT_FIRST,
+        nextEpisodePubDate: Long? = null
     ): Observable<MergeList<Episode>> {
         return listenApi
             .getPodcastEpisodes(podcastId, sortType.id, nextEpisodePubDate)
@@ -76,5 +75,17 @@ class PodcastInteractor @Inject constructor(
             .getPodcast(podcastId)
             .transform()
             .toObservable()
+    }
+
+    fun getNewEpisodes(podcasts: List<Subscription>) : Observable<List<Episode>> {
+        return Observable
+            .fromIterable(podcasts)
+            .flatMap { subscription: Subscription ->
+                getPodcastEpisodes(subscription.id, subscription.title)
+            }
+            .toList()
+            .map {
+                it.flatten().sortedByDescending(Episode::pubDateMs)
+            }.toObservable()
     }
 }

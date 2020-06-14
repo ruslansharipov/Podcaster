@@ -3,10 +3,12 @@ package ru.sharipov.podcaster.base_feature.ui.widget.episode
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.view_episode.view.*
 import org.threeten.bp.LocalTime
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.base_feature.R
+import ru.sharipov.podcaster.base_feature.ui.extesions.bindPictureDefault
 import ru.sharipov.podcaster.base_feature.ui.extesions.string
 import ru.sharipov.podcaster.domain.Episode
 import ru.surfstudio.android.core.mvp.binding.rx.ui.CoreRxConstraintLayoutView
@@ -18,8 +20,6 @@ class EpisodeView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : CoreRxConstraintLayoutView(context, attrs, defStyleAttr) {
-
-    private val dateFormatter = EpisodeDateFormatter(context)
 
     private var episode: Episode? = null
 
@@ -42,9 +42,14 @@ class EpisodeView @JvmOverloads constructor(
 
     }
 
+    fun setIsFull(isFull: Boolean) {
+        episode_icon_iv.isVisible = isFull
+    }
+
     fun setEpisode(episode: Episode) {
+        episode_icon_iv.bindPictureDefault(episode.image)
         episode_title_tv.text = episode.title
-        episode_date_tv.text = dateFormatter.format(episode)
+        episode_date_tv.text = EpisodeDateFormatter.format(context, episode)
         episode_length_tv.text = createFormattedLength(episode)
     }
 

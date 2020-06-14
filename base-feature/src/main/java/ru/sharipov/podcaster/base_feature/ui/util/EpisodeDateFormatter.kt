@@ -6,23 +6,16 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import ru.sharipov.podcaster.base_feature.R
 import ru.sharipov.podcaster.domain.Episode
-import ru.surfstudio.android.dagger.scope.PerApplication
-import javax.inject.Inject
 
-@PerApplication
-class EpisodeDateFormatter @Inject constructor(
-    private val context: Context
-) {
+object EpisodeDateFormatter {
 
-    companion object {
-        private const val SHORT_PATTERN = "dd MMM"
-        private const val FULL_PATTERN = "dd.MM.yyyy"
-    }
+    private const val SHORT_PATTERN = "dd MMM"
+    private const val FULL_PATTERN = "dd.MM.yyyy"
 
     private val dateShortFormatter = DateTimeFormatter.ofPattern(SHORT_PATTERN)
     private val dateFullFormatter = DateTimeFormatter.ofPattern(FULL_PATTERN)
 
-    fun format(episode: Episode): String {
+    fun format(context: Context, episode: Episode): String {
         val today = LocalDateTime.now()
         val date = LocalDateTime.ofEpochSecond(episode.pubDateMs / 1000, 0, ZoneOffset.MIN)
         val isToday = date == today

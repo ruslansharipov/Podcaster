@@ -5,4 +5,5 @@ dependencies {
     implementation project(":base-feature")
     implementation project(":i-network")
     implementation project(":i-subscription")
+    implementation project(":i-podcast")
 }

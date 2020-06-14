@@ -8,6 +8,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_episode.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.fromHtmlCompact
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.CrossFeatureFragment
 import javax.inject.Inject
@@ -43,8 +44,8 @@ class EpisodeFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     private fun renderState(state: EpisodeState) {
         val episode = state.episode
         val image = episode.image
-        val title = state.podcastTitle
-        val dateFormatted = state.dateFormatted
+        val title = episode.podcastTitle
+        val dateFormatted = EpisodeDateFormatter.format(requireContext(), state.episode)
 //        episode_state_btn.performIfChanged(state.playbackState, StateButton::setState)
         episode_state_btn.setState(state.playbackState)
         episode_podcast_toolbar.performIfChanged(title, dateFormatted, image) { _, _, _ ->

@@ -6,6 +6,19 @@
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
+    <ImageView
+        android:id="@+id/episode_icon_iv"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:src="@tools:sample/avatars"
+        app:layout_constraintEnd_toStartOf="@id/episode_date_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/episode_date_tv"
         style="@style/Text.Regular.12.SecondaryColor"
@@ -15,7 +28,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/episode_icon_iv"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Mar 12" />
 
@@ -30,7 +43,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/episode_date_tv"
         app:layout_constraintTop_toBottomOf="@id/episode_date_tv"
         tools:text="Tomasz Nurkiewicz is a Senior Software Engineer Tomasz Nurkiewicz" />
 
@@ -39,12 +52,12 @@
         style="@style/Text.Regular.12.SecondaryColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/episode_date_tv"
         app:layout_constraintTop_toBottomOf="@id/episode_title_tv"
         tools:text="1h 12m" />
 

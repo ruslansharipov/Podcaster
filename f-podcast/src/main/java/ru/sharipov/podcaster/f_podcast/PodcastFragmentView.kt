@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.layout_podcast_appbar.*
 import kotlinx.android.synthetic.main.layout_podcast_details_shimmer.*
 import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.base_feature.ui.adapter.PaginationableAdapter
+import ru.sharipov.podcaster.base_feature.ui.controller.EpisodeController
 import ru.sharipov.podcaster.base_feature.ui.extesions.*
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
 import ru.sharipov.podcaster.domain.Episode
@@ -35,7 +36,10 @@ class PodcastFragmentView : BaseRxFragmentView() {
         loadingIndicatorRes = R.layout.layout_episode_item_skeleton,
         onShowMoreListener = { presenter.onShowMore() }
     )
-    private val episodeController = EpisodeController { presenter.onEpisodeClick(it) }
+    private val episodeController = EpisodeController(
+        isFullEpisode = false,
+        clickListener = { presenter.onEpisodeClick(it) }
+    )
     private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBar, offset ->
         val threshold = dpToPx(60)
         val isToolbarVisible = threshold < abs(offset)

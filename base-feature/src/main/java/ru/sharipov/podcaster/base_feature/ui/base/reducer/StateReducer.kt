@@ -4,7 +4,6 @@ import ru.sharipov.podcaster.base.datalist_date.MergeList
 import ru.sharipov.podcaster.base_feature.ui.pagination.MergePaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.pagination.PaginationBundle
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
-import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_network.error.server.SpecificServerException
 import ru.sharipov.podcaster.i_network.network.error.NoInternetException
 import ru.surfstudio.android.core.mvi.ui.relation.StateEmitter
