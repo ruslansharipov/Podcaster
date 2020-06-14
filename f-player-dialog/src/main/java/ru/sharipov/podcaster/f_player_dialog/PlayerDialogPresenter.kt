@@ -42,7 +42,12 @@ class PlayerDialogPresenter @Inject constructor(
         when(state.playbackState){
             is PlaybackState.Buffering,
             is PlaybackState.Playing -> playerInteractor.pause()
-            else -> playerInteractor.play(state.episode)
+            else -> {
+                val episode = state.episode
+                if (episode != null) {
+                    playerInteractor.play(episode)
+                }
+            }
         }
     }
 
@@ -76,10 +81,8 @@ class PlayerDialogPresenter @Inject constructor(
 
     private fun subscribeOnSeekEvents() {
         userSeekRelay
+            .doOnNext { reducer.onPositionChange(it) }
             .debounce(SEEK_DEBOUNCE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-            .subscribeDefault {
-                reducer.onPositionChange(it)
-                playerInteractor.seek(it.toLong() * 1000)
-            }
+            .subscribeDefault { playerInteractor.seek(it.toLong() * 1000) }
     }
 }
