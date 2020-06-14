@@ -94,7 +94,7 @@ class MediaManager constructor(
     }
 
     private fun onStateBuffering(playWhenReady: Boolean) {
-        val newState = if (playWhenReady) {
+        val newState: PlaybackState = if (playWhenReady) {
             PlaybackState.Buffering(queue.current)
         } else {
             PlaybackState.Paused(queue.current)

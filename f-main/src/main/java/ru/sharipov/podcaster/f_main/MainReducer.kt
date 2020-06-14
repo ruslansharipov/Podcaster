@@ -2,12 +2,12 @@ package ru.sharipov.podcaster.f_main
 
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
+import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.surfstudio.android.core.mvp.binding.rx.extensions.Optional
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
 data class MainState(
@@ -15,7 +15,8 @@ data class MainState(
     val playbackState: PlaybackState = PlaybackState.Idle,
     val lastPlayed: Optional<Episode> = Optional.empty(),
     val position: Int = 0,
-    val bufferingPosition: Int = 0
+    val bufferingPosition: Int = 0,
+    val insets: AppInsets = AppInsets()
 )
 
 @PerScreen
@@ -50,17 +51,19 @@ class MainReducer @Inject constructor(
 
     fun onStateChange(state: PlaybackState) {
         sh.emitNewState {
-            copy(
-                playbackState = state
-            )
+            copy(playbackState = state)
         }
     }
 
     fun onLastPlayedChanged(lastPlayed: Episode) {
         sh.emitNewState {
-            copy(
-                lastPlayed = Optional.of(lastPlayed)
-            )
+            copy(lastPlayed = Optional.of(lastPlayed))
+        }
+    }
+
+    fun onInsetChange(insets: AppInsets) {
+        sh.emitNewState {
+            copy(insets = insets)
         }
     }
 }
