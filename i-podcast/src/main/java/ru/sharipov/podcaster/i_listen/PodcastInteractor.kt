@@ -82,10 +82,10 @@ class PodcastInteractor @Inject constructor(
             .fromIterable(podcasts)
             .flatMap { subscription: Subscription ->
                 getPodcastEpisodes(subscription.id, subscription.title)
-            }.map { ArrayList(it) }
+            }
             .toList()
             .map {
-                it.flatten().sortedByDescending { it.pubDateMs }
+                it.flatten().sortedByDescending(Episode::pubDateMs)
             }.toObservable()
     }
 }

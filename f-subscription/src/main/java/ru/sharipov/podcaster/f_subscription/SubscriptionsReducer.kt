@@ -2,7 +2,7 @@ package ru.sharipov.podcaster.f_subscription
 
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
-import ru.sharipov.podcaster.base_feature.ui.extesions.isLoading
+import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.PodcastFull
@@ -17,12 +17,7 @@ data class SubscriptionsState(
     val episodes: RequestUi<List<Episode>> = RequestUi()
 ) {
     val placeholderState: PlaceholderState
-        get() = when {
-            subscriptions.isEmpty() -> PlaceholderState.Empty
-            episodes.isLoading && episodes.data == null -> PlaceholderState.MainLoading
-            episodes.isLoading -> PlaceholderState.TransparentLoading
-            else -> PlaceholderState.None
-        }
+        get() = if (subscriptions.isEmpty()) PlaceholderState.Empty else episodes.placeholderState
 }
 
 @PerScreen
