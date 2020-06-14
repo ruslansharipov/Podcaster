@@ -70,4 +70,9 @@
     <string name="episode_length_format_short">%1$d minutes</string>
     <string name="episode_date_today">Today</string>
     <string name="episode_date_yesterday">Yesterday</string>
+
+    <!--  SubscriptionsFragmentView  -->
+    <string name="subscriptions_toolbar_title">Subscriptions</string>
+    <string name="subscriptions_empty_title">No subscriptions yet</string>
+    <string name="subscriptions_empty_subtitle">You can go to the first tab to explore curated podcasts or to the second to find them using search by genre or title</string>
 </resources>

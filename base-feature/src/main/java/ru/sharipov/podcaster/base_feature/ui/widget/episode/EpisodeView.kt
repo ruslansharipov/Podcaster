@@ -3,6 +3,7 @@ package ru.sharipov.podcaster.base_feature.ui.widget.episode
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.view_episode.view.*
 import org.threeten.bp.LocalTime
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
@@ -40,6 +41,10 @@ class EpisodeView @JvmOverloads constructor(
 
     override fun onBind() {
 
+    }
+
+    fun setIsFull(isFull: Boolean) {
+        episode_icon_iv.isVisible = isFull
     }
 
     fun setEpisode(episode: Episode) {

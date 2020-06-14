@@ -18,13 +18,16 @@ class SubscriptionsPresenter @Inject constructor(
 ) : StatePresenter(dependency) {
 
     init {
-        subscriptionInteractor
-            .observeSubscriptions()
-            .subscribeIoDefault(reducer::onSubscriptionChanged)
+        subscribeOnSubscriptionsChange()
     }
 
     fun onSubscriptionClick(podcast: PodcastFull) {
         tabNavigator.open(PodcastFragmentRoute(podcast))
     }
 
+    private fun subscribeOnSubscriptionsChange() {
+        subscriptionInteractor
+            .observeSubscriptions()
+            .subscribeIoDefault(reducer::onSubscriptionChanged)
+    }
 }
