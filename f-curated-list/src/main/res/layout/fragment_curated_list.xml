@@ -49,6 +49,9 @@
             android:id="@+id/curated_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollbars="vertical" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

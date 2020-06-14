@@ -40,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         tools:text="7 Bookish Podcasts for Avid Readers On the Go" />
 
     <TextView
@@ -50,8 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         tools:text="Commuting to work is always better when you have a great new podcast to listen to, and this year, we have discovered some of our favorite podcasts yet for readers and book-lovers. These podcasts for readers entertain us and provide no shortage of new book recommendations too." />
 
 </LinearLayout>
