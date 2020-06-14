@@ -41,11 +41,13 @@ class MediaManager constructor(
         positionDisposable = Observable
             .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
             .subscribe {
-                val positionSec = player.positionMs.toSeconds()
-                playerServiceBus.emitPosition(positionSec)
+                if (player.isPlaying) {
+                    val positionSec = player.positionMs.toSeconds()
+                    playerServiceBus.emitPosition(positionSec)
 
-                val bufferedPosition = player.bufferedPositionMs.toSeconds()
-                playerServiceBus.emitBufferedPosition(bufferedPosition)
+                    val bufferedPosition = player.bufferedPositionMs.toSeconds()
+                    playerServiceBus.emitBufferedPosition(bufferedPosition)
+                }
             }
     }
 

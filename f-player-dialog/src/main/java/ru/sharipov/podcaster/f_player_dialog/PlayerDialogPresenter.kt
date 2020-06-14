@@ -22,7 +22,7 @@ class PlayerDialogPresenter @Inject constructor(
 ) : StatePresenter(dependency) {
 
     companion object {
-        private const val SEEK_DEBOUNCE_INTERVAL_MS = 1000L
+        private const val SEEK_DEBOUNCE_INTERVAL_MS = 300L
     }
 
     private val state: PlayerState
@@ -77,6 +77,9 @@ class PlayerDialogPresenter @Inject constructor(
     private fun subscribeOnSeekEvents() {
         userSeekRelay
             .debounce(SEEK_DEBOUNCE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-            .subscribeDefault { playerInteractor.seek(it.toLong() * SEEK_DEBOUNCE_INTERVAL_MS) }
+            .subscribeDefault {
+                reducer.onPositionChange(it)
+                playerInteractor.seek(it.toLong() * 1000)
+            }
     }
 }
