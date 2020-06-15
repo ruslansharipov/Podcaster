@@ -3,6 +3,8 @@ package ru.sharipov.podcaster.f_main
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainActivityRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainTabType
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.surfstudio.android.core.mvp.binding.rx.extensions.Optional
@@ -11,7 +13,7 @@ import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class MainState(
-    val currentTabType: MainTabType = MainTabType.EXPLORE,
+    val currentTabType: MainTabType,
     val playbackState: PlaybackState = PlaybackState.Idle,
     val lastPlayed: Optional<Episode> = Optional.empty(),
     val position: Int = 0,
@@ -20,7 +22,9 @@ data class MainState(
 )
 
 @PerScreen
-class MainStateHolder @Inject constructor() : State<MainState>(MainState())
+class MainStateHolder @Inject constructor(
+    route: MainActivityRoute
+) : State<MainState>(MainState(route.startTab))
 
 @PerScreen
 class MainReducer @Inject constructor(

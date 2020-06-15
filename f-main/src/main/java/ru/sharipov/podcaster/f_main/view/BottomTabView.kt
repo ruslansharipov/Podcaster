@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.view_bottom_tab.view.*
-import ru.sharipov.podcaster.f_main.MainTabType
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainTabType
 import ru.sharipov.podcaster.f_main.R
 
 class BottomTabView @JvmOverloads constructor(

@@ -5,6 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDepend
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
 import ru.sharipov.podcaster.base_feature.ui.navigation.*
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainTabType
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute

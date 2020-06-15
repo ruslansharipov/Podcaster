@@ -5,7 +5,7 @@ import dagger.Component
 import dagger.Module
 import ru.sharipov.podcaster.base_feature.ui.di.ActivityScreenConfigurator
 import ru.sharipov.podcaster.base_feature.ui.di.ActivityComponent
-import ru.sharipov.podcaster.base_feature.ui.navigation.MainActivityRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainActivityRoute
 import ru.sharipov.podcaster.base_feature.ui.screen.ActivityScreenModule
 import ru.sharipov.podcaster.base_feature.ui.screen.CustomScreenModule
 import ru.sharipov.podcaster.f_main.MainActivityView
@@ -28,12 +28,12 @@ class MainActivityConfigurator(intent: Intent): ActivityScreenConfigurator(inten
     override fun createScreenComponent(
         parentComponent: ActivityComponent,
         activityScreenModule: ActivityScreenModule,
-        intent: Intent?
+        intent: Intent
     ): ScreenComponent<*> {
         return DaggerMainActivityConfigurator_MainActivityComponent.builder()
             .activityComponent(parentComponent)
             .activityScreenModule(activityScreenModule)
-            .mainActivityModule(MainActivityModule(MainActivityRoute()))
+            .mainActivityModule(MainActivityModule(MainActivityRoute(intent)))
             .build()
     }
 
