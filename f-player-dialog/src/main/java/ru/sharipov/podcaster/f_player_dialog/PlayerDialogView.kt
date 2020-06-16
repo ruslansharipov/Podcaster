@@ -41,6 +41,8 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
     private fun initView() {
         player_play_btn.setOnClickListener { presenter.onStateBtnClick() }
+        player_replay_btn.setOnClickListener { presenter.onReplayClick() }
+        player_forward_btn.setOnClickListener { presenter.onForwardClick() }
         player_sb_expanded.setOnUserSeekChanges{ presenter.onUserSeeks(it) }
     }
 

@@ -11,6 +11,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.domain.Episode
@@ -40,6 +41,7 @@ class MediaManager constructor(
     init {
         positionDisposable = Observable
             .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (player.isPlaying) {
                     val positionSec = player.positionMs.toSeconds()
