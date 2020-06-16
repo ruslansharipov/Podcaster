@@ -66,6 +66,18 @@
         app:layout_constraintTop_toBottomOf="@id/player_sb_expanded"
         tools:text="10:00" />
 
+    <ImageButton
+        android:id="@+id/player_replay_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:padding="8dp"
+        android:src="@drawable/ic_replay_10"
+        app:layout_constraintBottom_toBottomOf="@id/player_play_btn"
+        app:layout_constraintEnd_toStartOf="@id/player_play_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/player_play_btn" />
+
     <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
         android:id="@+id/player_play_btn"
         android:layout_width="48dp"
@@ -75,5 +87,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_position_tv" />
+
+    <ImageButton
+        android:id="@+id/player_forward_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_selectable_ripple_circle"
+        android:src="@drawable/ic_forward_30"
+        app:layout_constraintBottom_toBottomOf="@id/player_play_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/player_play_btn"
+        app:layout_constraintTop_toTopOf="@id/player_play_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

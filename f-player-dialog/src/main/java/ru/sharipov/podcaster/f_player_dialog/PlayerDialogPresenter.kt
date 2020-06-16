@@ -55,6 +55,14 @@ class PlayerDialogPresenter @Inject constructor(
         userSeekRelay.accept(progress)
     }
 
+    fun onReplayClick() {
+        onUserSeeks(state.position - 10)
+    }
+
+    fun onForwardClick() {
+        onUserSeeks(state.position + 30)
+    }
+
     private fun subscribeOnPlaybackStateChanges() {
         playerInteractor
             .observeAllStates()
