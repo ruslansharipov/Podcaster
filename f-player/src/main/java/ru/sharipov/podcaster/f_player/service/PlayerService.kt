@@ -43,13 +43,11 @@ class PlayerService : Service() {
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
         if (startIntent != null) {
+            val hasExtra = startIntent.hasExtra(Route.EXTRA_FIRST)
+            val hasPendingAction = startIntent.action != null
             val playerAction = when {
-                startIntent.hasExtra(Route.EXTRA_FIRST) -> {
-                    PlayerServiceRoute(startIntent).playerAction
-                }
-                startIntent.action != null -> {
-                    createPlayerActionFromIntent(startIntent.action)
-                }
+                hasExtra -> PlayerServiceRoute(startIntent).playerAction
+                hasPendingAction -> createPlayerActionFromIntent(startIntent.action)
                 else -> null
             }
             mediaManager.onNewAction(playerAction)
