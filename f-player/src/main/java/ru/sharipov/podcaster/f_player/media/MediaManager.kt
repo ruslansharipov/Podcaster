@@ -74,10 +74,6 @@ class MediaManager constructor(
         updatePlaybackState(PlaybackState.Error(error), player.positionMs)
     }
 
-    fun onNewIntent(intent: Intent?) {
-        notificationManager.setIntent(intent)
-    }
-
     fun onNewAction(action: PlayerAction?) {
         Logger.d("MediaManager.onNewAction: $action")
         when (action) {

@@ -17,6 +17,7 @@ abstract class BasePlayer(
     @Volatile
     protected var currentMedia: Episode? = null
 
+    private var isPausedByFocusLoss = false
     private var receiverRegistered = false
     private val audioBecomingNoisyIntent = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
 
@@ -77,13 +78,15 @@ abstract class BasePlayer(
     override fun onAudioFocusChange(focusChange: Int) {
         when (focusChange) {
             AudioManager.AUDIOFOCUS_GAIN -> {
-                play(currentMedia)
+                if (isPausedByFocusLoss) {
+                    play(currentMedia)
+                    isPausedByFocusLoss = false
+                }
             }
-            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> if (isPlaying) {
-                pause()
-            }
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT,
             AudioManager.AUDIOFOCUS_LOSS -> if (isPlaying) {
                 pause()
+                isPausedByFocusLoss = true
             }
         }
     }

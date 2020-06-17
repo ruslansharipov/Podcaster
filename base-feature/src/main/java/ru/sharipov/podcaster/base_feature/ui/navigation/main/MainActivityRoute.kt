@@ -7,7 +7,7 @@ import ru.surfstudio.android.core.ui.navigation.Route
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.ActivityCrossFeatureWithParamsRoute
 
 class MainActivityRoute(
-    val startTab: MainTabType
+    val startTab: MainTabType = MainTabType.PROFILE
 ) : ActivityCrossFeatureWithParamsRoute() {
 
     constructor(intent: Intent): this(intent.getParcelableExtra<MainTabType>(Route.EXTRA_FIRST))
