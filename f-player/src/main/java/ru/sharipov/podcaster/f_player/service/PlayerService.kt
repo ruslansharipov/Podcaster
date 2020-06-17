@@ -43,15 +43,16 @@ class PlayerService : Service() {
 
     override fun onStartCommand(startIntent: Intent?, flags: Int, startId: Int): Int {
         if (startIntent != null) {
-            if (startIntent.hasExtra(Route.EXTRA_FIRST)) {
-                val route = PlayerServiceRoute(startIntent)
-                val playerAction = route.playerAction
-                mediaManager.onNewAction(playerAction)
+            val playerAction = when {
+                startIntent.hasExtra(Route.EXTRA_FIRST) -> {
+                    PlayerServiceRoute(startIntent).playerAction
+                }
+                startIntent.action != null -> {
+                    createPlayerActionFromIntent(startIntent.action)
+                }
+                else -> null
             }
-            val action = createPlayerActionFromIntent(startIntent.action)
-            if (action != null) {
-                mediaManager.onNewAction(action)
-            }
+            mediaManager.onNewAction(playerAction)
             //MediaButtonReceiver.handleIntent(mediaSession, startIntent)
             // TODO
         }
