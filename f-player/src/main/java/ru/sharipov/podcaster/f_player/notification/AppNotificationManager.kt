@@ -1,7 +1,6 @@
 package ru.sharipov.podcaster.f_player.notification
 
 import android.app.*
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -17,9 +16,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.base_feature.R
+import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainActivityRoute
 import ru.sharipov.podcaster.domain.Episode
+import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.f_player.service.PlayerService
 
 class AppNotificationManager(
@@ -28,29 +28,24 @@ class AppNotificationManager(
     private val notificationManager: NotificationManagerCompat
 ) {
 
-    companion object {
-        private const val NOTIFICATION_ID = 100
+    private companion object {
+        const val NOTIFICATION_ID = 100
 
-        private const val PLAYER_PENDING_INTENT_ID = 10
-        private const val PAUSE_PENDING_INTENT_ID = 20
-        private const val PLAY_PENDING_INTENT_ID = 30
-        private const val PLAY_NEXT_PENDING_INTENT_ID = 40
-        private const val PLAY_PREV_PENDING_INTENT_ID = 50
-        private const val STOP_PENDING_INTENT_ID = 60
+        const val PLAYER_PENDING_INTENT_ID = 10
+        const val PAUSE_PENDING_INTENT_ID = 20
+        const val PLAY_PENDING_INTENT_ID = 30
+        const val PLAY_NEXT_PENDING_INTENT_ID = 40
+        const val PLAY_PREV_PENDING_INTENT_ID = 50
+        const val STOP_PENDING_INTENT_ID = 60
     }
 
     private val channelId: String = service.getString(R.string.app_name)
-    private var intent: Intent? = null
 
     private val handler = Handler()
     private var state: PlaybackState = PlaybackState.Idle
 
     init {
         createNotificationChannels()
-    }
-
-    fun setIntent(intent: Intent?) {
-        this.intent = intent
     }
 
     fun updateMedia(media: Episode?) {
@@ -184,7 +179,7 @@ class AppNotificationManager(
         builder.addAction(next(service))
         builder.setLargeIcon(bitmap)
 
-        val notificationIntent = intent ?: Intent()
+        val notificationIntent = MainActivityRoute().prepareIntent(service)
         builder.setContentIntent(
             PendingIntent.getActivity(
                 service,

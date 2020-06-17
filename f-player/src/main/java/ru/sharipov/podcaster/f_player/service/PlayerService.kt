@@ -17,14 +17,16 @@ class PlayerService : Service() {
 
     companion object {
         const val ACTION_PAUSE = "ru.sharipov.podcaster.pause"
-        const val ACTION_PLAY  = "ru.sharipov.podcaster.start"
-        const val ACTION_PREV  = "ru.sharipov.podcaster.previous"
-        const val ACTION_NEXT  = "ru.sharipov.podcaster.next"
-        const val ACTION_STOP  = "ru.sharipov.podcaster.stop"
+        const val ACTION_PLAY = "ru.sharipov.podcaster.start"
+        const val ACTION_PREV = "ru.sharipov.podcaster.previous"
+        const val ACTION_NEXT = "ru.sharipov.podcaster.next"
+        const val ACTION_STOP = "ru.sharipov.podcaster.stop"
         const val EXTRA_INTENT = "ru.sharipov.podcaster.intent"
     }
+
     @Inject
     lateinit var mediaManager: MediaManager
+
     @Inject
     lateinit var playerServiceBus: PlayerServiceBus
 
@@ -46,13 +48,9 @@ class PlayerService : Service() {
                 val playerAction = route.playerAction
                 mediaManager.onNewAction(playerAction)
             }
-            val extras = startIntent.extras
-            val action = startIntent.action
-            when {
-                extras != null -> mediaManager.onNewIntent(
-                    extras.getParcelable(Route.EXTRA_SECOND)
-                )
-                action != null -> executeTask(action)
+            val action = createPlayerActionFromIntent(startIntent.action)
+            if (action != null) {
+                mediaManager.onNewAction(action)
             }
             //MediaButtonReceiver.handleIntent(mediaSession, startIntent)
             // TODO
@@ -66,13 +64,14 @@ class PlayerService : Service() {
         super.onDestroy()
     }
 
-    private fun executeTask(action: String) {
-        when (action) {
-            ACTION_PLAY -> playerServiceBus.emitAction(PlayerAction.Resume)
-            ACTION_PREV -> playerServiceBus.emitAction(PlayerAction.Previous)
-            ACTION_NEXT -> playerServiceBus.emitAction(PlayerAction.Next)
-            ACTION_PAUSE -> playerServiceBus.emitAction(PlayerAction.Pause)
-            ACTION_STOP -> playerServiceBus.emitAction(PlayerAction.Stop)
+    private fun createPlayerActionFromIntent(action: String?): PlayerAction? {
+        return when (action) {
+            ACTION_PLAY -> PlayerAction.Resume
+            ACTION_PREV -> PlayerAction.Previous
+            ACTION_NEXT -> PlayerAction.Next
+            ACTION_PAUSE -> PlayerAction.Pause
+            ACTION_STOP -> PlayerAction.Stop
+            else -> null
         }
     }
 }
