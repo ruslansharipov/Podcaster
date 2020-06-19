@@ -1,7 +1,6 @@
 package ru.sharipov.podcaster.f_player.media
 
 import android.content.Context
-import android.content.Intent
 import android.media.AudioManager
 import android.net.wifi.WifiManager
 import android.os.SystemClock
@@ -20,8 +19,11 @@ import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.QueueData
 import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
 import ru.sharipov.podcaster.f_player.playback.*
+import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.logger.Logger
+import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MediaManager constructor(
     context: Context,
@@ -29,7 +31,8 @@ class MediaManager constructor(
     wifiLock: WifiManager.WifiLock,
     private val playerServiceBus: PlayerServiceBus,
     private val notificationManager: AppNotificationManager,
-    private val mediaSession: MediaSessionCompat
+    private val mediaSession: MediaSessionCompat,
+    private val historyInteractor: HistoryInteractor
 ) : Player.EventListener {
 
     companion object {
@@ -45,7 +48,7 @@ class MediaManager constructor(
             .subscribe {
                 if (player.isPlaying) {
                     val positionSec = player.positionMs.toSeconds()
-                    playerServiceBus.emitPosition(positionSec)
+                    historyInteractor.saveProgress(positionSec)
 
                     val bufferedPosition = player.bufferedPositionMs.toSeconds()
                     playerServiceBus.emitBufferedPosition(bufferedPosition)
@@ -170,7 +173,14 @@ class MediaManager constructor(
     }
 
     private fun play(media: Episode?) {
+        val id = media?.id ?: EMPTY_STRING
+        val savedProgress = historyInteractor.getProgress(id)
+        val playerProgress = player.positionMs.toSeconds()
+        val shouldRestorePosition = abs(playerProgress - savedProgress) > 1
         player.play(media)
+        if (shouldRestorePosition) {
+            player.seekTo(savedProgress * 1000L)
+        }
         mediaSession.setMetadata(getMetadata(media))
         notificationManager.updateMedia(media)
         onNextQueue()

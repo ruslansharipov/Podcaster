@@ -4,4 +4,6 @@ apply from: '../commonKaptModule.gradle'
 dependencies {
     implementation "com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion"
     implementation "androidx.legacy:legacy-support-v4:$supportVersion"
+
+    implementation project(':i-history')
 }

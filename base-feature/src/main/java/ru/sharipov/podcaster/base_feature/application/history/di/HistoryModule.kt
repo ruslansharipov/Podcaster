@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import ru.sharipov.podcaster.i_history.HistoryStorage
 import ru.sharipov.podcaster.i_history.LastPlayedStorage
+import ru.sharipov.podcaster.i_history.ProgressStorage
 import ru.surfstudio.android.dagger.scope.PerApplication
 import ru.surfstudio.android.filestorage.naming.NamingProcessor
 import ru.surfstudio.android.filestorage.utils.AppDirectoriesProvider
@@ -31,6 +32,18 @@ class HistoryModule {
         namingProcessor: NamingProcessor
     ): LastPlayedStorage {
         return LastPlayedStorage(
+            cacheDir = AppDirectoriesProvider.provideNoBackupStorageDir(context),
+            namingProcessor = namingProcessor
+        )
+    }
+
+    @Provides
+    @PerApplication
+    fun providePositionStorage(
+        context: Context,
+        namingProcessor: NamingProcessor
+    ): ProgressStorage {
+        return ProgressStorage(
             cacheDir = AppDirectoriesProvider.provideNoBackupStorageDir(context),
             namingProcessor = namingProcessor
         )

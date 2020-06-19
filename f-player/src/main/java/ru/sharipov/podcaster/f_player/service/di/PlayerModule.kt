@@ -15,6 +15,7 @@ import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.f_player.service.PlayerService
 import ru.sharipov.podcaster.f_player.media.MediaManager
 import ru.sharipov.podcaster.f_player.media.MediaSessionCallback
+import ru.sharipov.podcaster.i_history.HistoryInteractor
 
 @Module
 class PlayerModule(
@@ -67,7 +68,8 @@ class PlayerModule(
         context: Context,
         playerServiceBus: PlayerServiceBus,
         notificationManager: AppNotificationManager,
-        mediaSession: MediaSessionCompat
+        mediaSession: MediaSessionCompat,
+        historyInteractor: HistoryInteractor
     ): MediaManager {
         val audioManager =
             context.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -80,7 +82,8 @@ class PlayerModule(
             wifiLock,
             playerServiceBus,
             notificationManager,
-            mediaSession
+            mediaSession,
+            historyInteractor
         )
     }
 }

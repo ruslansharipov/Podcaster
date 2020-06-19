@@ -80,7 +80,7 @@ class MainPresenter @Inject constructor(
     }
 
     private fun subscribeOnPositionChanges() {
-        playerInteractor
+        historyInteractor
             .observePosition()
             .subscribeDefault (mainReducer::onPositionChange)
     }
