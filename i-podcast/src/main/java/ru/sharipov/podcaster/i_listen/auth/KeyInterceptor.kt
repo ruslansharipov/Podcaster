@@ -3,6 +3,9 @@ package ru.sharipov.podcaster.i_listen.auth
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * Interceptor adding api key to all api requests
+ */
 class KeyInterceptor: Interceptor {
 
     private companion object {

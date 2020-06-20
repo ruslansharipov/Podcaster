@@ -8,6 +8,9 @@ import ru.surfstudio.android.filestorage.naming.NamingProcessor
 import ru.surfstudio.android.filestorage.processor.FileProcessor
 import ru.surfstudio.android.filestorage.storage.BaseJsonFileStorage
 
+/**
+ * Storage of user's subscriptions
+ */
 class SubscriptionStorage(
     cacheDir: String,
     namingProcessor: NamingProcessor
@@ -24,24 +27,41 @@ class SubscriptionStorage(
 
     private val subscriptionsRelay = BehaviorRelay.createDefault<List<PodcastFull>>(all)
 
+    /**
+     * Observe user's subscriptions
+     */
     fun observeSubscriptions(): Observable<List<PodcastFull>> {
         return subscriptionsRelay.hide()
     }
 
+    /**
+     * Add subscription
+     *
+     * @param podcastFull   subscription to add
+     */
     fun add(podcastFull: PodcastFull) {
         put(podcastFull.id, podcastFull)
         subscriptionsRelay.accept(all)
     }
 
+    /**
+     * Remove [podcastFull] from subscriptions
+     */
     fun remove(podcastFull: PodcastFull) {
         remove(podcastFull.id)
         subscriptionsRelay.accept(all)
     }
 
+    /**
+     * Synchronous getter for subscriptions
+     */
     fun getSubscriptions(): List<PodcastFull> {
         return all
     }
 
+    /**
+     * Synchronous getter for subscription ids
+     */
     fun getSubscribedIds(): List<String> {
         return all.map(PodcastFull::id)
     }

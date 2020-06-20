@@ -18,7 +18,7 @@ class PlayerDialogPresenter @Inject constructor(
     private val reducer: PlayerReducer,
     private val dialogNavigator: DialogNavigator,
     private val playerInteractor: PlayerInteractor,
-    private val hitoryInteractor: HistoryInteractor
+    private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
 
     companion object {
@@ -70,15 +70,15 @@ class PlayerDialogPresenter @Inject constructor(
     }
 
     private fun subscribeOnLastPlayedChanges() {
-        hitoryInteractor
+        historyInteractor
             .observeLastPlayed()
             .subscribeDefault(reducer::onLastPlayedChange)
     }
 
     private fun subscribeOnPositionChanges() {
-        playerInteractor
+        historyInteractor
             .observePosition()
-            .subscribeDefault (reducer::onPositionChange)
+            .subscribeDefault(reducer::onPositionChange)
     }
 
     private fun subscribeOnBufferingChanges() {

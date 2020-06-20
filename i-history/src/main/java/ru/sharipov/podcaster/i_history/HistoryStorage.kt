@@ -7,6 +7,9 @@ import ru.surfstudio.android.filestorage.naming.NamingProcessor
 import ru.surfstudio.android.filestorage.processor.FileProcessor
 import ru.surfstudio.android.filestorage.storage.BaseJsonFileStorage
 
+/**
+ * The storage of the playback history
+ */
 class HistoryStorage(
     cacheDir: String,
     namingProcessor: NamingProcessor
@@ -23,6 +26,9 @@ class HistoryStorage(
 
     private val historyRelay = BehaviorRelay.create<List<Episode>>()
 
+    /**
+     * Observe playback history
+     */
     fun observeHistory(): Observable<List<Episode>> {
         return Observable.merge(
             historyRelay.hide(),
@@ -30,6 +36,11 @@ class HistoryStorage(
         )
     }
 
+    /**
+     * Add episode to the playback history
+     *
+     * @param media     episode to add
+     */
     fun add(media: Episode) {
         put(media.id, media)
     }
