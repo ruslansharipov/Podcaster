@@ -21,6 +21,7 @@ class PodcastPresenter @Inject constructor(
     private val reducer: PodcastReducer,
     private val sh: PodcastStateHolder,
     private val tabNavigator: TabFragmentNavigator,
+    private val dialogNavigator: DialogNavigator,
     private val podcastInteractor: PodcastInteractor,
     private val subscriptionInteractor: SubscriptionInteractor
 ) : StatePresenter(dependency) {
@@ -51,7 +52,7 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        tabNavigator.open(EpisodeFragmentRoute(episode))
+        dialogNavigator.show(EpisodeFragmentRoute(episode))
     }
 
     fun onBackClick() {

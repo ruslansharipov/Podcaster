@@ -1,82 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_rounded_top_16_dp">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/episode_app_bar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="0dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/episode_iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="120dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/episode_podcast_title_tv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAppearance="@style/Text.Regular.12.SecondaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/episode_iv"
+            tools:text="Conan O'Brian Needs a Friend"
+            tools:visibility="visible" />
 
-            <ImageButton
-                android:id="@+id/episode_toolbar_back_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_selectable_ripple_circle"
-                android:contentDescription="@string/content_description"
-                android:padding="8dp"
-                android:src="@drawable/ic_arrow_back" />
+        <TextView
+            android:id="@+id/episode_title_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/Text.Medium.16.PrimaryColor"
+            app:layout_constraintEnd_toEndOf="@id/episode_podcast_title_tv"
+            app:layout_constraintStart_toStartOf="@id/episode_podcast_title_tv"
+            app:layout_constraintTop_toBottomOf="@id/episode_podcast_title_tv"
+            tools:text="Mark Myers" />
 
-            <ru.sharipov.podcaster.base_feature.ui.widget.PodcastHeaderView
-                android:id="@+id/episode_podcast_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                app:layout_scrollFlags="scroll|enterAlways" />
-        </LinearLayout>
+        <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
+            android:id="@+id/episode_state_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/episode_title_tv" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <ImageButton
+            android:id="@+id/episode_share_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_selectable_ripple_circle"
+            android:contentDescription="@string/content_description"
+            android:padding="8dp"
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toBottomOf="@id/episode_state_btn"
+            app:layout_constraintEnd_toStartOf="@id/episode_state_btn"
+            app:layout_constraintStart_toStartOf="@id/episode_title_tv"
+            app:layout_constraintTop_toTopOf="@id/episode_state_btn" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="56dp"
-        android:clipToPadding="false"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <ImageButton
+            android:id="@+id/episode_favourite_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_selectable_ripple_circle"
+            android:contentDescription="@string/content_description"
+            android:padding="8dp"
+            android:src="@drawable/bg_favorite_selector"
+            app:layout_constraintBottom_toBottomOf="@id/episode_state_btn"
+            app:layout_constraintEnd_toEndOf="@id/episode_title_tv"
+            app:layout_constraintStart_toEndOf="@id/episode_state_btn"
+            app:layout_constraintTop_toTopOf="@id/episode_state_btn" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/episode_date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/Text.Medium.12.SecondaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/episode_length_tv"
+            tools:text="15 may" />
 
-            <TextView
-                android:id="@+id/episode_title_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:textAppearance="@style/Text.Medium.16.PrimaryColor"
-                tools:text="@tools:sample/lorem" />
+        <TextView
+            android:id="@+id/episode_length_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/Text.Medium.12.SecondaryColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/episode_state_btn"
+            tools:text="1h 11m" />
 
-            <TextView
-                android:id="@+id/episode_details_tv"
-                style="@style/Text.Regular.14.PrimaryColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                tools:text="@tools:sample/lorem" />
+        <TextView
+            android:id="@+id/episode_details_tv"
+            style="@style/Text.Regular.14.PrimaryColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/episode_date_tv"
+            app:layout_constraintStart_toStartOf="@id/episode_length_tv"
+            app:layout_constraintTop_toBottomOf="@id/episode_length_tv"
+            tools:text="@tools:sample/lorem/random" />
 
-            <ru.sharipov.podcaster.base_feature.ui.widget.state_button.StateButton
-                android:id="@+id/episode_state_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.core.widget.NestedScrollView>

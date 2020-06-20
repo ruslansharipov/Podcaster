@@ -4,39 +4,52 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
-import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
+import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.surfstudio.android.dagger.scope.PerScreen
+import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
 
 @PerScreen
 class EpisodePresenter @Inject constructor(
     dependency: StatePresenterDependency,
+    private val route: EpisodeFragmentRoute,
+    private val dialogNavigator: DialogNavigator,
     private val episodeReducer: EpisodeReducer,
     private val episodeStateHolder: EpisodeStateHolder,
-    private val tabNavigator: TabFragmentNavigator,
     private val playerInteractor: PlayerInteractor
 ): StatePresenter(dependency) {
-
-    init {
-        val id = episodeStateHolder.value.episode.id
-        playerInteractor
-            .observeState(id)
-            .subscribeDefault(episodeReducer::onStateChange)
-    }
 
     private val state: EpisodeState
         get() = episodeStateHolder.value
 
-    fun onBackPressed() {
-        tabNavigator.onBackPressed()
+    override fun onFirstLoad() {
+        super.onFirstLoad()
+        subscibeOnPlaybackStateChanges()
     }
 
     fun onPlayBtnClick() {
         when(state.playbackState){
             is PlaybackState.Buffering,
             is PlaybackState.Playing -> playerInteractor.pause()
-            else -> playerInteractor.play(state.episode)
+            else -> {
+                playerInteractor.play(state.episode)
+                dialogNavigator.dismiss(route)
+            }
         }
     }
 
+    fun onShareClick() {
+        // todo
+    }
+
+    fun onFavoriteClick() {
+        // todo
+    }
+
+    private fun subscibeOnPlaybackStateChanges() {
+        val id = state.episode.id
+        playerInteractor
+            .observeState(id)
+            .subscribeDefault(episodeReducer::onStateChange)
+    }
 }
