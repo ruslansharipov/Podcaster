@@ -61,6 +61,7 @@ class SearchDialogView : BaseRxDialogView(), CrossFeatureFragment {
         }
         search_pv.errorClickListener = { presenter.retryClick() }
         search_clear_iv.setOnClickListener { presenter.onCrearClick() }
+        search_back_iv.setOnClickListener { presenter.onBackClick() }
         search_et.textChangesStringSkipFirst().bindTo(presenter::onQueryChanged)
         search_et.searchActions().bindTo(presenter::onSearchClick)
     }

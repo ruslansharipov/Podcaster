@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/curated_search_btn"
-            style="@style/SearchEditText"
+            style="@style/SearchWithIcon"
             android:background="@drawable/bg_search_clickable"
             android:hint="@string/search_hint"
             android:inputType="none"

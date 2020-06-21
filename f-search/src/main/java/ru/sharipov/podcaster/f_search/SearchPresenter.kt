@@ -79,6 +79,10 @@ class SearchPresenter @Inject constructor(
         reducer.onTermClick(term)
     }
 
+    fun onBackClick() {
+        dismiss()
+    }
+
     private fun createTypeAheadObservable(debouncedQuery: String): Observable<Request<TypeAhead>> {
         return podcastInteractor.getTypeAhead(
             query = debouncedQuery,

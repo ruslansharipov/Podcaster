@@ -18,12 +18,18 @@
 
         <EditText
             android:id="@+id/search_et"
-            style="@style/SearchEditText"
+            style="@style/SearchNoIcon"
             android:hint="@string/search_hint">
 
             <requestFocus />
 
         </EditText>
+
+        <ImageButton
+            android:id="@+id/search_back_iv"
+            style="@style/BackImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/search_clear_iv"
