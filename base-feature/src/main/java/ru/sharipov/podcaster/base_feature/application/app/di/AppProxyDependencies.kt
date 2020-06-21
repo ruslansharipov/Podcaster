@@ -6,10 +6,10 @@ import ru.sharipov.podcaster.base.provider.StringsProvider
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.service.ping.PingBus
-import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
+import ru.sharipov.podcaster.i_search.SearchInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
@@ -42,4 +42,5 @@ interface AppProxyDependencies {
     fun playerInteractor(): PlayerInteractor
     fun pingBus(): PingBus
     fun subscriptionInteractor() : SubscriptionInteractor
+    fun searchInteractor(): SearchInteractor
 }

@@ -16,22 +16,14 @@
 
         <EditText
             android:id="@+id/regions_et"
-            style="@style/SearchEditText"
-            android:drawableStart="@drawable/empty_drawable"
-            android:hint="@string/region_search_hint"
-            android:paddingStart="32dp" />
+            style="@style/SearchNoIcon"
+            android:hint="@string/region_search_hint" />
 
         <ImageButton
             android:id="@+id/regions_back_iv"
+            style="@style/BackImageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_selectable_ripple_circle"
-            android:contentDescription="@string/content_description"
-            android:padding="8dp"
-            android:src="@drawable/ic_arrow_back" />
+            android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/regions_clear_iv"

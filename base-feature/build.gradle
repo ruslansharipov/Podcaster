@@ -8,6 +8,7 @@ dependencies {
     implementation project(":i-network")
     implementation project(":i-podcast")
     implementation project(':i-region')
+    implementation project(':i-search')
     implementation project(':i-history')
     implementation project(':i-subscription')
 

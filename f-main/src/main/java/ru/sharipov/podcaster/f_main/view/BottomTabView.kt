@@ -33,7 +33,7 @@ class BottomTabView @JvmOverloads constructor(
 
         tabButtonsMap = hashMapOf<MainTabType, ImageButton>(
             MainTabType.EXPLORE to bottom_tab_explore_btn,
-            MainTabType.SEARCH to bottom_bar_search_btn,
+            MainTabType.FEED to bottom_bar_search_btn,
             MainTabType.PROFILE to bottom_bar_profile_btn
         )
 

@@ -19,7 +19,7 @@ class SplashPresenter @Inject constructor(
     override fun onFirstLoad() {
         super.onFirstLoad()
         subscribe(subscriptionInteractor.observeSubscriptions()){
-            val tabType = if (it.isEmpty()) MainTabType.EXPLORE else MainTabType.PROFILE
+            val tabType = if (it.isEmpty()) MainTabType.EXPLORE else MainTabType.FEED
             activityNavigator.start(MainActivityRoute(tabType))
             activityNavigator.finishCurrent()
         }

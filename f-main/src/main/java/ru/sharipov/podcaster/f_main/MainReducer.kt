@@ -17,8 +17,7 @@ data class MainState(
     val playbackState: PlaybackState = PlaybackState.Idle,
     val lastPlayed: Optional<Episode> = Optional.empty(),
     val position: Int = 0,
-    val bufferingPosition: Int = 0,
-    val insets: AppInsets = AppInsets()
+    val bufferingPosition: Int = 0
 )
 
 @PerScreen
@@ -62,12 +61,6 @@ class MainReducer @Inject constructor(
     fun onLastPlayedChanged(lastPlayed: Episode) {
         sh.emitNewState {
             copy(lastPlayed = Optional.of(lastPlayed))
-        }
-    }
-
-    fun onInsetChange(insets: AppInsets) {
-        sh.emitNewState {
-            copy(insets = insets)
         }
     }
 }

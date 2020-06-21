@@ -25,7 +25,7 @@ class ExplorePagerAdapter(
         val route = if (position == 0) {
             CuratedListFragmentRoute()
         } else {
-            BestFragmentRoute(Genre(), Region())
+            BestFragmentRoute(Genre())
         }
         return route.createFragment()
     }

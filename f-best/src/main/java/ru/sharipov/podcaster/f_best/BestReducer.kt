@@ -16,16 +16,13 @@ import javax.inject.Inject
 
 data class BestState(
     val genre: Genre,
-    val region: Region,
+    val region: Region = Region(),
     val podcasts: RequestUi<PaginationBundle<PodcastFull>> = RequestUi()
 )
 
 @PerScreen
 class BestStateHolder @Inject constructor(route: BestFragmentRoute) : State<BestState>(
-    BestState(
-        genre = route.genre,
-        region = route.region
-    )
+    BestState(route.genre)
 )
 
 @PerScreen

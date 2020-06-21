@@ -50,11 +50,6 @@ class MainPresenter @Inject constructor(
         dialogNavigator.show(PlayerDialogRoute())
     }
 
-    fun onInsetsChange(insets: AppInsets) {
-        Logger.d("$insets")
-        mainReducer.onInsetChange(insets)
-    }
-
     fun onPlayPauseClick() {
         val playbackState = mainState.playbackState
         val lastPlayed = mainState.lastPlayed.getOrNull()
@@ -94,8 +89,8 @@ class MainPresenter @Inject constructor(
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
         return when (tabType) {
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
-            MainTabType.SEARCH -> SearchFragmentRoute()
-            MainTabType.PROFILE -> SubscriptionsFragmentRoute()
+            MainTabType.FEED -> SubscriptionsFragmentRoute()
+            MainTabType.PROFILE -> ProfileFragmentRoute()
         }
     }
 
