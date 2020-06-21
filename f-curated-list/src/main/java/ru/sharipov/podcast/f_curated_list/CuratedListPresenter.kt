@@ -45,6 +45,10 @@ class CuratedListPresenter @Inject constructor(
         tabNavigator.open(PodcastFragmentRoute(podcast.toPodcastFull()))
     }
 
+    fun onSearchClick() {
+
+    }
+
     private fun loadCuratedPodcasts(nextPage: Int, isSwr: Boolean = false) {
         podcastInteractor.getCuratedPodcasts(nextPage)
             .asRequest()

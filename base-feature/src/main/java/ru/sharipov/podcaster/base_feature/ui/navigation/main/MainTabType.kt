@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 enum class MainTabType: Parcelable {
     EXPLORE,
-    SEARCH,
+    FEED,
     PROFILE
 }

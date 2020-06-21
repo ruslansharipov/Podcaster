@@ -69,6 +69,7 @@ class CuratedListFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     }
 
     private fun initView() {
+        curated_search_btn.setOnClickListener { presenter.onSearchClick() }
         curated_list_placeholder.errorClickListener = presenter::reload
         curated_list_swr.run {
             setProgressViewOffset(true, dpToPx(0), dpToPx(12))

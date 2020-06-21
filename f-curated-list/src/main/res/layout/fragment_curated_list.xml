@@ -1,42 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/curated_list_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/curated_list_coordinator">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/curated_list_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:liftOnScroll="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/curated_list_collapsing_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:collapsedTitleGravity="start|center_vertical"
-            app:collapsedTitleTextAppearance="@style/Text.Medium.18.PrimaryColor"
-            app:expandedTitleMarginBottom="30dp"
-            app:expandedTitleMarginStart="16dp"
-            app:expandedTitleTextAppearance="@style/Text.Bold.28.Black"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="@string/curated_list_title"
-            app:titleEnabled="true"
-            app:toolbarId="@id/curated_list_toolbar">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/curated_list_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:theme="@style/Toolbar"
-                app:popupTheme="@style/ToolbarPopup"
-                app:titleMarginBottom="8dp"
-                app:titleTextAppearance="@style/Text.Medium.18.PrimaryColor" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <TextView
+            android:id="@+id/curated_search_btn"
+            style="@style/SearchEditText"
+            android:background="@drawable/bg_search_clickable"
+            android:hint="@string/search_hint"
+            android:inputType="none"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -61,9 +43,9 @@
         android:id="@+id/curated_list_placeholder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:errorSubtitle="@string/error_loading_message"
         app:errorTitle="@string/error_loading_title"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         app:shimmerLayout="@layout/layout_curated_list_skeleton" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

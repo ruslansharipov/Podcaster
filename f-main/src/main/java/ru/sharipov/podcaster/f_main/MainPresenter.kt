@@ -94,7 +94,7 @@ class MainPresenter @Inject constructor(
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
         return when (tabType) {
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
-            MainTabType.SEARCH -> SearchFragmentRoute()
+            MainTabType.FEED -> SearchFragmentRoute()
             MainTabType.PROFILE -> SubscriptionsFragmentRoute()
         }
     }
