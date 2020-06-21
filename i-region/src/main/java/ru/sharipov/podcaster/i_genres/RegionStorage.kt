@@ -24,7 +24,7 @@ class RegionStorage(
         val DEFAULT_REGION = Region("us", "United States")
     }
 
-    private val regionRelay = BehaviorRelay.create<Region>()
+    private val regionRelay = BehaviorRelay.createDefault(currentRegion)
 
     /**
      * @return saved region

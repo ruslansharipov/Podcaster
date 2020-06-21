@@ -32,6 +32,10 @@
         <item name="android:windowAnimationStyle">@style/ModalAnimationDialog</item>
     </style>
 
+    <style name="AppTheme.Light.FadeAnimationDialog" parent="AppTheme.Light">
+        <item name="android:windowAnimationStyle">@style/FadeAnimationDialog</item>
+    </style>
+
     <style name="AppTheme.Light.FadeAnimation" parent="AppTheme.Light">
         <item name="android:windowAnimationStyle">@style/FadeAnimation</item>
     </style>
@@ -70,6 +74,11 @@
     <style name="ModalAnimationDialog" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/slide_in_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_to_bottom</item>
+    </style>
+
+    <style name="FadeAnimationDialog" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/fade_in_fast</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_fast</item>
     </style>
 
     <style name="FadeAnimation" parent="@android:style/Animation.Activity">

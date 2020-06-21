@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.sharipov.podcaster.base_feature.ui.controller.GenreController
@@ -15,7 +14,7 @@ import ru.sharipov.podcaster.f_search.controller.PodcastItemController
 import ru.sharipov.podcaster.f_search.controller.TermItemController
 import ru.sharipov.podcaster.f_search.controller.TitleItemController
 import ru.sharipov.podcaster.f_search.di.SearchScreenConfigurator
-import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
+import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxDialogView
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.CrossFeatureFragment
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import ru.surfstudio.android.easyadapter.ItemList
@@ -24,7 +23,7 @@ import ru.surfstudio.android.utilktx.ktx.ui.view.hideSoftKeyboard
 import ru.surfstudio.android.utilktx.ktx.ui.view.showKeyboard
 import javax.inject.Inject
 
-class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
+class SearchDialogView : BaseRxDialogView(), CrossFeatureFragment {
 
     @Inject
     lateinit var sh: SearchStateHolder
@@ -37,6 +36,8 @@ class SearchFragmentView : BaseRxFragmentView(), CrossFeatureFragment {
     private val termController = TermItemController { presenter.onTermClick(it) }
     private val genreController = GenreController { presenter.onGenreClick(it) }
     private val podcastController = PodcastItemController { presenter.onPodcastClick(it) }
+
+    override fun getTheme(): Int = R.style.AppTheme_Light_FadeAnimationDialog
 
     override fun getScreenName(): String = "SearchFragmentView"
 
