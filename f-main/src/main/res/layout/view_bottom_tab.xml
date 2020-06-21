@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:background="?selectableItemBackground"
             android:contentDescription="@string/content_description"
-            app:srcCompat="@drawable/ic_explore" />
+            app:srcCompat="@drawable/ic_search" />
 
         <ImageButton
             android:id="@+id/bottom_bar_search_btn"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:background="?selectableItemBackground"
             android:contentDescription="@string/content_description"
-            app:srcCompat="@drawable/ic_search" />
+            app:srcCompat="@drawable/ic_playlist" />
 
         <ImageButton
             android:id="@+id/bottom_bar_profile_btn"
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:background="?selectableItemBackground"
             android:contentDescription="@string/content_description"
-            app:srcCompat="@drawable/ic_playlist" />
+            app:srcCompat="@drawable/ic_profile" />
 
     </LinearLayout>
 

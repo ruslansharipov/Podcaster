@@ -15,9 +15,10 @@ include ':app',
         ':f-region',
         ':f-podcast',
         ':f-player',
-        ':f-episode'
-include ':i-subscription'
-include ':f-profile'
-include ':f-subscription'
-include ':f-player-dialog'
-include ':i-history'
+        ':f-episode',
+        ':i-subscription',
+        ':f-profile',
+        ':f-subscription',
+        ':f-player-dialog',
+        ':i-history',
+        ':i-search'

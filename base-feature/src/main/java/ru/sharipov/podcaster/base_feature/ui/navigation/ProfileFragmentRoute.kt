@@ -4,7 +4,8 @@ import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCr
 import ru.surfstudio.android.core.ui.navigation.fragment.route.RootFragmentRoute
 
 class ProfileFragmentRoute: FragmentCrossFeatureRoute(), RootFragmentRoute {
+
     override fun targetClassPath(): String {
-        return "ru.sharipov.podcaster.f_subscription.SubscriptionFragmentView"
+        return "ru.sharipov.podcaster.f_profile.ProfileFragmentView"
     }
 }
