@@ -26,11 +26,15 @@ class SubscriptionsPresenter @Inject constructor(
 
     override fun onFirstLoad() {
         subscribeOnSubscriptionsChange()
-        fetchNewEpisodes()
+        subscribeOnNewEpisodesLoading()
     }
 
     fun onSubscriptionClick(podcast: PodcastFull) {
         tabNavigator.open(PodcastFragmentRoute(podcast))
+    }
+
+    fun onEpisodeClick(episode: Episode) {
+        dialogNavigator.show(EpisodeFragmentRoute(episode))
     }
 
     private fun subscribeOnSubscriptionsChange() {
@@ -39,15 +43,15 @@ class SubscriptionsPresenter @Inject constructor(
             .subscribeIoDefault(reducer::onSubscriptionChanged)
     }
 
-    private fun fetchNewEpisodes(){
+    private fun subscribeOnNewEpisodesLoading(){
         subscriptionInteractor
             .observeSubscriptions()
-            .flatMap(podcastInteractor::getNewEpisodes)
+            .switchMap { subscriptions ->
+                podcastInteractor
+                    .getNewEpisodes(subscriptions)
+                    .io()
+            }
             .asRequest()
-            .subscribeIoDefault { reducer.onEpisoedsLoaded(it) }
-    }
-
-    fun onEpisodeClick(episode: Episode) {
-        dialogNavigator.show(EpisodeFragmentRoute(episode))
+            .subscribeIoDefault(reducer::onEpisoedsLoaded)
     }
 }

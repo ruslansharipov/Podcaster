@@ -9,28 +9,23 @@
         android:id="@+id/subscriptions_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
-
-        <TextView
-            android:id="@+id/subscriptions_title_tv"
-            app:layout_scrollFlags="scroll|enterAlways"
-            style="@style/Text.Medium.18.PrimaryColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:text="@string/subscriptions_toolbar_title" />
+        app:liftOnScroll="true">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/subscriptions_rv"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp" />
+
+        <View
+            android:background="@color/dividerColor"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,26 +34,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <TextView
-        android:id="@+id/subscriptions_new_episodes_tv"
-        style="@style/Text.Medium.18.PrimaryColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingTop="18dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
-        android:text="@string/subscriptions_new_episodes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subscriptions_episodes_rv"
-        app:layout_constraintTop_toBottomOf="@id/subscriptions_new_episodes_tv"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="16dp"
+        android:paddingBottom="56dp"
+        android:clipToPadding="false"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
@@ -68,6 +52,7 @@
         android:layout_height="match_parent"
         app:emptyIcon="@drawable/bg_primary_btn"
         app:emptyStateTransparent="false"
+        app:shimmerLayout="@layout/layout_full_episodes_skeleton"
         app:emptySubTitle="@string/subscriptions_empty_subtitle"
         app:emptyTitle="@string/subscriptions_empty_title" />
 

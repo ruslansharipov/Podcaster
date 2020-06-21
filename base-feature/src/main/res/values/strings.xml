@@ -75,5 +75,5 @@
     <string name="subscriptions_toolbar_title">Subscriptions</string>
     <string name="subscriptions_new_episodes">New episodes</string>
     <string name="subscriptions_empty_title">No subscriptions yet</string>
-    <string name="subscriptions_empty_subtitle">You can go to the first tab to explore curated podcasts or to the second to find them using search by genre or title</string>
+    <string name="subscriptions_empty_subtitle">You can go to the first tab to explore curated podcasts or to find them using search by genre or title</string>
 </resources>
