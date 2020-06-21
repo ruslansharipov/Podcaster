@@ -11,8 +11,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPictureDefault
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
+import ru.sharipov.podcaster.f_main.view.BottomTabView
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
 import ru.surfstudio.android.core.ui.FragmentContainer
+import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
 class MainActivityView : BaseRxActivityView(), FragmentContainer {
@@ -44,24 +46,18 @@ class MainActivityView : BaseRxActivityView(), FragmentContainer {
         main_tab_view.selectedTabObservable.bindTo(presenter::onBottomTabClick)
         main_player_collapsed.setOnClickListener { presenter.onPlayerClick() }
         main_play_ib_collapsed.setOnClickListener { presenter.onPlayPauseClick() }
-        main_container.addOnInsetsChangedListener { presenter.onInsetsChange(it) }
+        main_container.addOnInsetsChangedListener { Logger.d("insets: $it") }
     }
 
     private fun render(state: MainState) {
         val lastPlayedEpisode = state.lastPlayed.getOrNull()
-        val insets = state.insets
-        val isCollapsedPlayerVisible = lastPlayedEpisode != null && !insets.hasKeyboard
+        val isCollapsedPlayerVisible = lastPlayedEpisode != null
 
         main_player_collapsed.performIfChanged(isCollapsedPlayerVisible, View::isVisible::set)
         main_title_collapsed.performIfChanged(lastPlayedEpisode?.title, TextView::setText)
         main_subtitle_collapsed.performIfChanged(lastPlayedEpisode?.podcastTitle, TextView::setText)
         main_iv_collapsed.performIfChanged(lastPlayedEpisode?.image, ImageView::bindPictureDefault)
-
-        main_container.performIfChanged(insets.keyboard, { updatePadding(bottom = it) })
-        main_tab_view.performIfChanged(state.currentTabType, insets.hasKeyboard, { currentTab, hasKeyboard ->
-            selectedTabType = currentTab
-            isVisible = !hasKeyboard
-        })
+        main_tab_view.performIfChanged(state.currentTabType, BottomTabView::selectedTabType::set)
         main_pb_collapsed.performIfChanged(
             lastPlayedEpisode?.duration,
             state.position,

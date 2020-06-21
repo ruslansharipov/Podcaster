@@ -50,11 +50,6 @@ class MainPresenter @Inject constructor(
         dialogNavigator.show(PlayerDialogRoute())
     }
 
-    fun onInsetsChange(insets: AppInsets) {
-        Logger.d("$insets")
-        mainReducer.onInsetChange(insets)
-    }
-
     fun onPlayPauseClick() {
         val playbackState = mainState.playbackState
         val lastPlayed = mainState.lastPlayed.getOrNull()
