@@ -35,8 +35,10 @@ class MediaManager constructor(
     private val historyInteractor: HistoryInteractor
 ) : Player.EventListener {
 
-    companion object {
+    private companion object {
         const val POSITION_UPDATE_INTERVAL_MS = 1000L
+        const val SKIP_FORWARD_INTERVAL_MS = 30 * 1000
+        const val SKIP_REPLAY_INTERVAL_MS = 10 * 1000
     }
 
     private val positionDisposable: Disposable
@@ -88,6 +90,8 @@ class MediaManager constructor(
             is PlayerAction.Stop -> handleStopRequest()
             is PlayerAction.Next -> handleNextRequest()
             is PlayerAction.Previous -> handlePrevRequest()
+            is PlayerAction.SkipForward -> handleSeekRequest(player.positionMs + SKIP_FORWARD_INTERVAL_MS)
+            is PlayerAction.SkipReplay -> handleSeekRequest(player.positionMs - SKIP_REPLAY_INTERVAL_MS)
         }
     }
 

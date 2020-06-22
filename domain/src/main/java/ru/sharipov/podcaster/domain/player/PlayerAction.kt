@@ -9,6 +9,8 @@ sealed class PlayerAction: Parcelable {
     @Parcelize data class Play(val media: List<Episode>, val index: Int = 0) : PlayerAction()
     @Parcelize data class Add(val media: Episode) : PlayerAction()
     @Parcelize data class Seek(val positionMs: Long) : PlayerAction()
+    @Parcelize object SkipForward : PlayerAction()
+    @Parcelize object SkipReplay : PlayerAction()
     @Parcelize object Next : PlayerAction()
     @Parcelize object Previous : PlayerAction()
     @Parcelize object Resume: PlayerAction()
