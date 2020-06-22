@@ -17,7 +17,14 @@ data class SubscriptionsState(
     val episodes: RequestUi<List<Episode>> = RequestUi()
 ) {
     val placeholderState: PlaceholderState
-        get() = if (subscriptions.isEmpty()) PlaceholderState.Empty else episodes.placeholderState
+        get() {
+            val data = episodes.data
+            return if (data != null && data.isEmpty()) {
+                PlaceholderState.Empty
+            } else {
+                episodes.placeholderState
+            }
+        }
 }
 
 @PerScreen

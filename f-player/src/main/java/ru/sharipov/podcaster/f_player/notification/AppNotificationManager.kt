@@ -1,23 +1,19 @@
 package ru.sharipov.podcaster.f_player.notification
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Handler
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import ru.sharipov.podcaster.base_feature.R
-import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainActivityRoute
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.f_player.service.PlayerService
@@ -75,125 +71,96 @@ class AppNotificationManager(
         service.stopSelf()
     }
 
-    private fun pause(context: Context): NotificationCompat.Action {
-        val pendingIntent = getPendingIntent(
-            context,
-            PAUSE_PENDING_INTENT_ID,
-            PlayerService.ACTION_PAUSE
-        )
+    private fun createPauseAction(): NotificationCompat.Action {
+        val pendingIntent = getPendingIntent(PAUSE_PENDING_INTENT_ID, PlayerService.ACTION_PAUSE)
         return NotificationCompat.Action(R.drawable.ic_pause, "Pause", pendingIntent)
     }
 
-    private fun next(context: Context): NotificationCompat.Action {
-        val pendingIntent = getPendingIntent(
-            context,
-            PLAY_NEXT_PENDING_INTENT_ID,
-            PlayerService.ACTION_FORWARD
-        )
-        return NotificationCompat.Action(R.drawable.ic_forward_30, "Next", pendingIntent)
+    private fun createForwardAction(): NotificationCompat.Action {
+        val pendingIntent =
+            getPendingIntent(PLAY_NEXT_PENDING_INTENT_ID, PlayerService.ACTION_FORWARD)
+        return NotificationCompat.Action(R.drawable.ic_forward_30, "Forward", pendingIntent)
     }
 
-    private fun prev(context: Context): NotificationCompat.Action {
-        val pendingIntent = getPendingIntent(
-            context,
-            PLAY_PREV_PENDING_INTENT_ID,
-            PlayerService.ACTION_REPLAY
-        )
-        return NotificationCompat.Action(R.drawable.ic_replay_10, "Previous", pendingIntent)
+    private fun createReplayAction(): NotificationCompat.Action {
+        val pendingIntent =
+            getPendingIntent(PLAY_PREV_PENDING_INTENT_ID, PlayerService.ACTION_REPLAY)
+        return NotificationCompat.Action(R.drawable.ic_replay_10, "Replay", pendingIntent)
     }
 
-    private fun play(context: Context): NotificationCompat.Action {
-        val pendingIntent = getPendingIntent(
-            context,
-            PLAY_PENDING_INTENT_ID,
-            PlayerService.ACTION_PLAY
-        )
-        return NotificationCompat.Action(R.drawable.ic_play, "Start", pendingIntent)
+    private fun createPlayAction(): NotificationCompat.Action {
+        val pendingIntent = getPendingIntent(PLAY_PENDING_INTENT_ID, PlayerService.ACTION_PLAY)
+        return NotificationCompat.Action(R.drawable.ic_play, "Play", pendingIntent)
     }
 
-    private fun dismiss(context: Context): PendingIntent {
-        return getPendingIntent(
-            context,
-            STOP_PENDING_INTENT_ID,
-            PlayerService.ACTION_STOP
-        )
+    private fun createStopIntent(): PendingIntent {
+        return getPendingIntent(STOP_PENDING_INTENT_ID, PlayerService.ACTION_STOP)
     }
 
-    private fun getPendingIntent(context: Context, intentId: Int, action: String): PendingIntent {
-        val prevIntent = Intent(context, PlayerService::class.java)
+    private fun getPendingIntent(intentId: Int, action: String): PendingIntent {
+        val prevIntent = Intent(service, PlayerService::class.java)
         prevIntent.action = action
 
-        return PendingIntent.getService(context, intentId, prevIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getService(
+            service,
+            intentId,
+            prevIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
     }
 
     private fun updateNotification(media: Episode?) {
-        val builder = createBuilder()
+        showNotification(null, media)
+
         Glide.with(service)
             .asBitmap()
             .load(media?.image)
-            .apply(
-                RequestOptions
-                    .diskCacheStrategyOf(DiskCacheStrategy.DATA)
-                    .onlyRetrieveFromCache(true)
-                    .priority(Priority.IMMEDIATE)
-            )
+            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
             .into(object : SimpleTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    showNotification(builder, resource, media)
-                }
-
-                override fun onLoadFailed(errorDrawable: Drawable?) {
-                    showNotification(builder, null, media)
+                    showNotification(resource, media)
                 }
             })
     }
 
-    private fun showNotification(builder: NotificationCompat.Builder, bitmap: Bitmap?, media: Episode?) {
+    private fun showNotification(
+        bitmap: Bitmap?,
+        media: Episode?
+    ) {
         if (media == null || state == PlaybackState.Idle) {
             return
         }
+        val builder = createBuilder()
 
-        builder.setStyle(
+        val notification = builder
+            .setStyle(
             androidx.media.app.NotificationCompat.MediaStyle()
-                .setMediaSession(token)
                 .setShowActionsInCompactView(0, 1, 2)
-            )
-            .setPriority(Notification.PRIORITY_MAX)
+        )
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-            .setUsesChronometer(false)
             .setSmallIcon(R.drawable.ic_play)
-            .setShowWhen(false)
-            .setOnlyAlertOnce(true)
             .setContentTitle(media.title)
             .setContentText(media.podcastTitle)
-            .setDeleteIntent(dismiss(service))
-            .addAction(prev(service))
-
-        if (state is PlaybackState.Paused || state is PlaybackState.Completed) {
-            builder.addAction(play(service))
-            builder.setOngoing(false)
-        } else {
-            builder.addAction(pause(service))
-            builder.setOngoing(true)
-        }
-        builder.addAction(next(service))
-        builder.setLargeIcon(bitmap)
-
-        val notificationIntent = MainActivityRoute().prepareIntent(service)
-        builder.setContentIntent(
-            PendingIntent.getActivity(
-                service,
-                PLAYER_PENDING_INTENT_ID, notificationIntent, 0
-            )
-        )
-        val notification = builder.build()
-        service.startForeground(NOTIFICATION_ID, notification)
-        notify(notification)
-    }
-
-    private fun notify(notification: Notification) {
+            .setDeleteIntent(createStopIntent())
+            .addAction(createReplayAction())
+            .addPlaybackStateAction(state)
+            .addAction(createForwardAction())
+            .setLargeIcon(bitmap)
+            .build()
         service.startForeground(NOTIFICATION_ID, notification)
         notificationManager.notify(NOTIFICATION_ID, notification)
+    }
+
+    private fun NotificationCompat.Builder.addPlaybackStateAction(
+        state: PlaybackState
+    ): NotificationCompat.Builder = apply {
+        val (action, isOngoing) = if (state is PlaybackState.Paused || state is PlaybackState.Completed) {
+            createPlayAction() to false
+        } else {
+            createPauseAction() to true
+        }
+        addAction(action)
+        setOngoing(isOngoing)
     }
 
     private fun createBuilder(): NotificationCompat.Builder {
@@ -217,5 +184,4 @@ class AppNotificationManager(
             notificationManager.createNotificationChannel(channelPrimary)
         }
     }
-
 }
