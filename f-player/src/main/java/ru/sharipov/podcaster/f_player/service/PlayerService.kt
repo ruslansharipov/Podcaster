@@ -18,8 +18,8 @@ class PlayerService : Service() {
     companion object {
         const val ACTION_PAUSE = "ru.sharipov.podcaster.pause"
         const val ACTION_PLAY = "ru.sharipov.podcaster.start"
-        const val ACTION_PREV = "ru.sharipov.podcaster.previous"
-        const val ACTION_NEXT = "ru.sharipov.podcaster.next"
+        const val ACTION_REPLAY = "ru.sharipov.podcaster.previous"
+        const val ACTION_FORWARD = "ru.sharipov.podcaster.next"
         const val ACTION_STOP = "ru.sharipov.podcaster.stop"
         const val EXTRA_INTENT = "ru.sharipov.podcaster.intent"
     }
@@ -66,10 +66,10 @@ class PlayerService : Service() {
     private fun createPlayerActionFromIntent(action: String?): PlayerAction? {
         return when (action) {
             ACTION_PLAY -> PlayerAction.Resume
-            ACTION_PREV -> PlayerAction.Previous
-            ACTION_NEXT -> PlayerAction.Next
             ACTION_PAUSE -> PlayerAction.Pause
             ACTION_STOP -> PlayerAction.Stop
+            ACTION_REPLAY -> PlayerAction.SkipReplay
+            ACTION_FORWARD -> PlayerAction.SkipForward
             else -> null
         }
     }

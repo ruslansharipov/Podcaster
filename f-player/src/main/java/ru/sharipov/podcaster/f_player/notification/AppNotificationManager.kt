@@ -88,18 +88,18 @@ class AppNotificationManager(
         val pendingIntent = getPendingIntent(
             context,
             PLAY_NEXT_PENDING_INTENT_ID,
-            PlayerService.ACTION_NEXT
+            PlayerService.ACTION_FORWARD
         )
-        return NotificationCompat.Action(R.drawable.ic_next, "Next", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_forward_30, "Next", pendingIntent)
     }
 
     private fun prev(context: Context): NotificationCompat.Action {
         val pendingIntent = getPendingIntent(
             context,
             PLAY_PREV_PENDING_INTENT_ID,
-            PlayerService.ACTION_PREV
+            PlayerService.ACTION_REPLAY
         )
-        return NotificationCompat.Action(R.drawable.ic_previous, "Previous", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_replay_10, "Previous", pendingIntent)
     }
 
     private fun play(context: Context): NotificationCompat.Action {
