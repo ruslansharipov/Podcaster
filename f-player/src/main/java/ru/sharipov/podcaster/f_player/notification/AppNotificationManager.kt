@@ -73,7 +73,7 @@ class AppNotificationManager(
 
     private fun createPauseAction(): NotificationCompat.Action {
         val pendingIntent = getPendingIntent(PAUSE_PENDING_INTENT_ID, PlayerService.ACTION_PAUSE)
-        return NotificationCompat.Action(R.drawable.ic_pause, "Pause", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_pause_big, "Pause", pendingIntent)
     }
 
     private fun createForwardAction(): NotificationCompat.Action {
@@ -90,7 +90,7 @@ class AppNotificationManager(
 
     private fun createPlayAction(): NotificationCompat.Action {
         val pendingIntent = getPendingIntent(PLAY_PENDING_INTENT_ID, PlayerService.ACTION_PLAY)
-        return NotificationCompat.Action(R.drawable.ic_play, "Play", pendingIntent)
+        return NotificationCompat.Action(R.drawable.ic_play_big, "Play", pendingIntent)
     }
 
     private fun createStopIntent(): PendingIntent {
