@@ -6,3 +6,7 @@ import androidx.core.text.HtmlCompat
 fun String.fromHtmlCompact() : Spanned {
     return HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_COMPACT)
 }
+
+fun String.fromHtmlLegacy() : Spanned {
+    return HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
+}

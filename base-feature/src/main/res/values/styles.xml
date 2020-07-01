@@ -107,7 +107,6 @@
     </style>
 
     <style name="BottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
-        <item name="android:windowBackground">@color/dark_transparent_background</item>
         <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

@@ -18,24 +18,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/player_subtitle_expanded"
-        style="@style/Text.Regular.14.PrimaryColor"
+        android:id="@+id/player_title_expanded"
+        style="@style/Text.Regular.14.SecondaryColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/player_iv_expanded"
         tools:text="Needs a friend" />
 
     <TextView
-        android:id="@+id/player_title_expanded"
-        style="@style/Text.Medium.14.PrimaryColor"
+        android:id="@+id/player_subtitle_expanded"
+        style="@style/DefaultButton.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:gravity="start"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded"
+        app:layout_constraintTop_toBottomOf="@id/player_title_expanded"
         tools:text="Conan O'Brian" />
 
     <SeekBar
@@ -46,7 +54,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_title_expanded" />
+        app:layout_constraintTop_toBottomOf="@id/player_subtitle_expanded" />
 
     <TextView
         android:id="@+id/player_position_tv"
