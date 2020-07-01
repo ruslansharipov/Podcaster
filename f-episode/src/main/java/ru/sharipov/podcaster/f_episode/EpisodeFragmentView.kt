@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_episode.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPictureDefault
-import ru.sharipov.podcaster.base_feature.ui.extesions.fromHtmlCompact
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.extesions.setTextFromHtml
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.base_feature.ui.util.TimeFormatter
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
@@ -59,8 +59,10 @@ class EpisodeFragmentView : BaseRxBottomSheetDialogFragment(), CrossFeatureFragm
         episode_date_tv.performIfChanged(dateFormatted, TextView::setText)
         episode_title_tv.performIfChanged(episode.title, TextView::setText)
         episode_length_tv.performIfChanged(lengthFormatted, TextView::setText)
-        episode_details_tv.performIfChanged(episode.description.fromHtmlCompact(), TextView::setText)
         episode_podcast_title_tv.performIfChanged(episode.podcastTitle, TextView::setText)
+        episode_details_tv.performIfChanged(episode.description, { htmlText ->
+            setTextFromHtml(htmlText) { presenter.onLinkClick(it) }
+        })
 
         episode_state_btn.setState(state.playbackState)
     }

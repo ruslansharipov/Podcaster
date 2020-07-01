@@ -40,6 +40,7 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        player_subtitle_expanded.setOnClickListener { presenter.onSubtitleClick() }
         player_play_btn.setOnClickListener { presenter.onStateBtnClick() }
         player_replay_btn.setOnClickListener { presenter.onReplayClick() }
         player_forward_btn.setOnClickListener { presenter.onForwardClick() }
@@ -52,8 +53,8 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
         player_position_tv.performIfChanged(state.positionUi, TextView::setText)
         player_remain_tv.performIfChanged(state.remainsUi, TextView::setText)
-        player_title_expanded.performIfChanged(episode?.title, TextView::setText)
-        player_subtitle_expanded.performIfChanged(episode?.podcastTitle, TextView::setText)
+        player_subtitle_expanded.performIfChanged(episode?.title, TextView::setText)
+        player_title_expanded.performIfChanged(episode?.podcastTitle, TextView::setText)
         player_iv_expanded.performIfChanged(episode?.image, ImageView::bindPictureDefault)
         player_sb_expanded.performIfChanged(
             episode?.duration,

@@ -5,6 +5,8 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDepend
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.UrlRoute
+import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import javax.inject.Inject
@@ -13,6 +15,7 @@ import javax.inject.Inject
 class EpisodePresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val route: EpisodeFragmentRoute,
+    private val activityNavigator: ActivityNavigator,
     private val dialogNavigator: DialogNavigator,
     private val episodeReducer: EpisodeReducer,
     private val episodeStateHolder: EpisodeStateHolder,
@@ -44,6 +47,10 @@ class EpisodePresenter @Inject constructor(
 
     fun onFavoriteClick() {
         // todo
+    }
+
+    fun onLinkClick(url: String) {
+        activityNavigator.start(UrlRoute(url))
     }
 
     private fun subscibeOnPlaybackStateChanges() {

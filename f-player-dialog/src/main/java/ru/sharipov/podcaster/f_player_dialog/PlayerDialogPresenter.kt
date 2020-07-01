@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
+import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
@@ -61,6 +62,13 @@ class PlayerDialogPresenter @Inject constructor(
 
     fun onForwardClick() {
         onUserSeeks(state.position + 30)
+    }
+
+    fun onSubtitleClick() {
+        val episode = state.episode
+        if (episode != null) {
+            dialogNavigator.show(EpisodeFragmentRoute(episode))
+        }
     }
 
     private fun subscribeOnPlaybackStateChanges() {

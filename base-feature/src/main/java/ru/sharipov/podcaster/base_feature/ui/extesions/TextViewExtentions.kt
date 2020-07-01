@@ -3,11 +3,17 @@ package ru.sharipov.podcaster.base_feature.ui.extesions
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.URLSpan
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import com.jakewharton.rxbinding2.widget.editorActionEvents
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.reactivex.Observable
@@ -130,4 +136,28 @@ fun TextView.searchActions(): Observable<Unit> {
             actionEvent.actionId() == EditorInfo.IME_ACTION_SEARCH
         }
     ).map { Unit }
+}
+
+fun TextView.setTextFromHtml(html: String, urlClickListener: (String) -> Unit) {
+    val sequence = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY)
+    val strBuilder = SpannableStringBuilder(sequence)
+    val urls = strBuilder.getSpans(0, sequence.length, URLSpan::class.java)
+    for (url in urls){
+        strBuilder.makeLinkClickable(url, urlClickListener)
+    }
+    text = strBuilder
+    movementMethod = LinkMovementMethod.getInstance()
+}
+
+private fun SpannableStringBuilder.makeLinkClickable(span: URLSpan, listener: (String) -> Unit) {
+    val start = getSpanStart(span)
+    val end = getSpanEnd(span)
+    val flags = getSpanFlags(span)
+    val clickable = object: ClickableSpan() {
+        override fun onClick(view : View) {
+            listener(span.url)
+        }
+    }
+    setSpan(clickable, start, end, flags)
+    removeSpan(span)
 }
