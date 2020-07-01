@@ -5,6 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDepend
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
+import ru.sharipov.podcaster.base_feature.ui.navigation.ShareEpisodeRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.UrlRoute
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
@@ -42,7 +43,7 @@ class EpisodePresenter @Inject constructor(
     }
 
     fun onShareClick() {
-        // todo
+        activityNavigator.start(ShareEpisodeRoute(state.episode))
     }
 
     fun onFavoriteClick() {
