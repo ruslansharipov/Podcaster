@@ -2,7 +2,7 @@ package ru.sharipov.podcaster.base_feature.ui.screen
 
 import dagger.Module
 import dagger.Provides
-import ru.surfstudio.android.core.ui.navigation.Route
+import ru.surfstudio.android.navigation.route.Route
 import ru.surfstudio.android.dagger.scope.PerScreen
 
 /**

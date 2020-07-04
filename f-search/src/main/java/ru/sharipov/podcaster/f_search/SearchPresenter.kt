@@ -4,6 +4,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.extesions.dismiss
 import ru.sharipov.podcaster.base_feature.ui.navigation.SearchDialogRoute
 import ru.sharipov.podcaster.domain.Genre
 import ru.sharipov.podcaster.domain.PodcastTypeAhead
@@ -14,7 +15,7 @@ import ru.sharipov.podcaster.i_search.SearchResult
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ class SearchPresenter @Inject constructor(
     private val reducer: SearchReducer,
     private val podcastInteractor: PodcastInteractor,
     private val searchInteractor: SearchInteractor,
-    private val dialogNavigator: DialogNavigator
+    private val navigationExecutor: NavigationCommandExecutor
 ) : StatePresenter(dependency) {
 
     private companion object {
@@ -92,6 +93,6 @@ class SearchPresenter @Inject constructor(
     }
 
     private fun dismiss() {
-        dialogNavigator.dismiss(route)
+        navigationExecutor.dismiss(route)
     }
 }

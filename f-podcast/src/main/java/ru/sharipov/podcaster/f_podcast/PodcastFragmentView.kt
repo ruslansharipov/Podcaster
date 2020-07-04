@@ -62,6 +62,7 @@ class PodcastFragmentView : BaseRxFragmentView() {
     }
 
     private fun initView() {
+        addDefaultOnBackPressedCallback { presenter.onBackClick() }
         podcast_swr.setOnRefreshListener { presenter.onSwipeRefresh() }
         podcast_toolbar_back_btn.setOnClickListener { presenter.onBackClick() }
         podcast_app_bar.addOnOffsetChangedListener(offsetListener)

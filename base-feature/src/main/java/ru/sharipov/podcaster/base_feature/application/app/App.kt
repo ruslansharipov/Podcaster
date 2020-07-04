@@ -12,6 +12,7 @@ import ru.sharipov.podcaster.base_feature.application.app.di.AppInjector
 import ru.sharipov.podcaster.base_feature.ui.logger.TimberLoggingStrategy
 import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.logger.Logger
+import ru.surfstudio.android.navigation.provider.callbacks.ActivityNavigationProviderCallbacks
 import ru.surfstudio.android.utilktx.ktx.ui.activity.ActivityLifecycleListener
 
 class App: MultiDexApplication() {
@@ -26,6 +27,7 @@ class App: MultiDexApplication() {
         initLogger()
         initThreeTenAbp()
         registerActiveActivityListener()
+        registerNavigationProviderCallbacks()
         createNotificationChannels()
     }
 
@@ -63,6 +65,12 @@ class App: MultiDexApplication() {
             channelPrimary.enableVibration(false)
             notificationManager.createNotificationChannel(channelPrimary)
         }
+    }
+
+    private fun registerNavigationProviderCallbacks() {
+        val provider = AppInjector.appComponent.activityNavigationProvider()
+        val callbackProvider = provider as? ActivityNavigationProviderCallbacks ?: return
+        registerActivityLifecycleCallbacks(callbackProvider)
     }
 
 }

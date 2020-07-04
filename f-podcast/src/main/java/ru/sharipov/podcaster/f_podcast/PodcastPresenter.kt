@@ -2,17 +2,17 @@ package ru.sharipov.podcaster.f_podcast
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.extesions.removeLastFragment
+import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
-import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.SortType
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
-import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
@@ -20,8 +20,7 @@ class PodcastPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val reducer: PodcastReducer,
     private val sh: PodcastStateHolder,
-    private val tabNavigator: TabFragmentNavigator,
-    private val dialogNavigator: DialogNavigator,
+    private val navigationExecutor: NavigationCommandExecutor,
     private val podcastInteractor: PodcastInteractor,
     private val subscriptionInteractor: SubscriptionInteractor
 ) : StatePresenter(dependency) {
@@ -52,11 +51,11 @@ class PodcastPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        dialogNavigator.show(EpisodeFragmentRoute(episode))
+        navigationExecutor.show(EpisodeFragmentRoute(episode))
     }
 
     fun onBackClick() {
-        tabNavigator.onBackPressed()
+        navigationExecutor.removeLastFragment(isTab = true)
     }
 
     private fun loadDetails() {

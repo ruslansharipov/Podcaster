@@ -4,6 +4,9 @@ import io.reactivex.Observable
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.extesions.getNextPage
+import ru.sharipov.podcaster.base_feature.ui.extesions.removeLastFragment
+import ru.sharipov.podcaster.base_feature.ui.extesions.replace
+import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.RegionDialogRoute
 import ru.sharipov.podcaster.domain.PodcastFull
@@ -12,10 +15,9 @@ import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
-import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
@@ -25,8 +27,7 @@ class BestFragmentPresenter @Inject constructor(
     private val reducer: BestReducer,
     private val podcastInteractor: PodcastInteractor,
     private val regionsInteractor: RegionsInteractor,
-    private val tabNavigator: TabFragmentNavigator,
-    private val dialogNavigator: DialogNavigator
+    private val navigationExecutor: NavigationCommandExecutor
 ) : StatePresenter(dependency) {
 
     companion object {
@@ -51,7 +52,7 @@ class BestFragmentPresenter @Inject constructor(
     }
 
     fun onRegionClick() {
-        dialogNavigator.show(RegionDialogRoute())
+        navigationExecutor.show(RegionDialogRoute())
     }
 
     private fun loadPodcasts(
@@ -89,11 +90,11 @@ class BestFragmentPresenter @Inject constructor(
     }
 
     fun onPodcastClick(podcast: PodcastFull) {
-        tabNavigator.open(PodcastFragmentRoute(podcast))
+        navigationExecutor.replace(PodcastFragmentRoute(podcast))
     }
 
     fun onBackClick() {
-        tabNavigator.onBackPressed()
+        navigationExecutor.removeLastFragment()
     }
 
 }

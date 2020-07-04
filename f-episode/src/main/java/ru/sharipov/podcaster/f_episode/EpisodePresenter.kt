@@ -4,20 +4,20 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
+import ru.sharipov.podcaster.base_feature.ui.extesions.dismiss
+import ru.sharipov.podcaster.base_feature.ui.extesions.start
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.ShareEpisodeRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.UrlRoute
-import ru.surfstudio.android.core.ui.navigation.activity.navigator.ActivityNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
 class EpisodePresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val route: EpisodeFragmentRoute,
-    private val activityNavigator: ActivityNavigator,
-    private val dialogNavigator: DialogNavigator,
+    private val navigationExecutor: NavigationCommandExecutor,
     private val episodeReducer: EpisodeReducer,
     private val episodeStateHolder: EpisodeStateHolder,
     private val playerInteractor: PlayerInteractor
@@ -37,13 +37,13 @@ class EpisodePresenter @Inject constructor(
             is PlaybackState.Playing -> playerInteractor.pause()
             else -> {
                 playerInteractor.play(state.episode)
-                dialogNavigator.dismiss(route)
+                navigationExecutor.dismiss(route)
             }
         }
     }
 
     fun onShareClick() {
-        activityNavigator.start(ShareEpisodeRoute(state.episode))
+        navigationExecutor.start(ShareEpisodeRoute(state.episode))
     }
 
     fun onFavoriteClick() {
@@ -51,7 +51,7 @@ class EpisodePresenter @Inject constructor(
     }
 
     fun onLinkClick(url: String) {
-        activityNavigator.start(UrlRoute(url))
+        navigationExecutor.start(UrlRoute(url))
     }
 
     private fun subscibeOnPlaybackStateChanges() {
