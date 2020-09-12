@@ -13,11 +13,11 @@ import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.sharipov.podcaster.f_main.view.BottomTabView
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
-import ru.surfstudio.android.core.ui.FragmentContainer
 import ru.surfstudio.android.logger.Logger
+import ru.surfstudio.android.navigation.provider.container.FragmentNavigationContainer
 import javax.inject.Inject
 
-class MainActivityView : BaseRxActivityView(), FragmentContainer {
+class MainActivityView : BaseRxActivityView(), FragmentNavigationContainer {
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -31,7 +31,7 @@ class MainActivityView : BaseRxActivityView(), FragmentContainer {
 
     override fun getContentView(): Int = R.layout.activity_main
 
-    override fun getContentContainerViewId(): Int = R.id.main_fragment_container
+    override val containerId: Int = R.id.main_fragment_container
 
     override fun onCreate(
         savedInstanceState: Bundle?,

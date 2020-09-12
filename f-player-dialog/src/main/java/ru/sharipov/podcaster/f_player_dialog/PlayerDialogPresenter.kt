@@ -4,11 +4,14 @@ import com.jakewharton.rxrelay2.PublishRelay
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
+import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -17,7 +20,7 @@ class PlayerDialogPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val sh: PlayerStateHolder,
     private val reducer: PlayerReducer,
-    private val dialogNavigator: DialogNavigator,
+    private val navigationExecutor: NavigationCommandExecutor,
     private val playerInteractor: PlayerInteractor,
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
@@ -67,7 +70,7 @@ class PlayerDialogPresenter @Inject constructor(
     fun onSubtitleClick() {
         val episode = state.episode
         if (episode != null) {
-            dialogNavigator.show(EpisodeFragmentRoute(episode))
+            navigationExecutor.show(EpisodeFragmentRoute(episode))
         }
     }
 

@@ -1,6 +1,7 @@
 package ru.sharipov.podcaster.base_feature.application.app.di
 
 import dagger.Component
+import ru.sharipov.podcaster.base_feature.application.app.navigation.di.NavigationModule
 import ru.sharipov.podcaster.base_feature.application.cache.di.CacheModule
 import ru.sharipov.podcaster.base_feature.application.history.di.HistoryModule
 import ru.sharipov.podcaster.base_feature.application.network.NetworkModule
@@ -17,7 +18,7 @@ import ru.surfstudio.android.dagger.scope.PerApplication
     modules = [
         AppModule::class,
         SharedPrefModule::class,
-//        SearchHintsCacheModule::class,
+        NavigationModule::class,
         CacheModule::class,
         NetworkModule::class,
         OkHttpModule::class,

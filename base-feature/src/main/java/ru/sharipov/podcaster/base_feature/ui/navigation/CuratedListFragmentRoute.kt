@@ -1,11 +1,11 @@
 package ru.sharipov.podcaster.base_feature.ui.navigation
 
-import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureRoute
-import ru.surfstudio.android.core.ui.navigation.fragment.route.RootFragmentRoute
+import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
+import ru.surfstudio.android.navigation.route.tab.TabRootRoute
 
-class CuratedListFragmentRoute: FragmentCrossFeatureRoute(), RootFragmentRoute {
+class CuratedListFragmentRoute: FragmentRoute(), TabRootRoute {
 
-    override fun targetClassPath(): String {
+    override fun getScreenClassPath(): String {
         return "ru.sharipov.podcast.f_curated_list.CuratedListFragmentView"
     }
 }

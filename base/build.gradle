@@ -6,6 +6,9 @@ dependencies {
 
     api "ru.surfstudio.android:dagger-scope:$daggerScopeVersion"
     api "ru.surfstudio.android:core-ui:$coreUiVersion"
+    api "ru.surfstudio.android:navigation:$coreNavigationVersion"
+    api "ru.surfstudio.android:navigation-rx:$coreNavigationVersion"
+    api "ru.surfstudio.android:navigation-observer:$coreNavigationVersion"
     api "ru.surfstudio.android:easyadapter:$easyAdapterVersion"
     api "ru.surfstudio.android:shared-pref:$sharedPrefsVersion"
     api "ru.surfstudio.android:core-mvp:$coreMvpVersion"
@@ -28,6 +31,8 @@ dependencies {
     api "androidx.room:room-rxjava2:$roomVersion"
     api "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
 }
+//"navigation-rx",
+//"navigation-observer"
 //"activity-holder",
 //                    "core-mvp-binding",
 //                    "mvi-core",

@@ -1,10 +1,10 @@
 package ru.sharipov.podcaster.base_feature.ui.navigation
 
-import ru.sharipov.podcaster.base_feature.ui.navigation.dialog.DialogCrossFeatureRoute
+import ru.surfstudio.android.navigation.route.dialog.DialogRoute
 
-class PlayerDialogRoute: DialogCrossFeatureRoute() {
+class PlayerDialogRoute: DialogRoute() {
 
-    override fun targetClassPath(): String {
+    override fun getScreenClassPath(): String {
         return "ru.sharipov.podcaster.f_player_dialog.PlayerDialogView"
     }
 }

@@ -1,11 +1,11 @@
 package ru.sharipov.podcaster.base_feature.ui.navigation
 
-import ru.surfstudio.android.core.ui.navigation.feature.route.feature.FragmentCrossFeatureRoute
-import ru.surfstudio.android.core.ui.navigation.fragment.route.RootFragmentRoute
+import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
+import ru.surfstudio.android.navigation.route.tab.TabRootRoute
 
-class ProfileFragmentRoute: FragmentCrossFeatureRoute(), RootFragmentRoute {
+class ProfileFragmentRoute: FragmentRoute(), TabRootRoute {
 
-    override fun targetClassPath(): String {
+    override fun getScreenClassPath(): String {
         return "ru.sharipov.podcaster.f_profile.ProfileFragmentView"
     }
 }

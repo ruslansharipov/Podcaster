@@ -3,7 +3,7 @@ package ru.sharipov.podcaster.base_feature.ui.navigation
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import ru.surfstudio.android.core.ui.navigation.activity.route.ActivityRoute
+import ru.surfstudio.android.navigation.route.activity.ActivityRoute
 
 /**
  * Opens [url] in an appropriate application. It can be browser or
@@ -13,7 +13,7 @@ import ru.surfstudio.android.core.ui.navigation.activity.route.ActivityRoute
  */
 class UrlRoute(private val url: String): ActivityRoute() {
 
-    override fun prepareIntent(context: Context?): Intent {
+    override fun createIntent(context: Context): Intent {
         return Intent(Intent.ACTION_VIEW, Uri.parse(url))
     }
 }

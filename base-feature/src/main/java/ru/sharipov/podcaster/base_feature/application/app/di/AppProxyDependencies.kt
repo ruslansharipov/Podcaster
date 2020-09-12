@@ -15,6 +15,9 @@ import ru.surfstudio.android.activity.holder.ActiveActivityHolder
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.ui.navigation.activity.navigator.GlobalNavigator
 import ru.surfstudio.android.dagger.scope.PerApplication
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
+import ru.surfstudio.android.navigation.observer.ScreenResultObserver
+import ru.surfstudio.android.navigation.provider.ActivityNavigationProvider
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 import ru.surfstudio.android.shared.pref.NO_BACKUP_SHARED_PREF
 import javax.inject.Named
@@ -31,6 +34,10 @@ interface AppProxyDependencies {
     fun schedulerProvider(): SchedulersProvider
     fun stringsProvider(): StringsProvider
     fun globalNavigator(): GlobalNavigator
+
+    fun navigationCommandExecutor(): AppCommandExecutor
+    fun activityNavigationProvider(): ActivityNavigationProvider
+    fun screenResultObserver(): ScreenResultObserver
 
     @Named(NO_BACKUP_SHARED_PREF)
     fun sharedPreferences(): SharedPreferences

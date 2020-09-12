@@ -1,9 +1,9 @@
 package ru.sharipov.podcaster.base_feature.ui.extesions
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import androidx.annotation.*
 import androidx.fragment.app.Fragment
+import ru.sharipov.podcaster.base_feature.ui.navigation.base.DefaultBackPressedCallback
 import ru.surfstudio.android.utilktx.ktx.ui.context.getDisplayMetrics
 
 /**
@@ -85,3 +85,14 @@ val Fragment.displayHeight: Int
             .getDisplayMetrics()
             .heightPixels
     }
+
+/**
+ * Добавление колбека дефолтного в [OnBackPressedDispatcher] родительской Activity.
+ *
+ * @param onBackPressed действие, выполняемое при получении события BackPressed на родительской activity.
+ */
+fun Fragment.addDefaultOnBackPressedCallback(onBackPressed: () -> Unit) {
+    requireActivity()
+        .onBackPressedDispatcher
+        .addCallback(this, DefaultBackPressedCallback(onBackPressed))
+}

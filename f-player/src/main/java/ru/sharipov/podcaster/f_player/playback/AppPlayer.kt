@@ -5,31 +5,19 @@ import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util
-import ru.sharipov.podcaster.base_feature.R
 
 class AppPlayer(
     context: Context,
     audioManager: AudioManager,
     wifiLock: WifiManager.WifiLock,
-    private val playerEventListener: Player.EventListener
+    private val dataSourceFactory: DefaultDataSourceFactory,
+    private val player: SimpleExoPlayer
 ) : BasePlayer(context, audioManager, wifiLock) {
 
-    private var player: SimpleExoPlayer = ExoPlayerFactory.newSimpleInstance(
-        context,
-        DefaultRenderersFactory(context),
-        DefaultTrackSelector(),
-        DefaultLoadControl()
-    ).apply {
-        audioAttributes = AudioAttributes.Builder()
-            .setContentType(C.CONTENT_TYPE_MUSIC)
-            .build()
-    }
+    private var playerEventListener: Player.EventListener? = null
     
     override val bufferedPositionMs: Long
         get() = player.bufferedPosition
@@ -53,7 +41,9 @@ class AppPlayer(
 
     override fun stopPlayer() {
         player.release()
-        player.removeListener(playerEventListener)
+        if (playerEventListener != null) {
+            player.removeListener(playerEventListener!!)
+        }
         player.playWhenReady = false
     }
 
@@ -65,15 +55,18 @@ class AppPlayer(
         player.seekTo(positionMs)
     }
 
+    override fun setListener(listener: Player.EventListener) {
+        playerEventListener = listener
+    }
+
     private fun play() {
-        // TODO listener через который можно отслеживать загрузку данных
-        val dataSourceFactory = DefaultDataSourceFactory(
-            context, Util.getUserAgent(context, context.getString(R.string.app_name)), null
-        )
-        val mediaSource = ExtractorMediaSource.Factory(dataSourceFactory)
+        val mediaSourceFactory = ExtractorMediaSource.Factory(dataSourceFactory)
+        val mediaSource = mediaSourceFactory
             .setExtractorsFactory(DefaultExtractorsFactory())
             .createMediaSource(Uri.parse(currentMedia?.streamUrl))
-        player.addListener(playerEventListener)
+        if (playerEventListener != null) {
+            player.addListener(playerEventListener!!)
+        }
         player.prepare(mediaSource)
         player.playWhenReady = true
     }

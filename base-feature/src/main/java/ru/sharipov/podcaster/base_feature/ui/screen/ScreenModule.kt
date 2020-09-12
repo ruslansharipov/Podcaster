@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
+import ru.sharipov.podcaster.base_feature.ui.screen.navigation.NavigationScreenModule
 import ru.surfstudio.android.connection.ConnectionProvider
 import ru.surfstudio.android.core.mvp.error.ErrorHandler
 import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
@@ -16,7 +17,7 @@ import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 /**
  * Общий модуль для зависимостей Activity и Fragment
  */
-@Module
+@Module(includes = [NavigationScreenModule::class])
 abstract class ScreenModule {
 
     @PerScreen

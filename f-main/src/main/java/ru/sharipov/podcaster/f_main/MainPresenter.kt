@@ -3,16 +3,15 @@ package ru.sharipov.podcaster.f_main
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerInteractor
-import ru.sharipov.podcaster.base_feature.ui.data.AppInsets
+import ru.sharipov.podcaster.base_feature.ui.extesions.replace
+import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.*
 import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainTabType
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
-import ru.surfstudio.android.core.ui.navigation.fragment.route.FragmentRoute
-import ru.surfstudio.android.core.ui.navigation.fragment.tabfragment.TabFragmentNavigator
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.logger.Logger
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
+import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
 import javax.inject.Inject
 
 @PerScreen
@@ -20,8 +19,7 @@ class MainPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val stateHolder: MainStateHolder,
     private val mainReducer: MainReducer,
-    private val tabNavigator: TabFragmentNavigator,
-    private val dialogNavigator: DialogNavigator,
+    private val navigationExecutor: NavigationCommandExecutor,
     private val playerInteractor: PlayerInteractor,
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
@@ -37,17 +35,17 @@ class MainPresenter @Inject constructor(
 
         val tabType = mainState.currentTabType
         val route: FragmentRoute = createRouteForTab(tabType)
-        tabNavigator.open(route)
+        navigationExecutor.replace(route)
     }
 
     fun onBottomTabClick(tabType: MainTabType) {
         val route: FragmentRoute = createRouteForTab(tabType)
-        tabNavigator.open(route)
+        navigationExecutor.replace(route)
         mainReducer.onTabSelected(tabType)
     }
 
     fun onPlayerClick() {
-        dialogNavigator.show(PlayerDialogRoute())
+        navigationExecutor.show(PlayerDialogRoute())
     }
 
     fun onPlayPauseClick() {
