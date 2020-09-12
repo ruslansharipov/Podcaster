@@ -1,5 +1,6 @@
 package ru.sharipov.podcaster.f_player.playback
 
+import com.google.android.exoplayer2.Player
 import ru.sharipov.podcaster.domain.Episode
 
 /* The base interface for any playback implementation */
@@ -24,4 +25,6 @@ interface PlayerInterface {
     fun seekTo(positionMs: Long)
 
     fun invalidateCurrent()
+
+    fun setListener(listener: Player.EventListener)
 }

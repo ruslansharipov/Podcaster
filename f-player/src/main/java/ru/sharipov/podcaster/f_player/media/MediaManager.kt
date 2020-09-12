@@ -1,8 +1,5 @@
 package ru.sharipov.podcaster.f_player.media
 
-import android.content.Context
-import android.media.AudioManager
-import android.net.wifi.WifiManager
 import android.os.SystemClock
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
@@ -26,13 +23,11 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 class MediaManager constructor(
-    context: Context,
-    audioManager: AudioManager,
-    wifiLock: WifiManager.WifiLock,
     private val playerServiceBus: PlayerServiceBus,
     private val notificationManager: AppNotificationManager,
     private val mediaSession: MediaSessionCompat,
-    private val historyInteractor: HistoryInteractor
+    private val historyInteractor: HistoryInteractor,
+    private val player: PlayerInterface
 ) : Player.EventListener {
 
     private companion object {
@@ -44,6 +39,7 @@ class MediaManager constructor(
     private val positionDisposable: Disposable
 
     init {
+        player.setListener(this)
         positionDisposable = Observable
             .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
@@ -59,12 +55,6 @@ class MediaManager constructor(
     }
 
     private val queue = MediaQueue()
-    private val player: PlayerInterface = AppPlayer(
-        context = context,
-        audioManager = audioManager,
-        wifiLock = wifiLock,
-        playerEventListener = this
-    )
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
