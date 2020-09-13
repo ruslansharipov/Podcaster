@@ -5,8 +5,7 @@ import android.media.AudioManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 
 class AppPlayer(
@@ -32,7 +31,14 @@ class AppPlayer(
         get() = player.duration
 
     override fun startPlayer() {
-        play()
+        val mediaSourceFactory = ProgressiveMediaSource.Factory(dataSourceFactory)
+        val streamUri = Uri.parse(currentMedia?.streamUrl)
+        val mediaSource = mediaSourceFactory.createMediaSource(streamUri)
+        if (playerEventListener != null) {
+            player.addListener(playerEventListener!!)
+        }
+        player.prepare(mediaSource)
+        player.playWhenReady = true
     }
 
     override fun pausePlayer() {
@@ -59,15 +65,7 @@ class AppPlayer(
         playerEventListener = listener
     }
 
-    private fun play() {
-        val mediaSourceFactory = ExtractorMediaSource.Factory(dataSourceFactory)
-        val mediaSource = mediaSourceFactory
-            .setExtractorsFactory(DefaultExtractorsFactory())
-            .createMediaSource(Uri.parse(currentMedia?.streamUrl))
-        if (playerEventListener != null) {
-            player.addListener(playerEventListener!!)
-        }
-        player.prepare(mediaSource)
-        player.playWhenReady = true
+    override fun removeListener() {
+        playerEventListener = null
     }
 }
