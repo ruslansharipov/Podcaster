@@ -9,6 +9,7 @@ data class Episode(
     val image: String = EMPTY_STRING,
     val title: String = EMPTY_STRING,
     val podcastTitle: String = EMPTY_STRING,
+    val podcastImage: String = EMPTY_STRING,
     val streamUrl: String = EMPTY_STRING,
     val duration: Int = 0,
     val maybeAudioInvalid: Boolean = false,

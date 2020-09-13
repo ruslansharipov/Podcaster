@@ -19,7 +19,7 @@ class EpisodeView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CoreRxConstraintLayoutView(context, attrs, defStyleAttr) {
+) : CoreRxConstraintLayoutView(context, attrs, defStyleAttr), ExplicitRenderer {
 
     private var episode: Episode? = null
 
@@ -42,15 +42,13 @@ class EpisodeView @JvmOverloads constructor(
 
     }
 
-    fun setIsFull(isFull: Boolean) {
-        episode_icon_iv.isVisible = isFull
-    }
-
-    fun setEpisode(episode: Episode) {
+    fun setEpisode(episode: Episode, isFull: Boolean) {
+        episode_icon_iv.isVisible = isFull || episode.image != episode.podcastImage
         episode_icon_iv.bindPictureDefault(episode.image)
+        episode_length_tv.text = createFormattedLength(episode)
         episode_title_tv.text = episode.title
         episode_date_tv.text = EpisodeDateFormatter.format(context, episode)
-        episode_length_tv.text = createFormattedLength(episode)
+        episode_date_tv.renderExplicitStatus(episode)
     }
 
     private fun createFormattedLength(episode: Episode): String {

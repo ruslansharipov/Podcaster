@@ -21,9 +21,10 @@ data class EpisodeResponse(
     @SerializedName("link") val link: String?
 ) {
 
-    fun transform(podcastTitle: String): Episode {
+    fun transform(podcastTitle: String, podcastImage: String): Episode {
         return Episode(
             podcastTitle = podcastTitle,
+            podcastImage = podcastImage,
             maybeAudioInvalid = maybeAudioInvalid ?: false,
             pubDateMs = pubDateMs ?: 0,
             streamUrl = audio ?: EMPTY_STRING,

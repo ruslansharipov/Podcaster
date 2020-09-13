@@ -8,13 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.layout_player_expanded.*
 import ru.sharipov.podcaster.base_feature.ui.extesions.*
+import ru.sharipov.podcaster.base_feature.ui.widget.episode.ExplicitRenderer
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
 import ru.surfstudio.android.core.mvp.presenter.CorePresenter
 import ru.surfstudio.android.core.mvp.view.CoreView
 import ru.surfstudio.android.logger.Logger
 import javax.inject.Inject
 
-class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
+class PlayerDialogView : BaseRxBottomSheetDialogFragment(), ExplicitRenderer {
 
     @Inject
     lateinit var presenter: PlayerDialogPresenter
@@ -53,8 +54,10 @@ class PlayerDialogView : BaseRxBottomSheetDialogFragment() {
 
         player_position_tv.performIfChanged(state.positionUi, TextView::setText)
         player_remain_tv.performIfChanged(state.remainsUi, TextView::setText)
-        player_subtitle_expanded.performIfChanged(episode?.title, TextView::setText)
         player_title_expanded.performIfChanged(episode?.podcastTitle, TextView::setText)
+        player_subtitle_expanded.performIfChanged(episode){ nonNullEpisode ->
+            renderTitleWithExplicitStatus(nonNullEpisode)
+        }
         player_iv_expanded.performIfChanged(episode?.image, ImageView::bindPictureDefault)
         player_sb_expanded.performIfChanged(
             episode?.duration,

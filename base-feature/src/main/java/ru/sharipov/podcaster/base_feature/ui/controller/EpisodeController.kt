@@ -23,13 +23,12 @@ class EpisodeController(
         private var payload: Episode? = null
 
         init {
-            episodeView.setIsFull(isFullEpisode)
             itemView.setOnClickListener { payload?.let(clickListener) }
         }
 
         override fun bind(data: Episode) {
             payload = data
-            episodeView.setEpisode(data)
+            episodeView.setEpisode(data, isFullEpisode)
         }
     }
 
