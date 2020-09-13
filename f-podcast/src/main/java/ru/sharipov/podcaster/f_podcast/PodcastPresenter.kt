@@ -72,9 +72,8 @@ class PodcastPresenter @Inject constructor(
     }
 
     private fun loadEpisodes(nextDate: Long? = null, isSwr: Boolean = false) {
-        val podcast = sh.value.podcast
         podcastInteractor
-            .getPodcastEpisodes(podcast.id, podcast.title, SortType.RECENT_FIRST, nextDate)
+            .getPodcastEpisodes(sh.value.podcast, SortType.RECENT_FIRST, nextDate)
             .io()
             .asRequest()
             .subscribeDefault { reducer.onEpisodesLoad(it, isSwr) }

@@ -36,6 +36,7 @@ class MediaManager constructor(
         const val SKIP_REPLAY_INTERVAL_MS = 10 * 1000
     }
 
+    private val queue = MediaQueue()
     private val positionDisposable: Disposable
 
     init {
@@ -53,8 +54,6 @@ class MediaManager constructor(
                 }
             }
     }
-
-    private val queue = MediaQueue()
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {

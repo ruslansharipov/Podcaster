@@ -59,14 +59,13 @@ class PodcastInteractor @Inject constructor(
     }
 
     fun getPodcastEpisodes(
-        podcastId: String,
-        podcastTitle: String,
+        subscription: Subscription,
         sortType: SortType = SortType.RECENT_FIRST,
         nextEpisodePubDate: Long? = null
     ): Observable<MergeList<Episode>> {
         return listenApi
-            .getPodcastEpisodes(podcastId, sortType.id, nextEpisodePubDate)
-            .map { it.transform(podcastTitle) }
+            .getPodcastEpisodes(subscription.id, sortType.id, nextEpisodePubDate)
+            .map { it.transform(subscription.title, subscription.image) }
             .toObservable()
     }
 
@@ -81,7 +80,7 @@ class PodcastInteractor @Inject constructor(
         return Observable
             .fromIterable(podcasts)
             .flatMap { subscription: Subscription ->
-                getPodcastEpisodes(subscription.id, subscription.title)
+                getPodcastEpisodes(subscription)
             }
             .toList()
             .map {

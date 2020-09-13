@@ -12,13 +12,17 @@ import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.base_feature.ui.extesions.setTextFromHtml
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.base_feature.ui.util.TimeFormatter
+import ru.sharipov.podcaster.base_feature.ui.widget.episode.ExplicitRenderer
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxBottomSheetDialogFragment
 import ru.surfstudio.android.core.mvp.presenter.CorePresenter
 import ru.surfstudio.android.core.mvp.view.CoreView
 import ru.surfstudio.android.core.ui.navigation.feature.route.feature.CrossFeatureFragment
 import javax.inject.Inject
 
-class EpisodeFragmentView : BaseRxBottomSheetDialogFragment(), CrossFeatureFragment {
+class EpisodeFragmentView :
+    BaseRxBottomSheetDialogFragment(),
+    CrossFeatureFragment,
+    ExplicitRenderer {
 
     @Inject
     lateinit var presenter: EpisodePresenter
@@ -57,7 +61,9 @@ class EpisodeFragmentView : BaseRxBottomSheetDialogFragment(), CrossFeatureFragm
 
         episode_iv.performIfChanged(image, ImageView::bindPictureDefault)
         episode_date_tv.performIfChanged(dateFormatted, TextView::setText)
-        episode_title_tv.performIfChanged(episode.title, TextView::setText)
+        episode_title_tv.performIfChanged(episode) {
+            renderTitleWithExplicitStatus(episode)
+        }
         episode_length_tv.performIfChanged(lengthFormatted, TextView::setText)
         episode_podcast_title_tv.performIfChanged(episode.podcastTitle, TextView::setText)
         episode_details_tv.performIfChanged(episode.description, { htmlText ->

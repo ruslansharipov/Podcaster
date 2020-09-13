@@ -27,4 +27,6 @@ interface PlayerInterface {
     fun invalidateCurrent()
 
     fun setListener(listener: Player.EventListener)
+
+    fun removeListener()
 }

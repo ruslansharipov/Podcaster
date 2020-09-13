@@ -14,9 +14,9 @@ data class PodcastEpisodesResponse(
     @SerializedName("total_episodes") val totalEpisodes: Int?
 ) {
 
-    fun transform(podcastTitle: String): MergeList<Episode> {
+    fun transform(podcastTitle: String, podcastImage: String): MergeList<Episode> {
         return MergeList(
-            data = episodes?.map { it.transform(podcastTitle) } ?: emptyList(),
+            data = episodes?.map { it.transform(podcastTitle, podcastImage) } ?: emptyList(),
             earliestPubDateMs = earliestPubDateMs ?: 0,
             latestPubDateMs = latestPubDateMs ?: 0,
             nextEpisodePubDate = nextEpisodePubDate ?: 0

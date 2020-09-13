@@ -9,7 +9,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.audio.AudioAttributes
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -74,7 +73,6 @@ class PlayerModule(
     @Provides
     @PerService
     fun providesMediaManager(
-        context: Context,
         playerServiceBus: PlayerServiceBus,
         notificationManager: AppNotificationManager,
         mediaSession: MediaSessionCompat,
@@ -110,16 +108,13 @@ class PlayerModule(
     @Provides
     @PerService
     fun provideSimpleExoPlayer(context: Context): SimpleExoPlayer {
-        return ExoPlayerFactory.newSimpleInstance(
-            context,
-            DefaultRenderersFactory(context),
-            DefaultTrackSelector(),
-            DefaultLoadControl()
-        ).apply {
-            audioAttributes = AudioAttributes.Builder()
-                .setContentType(C.CONTENT_TYPE_MUSIC)
-                .build()
-        }
+        return SimpleExoPlayer.Builder(context)
+            .build()
+            .apply {
+                audioAttributes = AudioAttributes.Builder()
+                    .setContentType(C.CONTENT_TYPE_MUSIC)
+                    .build()
+            }
     }
 
     @Provides
