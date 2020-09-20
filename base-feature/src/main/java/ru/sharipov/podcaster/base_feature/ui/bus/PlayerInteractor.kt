@@ -15,13 +15,11 @@ import javax.inject.Inject
 @PerApplication
 class PlayerInteractor @Inject constructor(
     private val serviceBus: PlayerServiceBus,
-    private val context: Context,
-    private val historyInteractor: HistoryInteractor
+    private val context: Context
 ) {
 
     fun play(media: Episode) {
         emitAction(PlayerAction.Play(listOf(media)))
-        historyInteractor.add(media)
     }
 
     fun pause() {

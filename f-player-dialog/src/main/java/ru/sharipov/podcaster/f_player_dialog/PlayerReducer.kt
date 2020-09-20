@@ -48,8 +48,8 @@ class PlayerReducer @Inject constructor(
         sh.emitNewState {
             copy(
                 episode = episode,
-                positionUi = TimeFormatter.fromSeconds(position),
-                remainsUi = "-${TimeFormatter.fromSeconds(episode.duration - position)}"
+                positionUi = TimeFormatter.fromSeconds(episode.progress),
+                remainsUi = "-${TimeFormatter.fromSeconds(episode.duration - episode.progress)}"
             )
         }
     }

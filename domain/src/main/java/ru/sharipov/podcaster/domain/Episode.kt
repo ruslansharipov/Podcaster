@@ -19,7 +19,9 @@ data class Episode(
     val description: String = EMPTY_STRING,
     val explicitContent: Boolean = false,
     val listennotesUrl: String = EMPTY_STRING,
-    val link: String = EMPTY_STRING
+    val link: String = EMPTY_STRING,
+    val progress: Int = 0,
+    val lastPlayedTime: Long = 0
 ) : Comparable<Episode>, Parcelable {
 
     override fun compareTo(other: Episode): Int {

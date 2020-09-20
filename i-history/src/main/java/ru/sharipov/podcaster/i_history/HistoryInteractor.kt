@@ -1,8 +1,10 @@
 package ru.sharipov.podcaster.i_history
 
-import io.reactivex.Observable
+import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.sharipov.podcaster.domain.Episode
+import ru.sharipov.podcaster.i_history.repository.HistoryRepository
 import ru.surfstudio.android.dagger.scope.PerApplication
 import javax.inject.Inject
 
@@ -12,9 +14,7 @@ import javax.inject.Inject
  */
 @PerApplication
 class HistoryInteractor @Inject constructor(
-    private val historyStorage: HistoryStorage,
-    private val lastPlayedStorage: LastPlayedStorage,
-    private val progressStorage: ProgressStorage
+    private val repository: HistoryRepository
 ) {
 
     /**
@@ -22,64 +22,41 @@ class HistoryInteractor @Inject constructor(
      *
      * @param media episode to add
      */
-    fun add(media: Episode) {
-        historyStorage.add(media)
-        lastPlayedStorage.put(media)
+    fun saveProgress(
+        episode: Episode,
+        progressSec: Int,
+        lastPlayedTime: Long
+    ): Completable {
+        return repository.updatePlayedHistory(episode, progressSec, lastPlayedTime)
     }
 
     /**
      * Observe the history of playback
      */
-    fun observeHistory(): Observable<List<Episode>> {
-        return historyStorage.observeHistory()
+    fun observeHistory(): Flowable<List<Episode>> {
+        return repository.observePlayedEpisodes()
     }
 
     /**
      * Observe the last played episode
      */
-    fun observeLastPlayed(): Observable<Episode> {
-        return lastPlayedStorage.observeLastPlayed()
+    fun observeLastPlayed(): Flowable<Episode> {
+        return repository.observeLastPlayedEpisode()
     }
 
     /**
-     * @return  true if the storage contains any played episode
+     * Gets the saved progress of the episode with given [episodeId]
      */
-    fun hasLastPlayed() : Boolean = lastPlayedStorage.isNotEmpty
-
-    /**
-     * Save playback progress
-     *
-     * @param positionSec   progress position in seconds
-     */
-    fun saveProgress(positionSec: Int) {
-        val id = lastPlayedStorage.getLastPlayed()?.id
-        if (id != null){
-            progressStorage.saveProgress(id, positionSec)
-        }
-    }
-
-    /**
-     * @return saved progress of the episode with given [episodeId] wrapped into [Single]
-     */
-    fun getProgressSingle(episodeId: String): Single<Int> {
-        return progressStorage.getSavedProgressSingle(episodeId)
-    }
-
-    /**
-     * Synchronously gets the saved progress of the episode with given [episodeId]
-     */
-    fun getProgress(episodeId: String): Int {
-        return progressStorage.getSavedProgress(episodeId)
+    fun getProgress(episodeId: String): Single<Int> {
+        return repository.getSavedProgress(episodeId)
     }
 
     /**
      * Observe the position of last played episode
      */
-    fun observePosition(): Observable<Int> {
+    fun observePosition(): Flowable<Int> {
         return observeLastPlayed()
-            .switchMap { lastPlayed: Episode ->
-                progressStorage.observeProgressChanges(lastPlayed.id)
-            }
+            .map { it.progress }
     }
 
 }

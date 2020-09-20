@@ -37,7 +37,6 @@ class PlayerDialogPresenter @Inject constructor(
     override fun onFirstLoad() {
         subscribeOnLastPlayedChanges()
         subscribeOnPlaybackStateChanges()
-        subscribeOnPositionChanges()
         subscribeOnBufferingChanges()
         subscribeOnSeekEvents()
     }
@@ -83,13 +82,7 @@ class PlayerDialogPresenter @Inject constructor(
     private fun subscribeOnLastPlayedChanges() {
         historyInteractor
             .observeLastPlayed()
-            .subscribeDefault(reducer::onLastPlayedChange)
-    }
-
-    private fun subscribeOnPositionChanges() {
-        historyInteractor
-            .observePosition()
-            .subscribeDefault(reducer::onPositionChange)
+            .subscribeIoDefault(reducer::onLastPlayedChange)
     }
 
     private fun subscribeOnBufferingChanges() {
