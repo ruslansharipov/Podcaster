@@ -30,7 +30,6 @@ class MainPresenter @Inject constructor(
     override fun onFirstLoad() {
         subscribeOnPlaybackState()
         subscribeOnLastPlayed()
-        subscribeOnPositionChanges()
         subscribeOnBufferingChanges()
 
         val tabType = mainState.currentTabType
@@ -69,26 +68,20 @@ class MainPresenter @Inject constructor(
     private fun subscribeOnLastPlayed() {
         historyInteractor
             .observeLastPlayed()
-            .subscribeDefault(mainReducer::onLastPlayedChanged)
-    }
-
-    private fun subscribeOnPositionChanges() {
-        historyInteractor
-            .observePosition()
-            .subscribeDefault (mainReducer::onPositionChange)
+            .subscribeIoDefault(mainReducer::onLastPlayedChanged)
     }
 
     private fun subscribeOnBufferingChanges() {
         playerInteractor
             .observeBufferingPosition()
-            .subscribeDefault(mainReducer::onBufferingPositionChange)
+            .subscribeIoDefault(mainReducer::onBufferingPositionChange)
     }
 
     private fun createRouteForTab(tabType: MainTabType): FragmentRoute {
         return when (tabType) {
             MainTabType.EXPLORE -> CuratedListFragmentRoute()
             MainTabType.FEED -> SubscriptionsFragmentRoute()
-            MainTabType.PROFILE -> ProfileFragmentRoute()
+            MainTabType.PROFILE -> ActivityFragmentRoute()
         }
     }
 

@@ -11,6 +11,7 @@ class EpisodeController(
     private val isFullEpisode: Boolean = false,
     private val clickListener: (Episode) -> Unit
 ) : BindableItemController<Episode, EpisodeController.Holder>() {
+
     override fun getItemId(data: Episode): String = data.id
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
@@ -31,6 +32,4 @@ class EpisodeController(
             episodeView.setEpisode(data, isFullEpisode)
         }
     }
-
-
 }

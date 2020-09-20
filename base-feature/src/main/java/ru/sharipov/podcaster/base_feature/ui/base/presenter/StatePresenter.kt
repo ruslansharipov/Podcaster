@@ -1,17 +1,15 @@
 package ru.sharipov.podcaster.base_feature.ui.base.presenter
 
 import androidx.annotation.CallSuper
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import io.reactivex.internal.functions.Functions
-import io.reactivex.internal.observers.LambdaObserver
 import ru.surfstudio.android.core.mvi.ui.relation.StateEmitter
 import ru.surfstudio.android.core.mvp.binding.rx.builders.RxBuilderIo
 import ru.surfstudio.android.core.ui.state.ScreenState
-import ru.surfstudio.android.rx.extension.ObservableUtil
 import ru.surfstudio.android.rx.extension.scheduler.SchedulersProvider
 
 abstract class StatePresenter(
@@ -34,7 +32,7 @@ abstract class StatePresenter(
 
     fun <T> Observable<T>.subscribeDefault(onNext: (T) -> Unit): Disposable {
         val disposable = this
-            .observeOn(schedulersProvider.main())
+            .main()
             .subscribe(Consumer(onNext), Consumer {})
 
         disposables.add(disposable)
@@ -43,6 +41,21 @@ abstract class StatePresenter(
 
     fun <T> Single<T>.subscribeDefault(onNext: (T) -> Unit): Disposable {
         return this.toObservable().subscribeDefault(onNext)
+    }
+
+    fun <T> Flowable<T>.subscribeIoDefault(onNext: (T) -> Unit): Disposable {
+        return this
+            .subscribeOn(schedulersProvider.worker())
+            .subscribeDefault(onNext)
+    }
+
+    fun <T> Flowable<T>.subscribeDefault(onNext: (T) -> Unit): Disposable {
+        val disposable = this
+            .observeOn(schedulersProvider.main())
+            .subscribe(Consumer(onNext), Consumer {})
+
+        disposables.add(disposable)
+        return disposable
     }
 
     @CallSuper

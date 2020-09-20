@@ -7,8 +7,10 @@ import android.support.v4.media.session.PlaybackStateCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.Disposables
+import io.reactivex.schedulers.Schedulers
 import ru.sharipov.podcaster.base_feature.ui.bus.PlayerServiceBus
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlaybackState
@@ -18,7 +20,6 @@ import ru.sharipov.podcaster.f_player.notification.AppNotificationManager
 import ru.sharipov.podcaster.f_player.playback.*
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.logger.Logger
-import ru.surfstudio.android.utilktx.ktx.text.EMPTY_STRING
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
@@ -37,22 +38,12 @@ class MediaManager constructor(
     }
 
     private val queue = MediaQueue()
-    private val positionDisposable: Disposable
+
+    private var playDisposable = Disposables.empty()
+    private var positionDisposable = Disposables.empty()
 
     init {
         player.setListener(this)
-        positionDisposable = Observable
-            .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                if (player.isPlaying) {
-                    val positionSec = player.positionMs.toSeconds()
-                    historyInteractor.saveProgress(positionSec)
-
-                    val bufferedPosition = player.bufferedPositionMs.toSeconds()
-                    playerServiceBus.emitBufferedPosition(bufferedPosition)
-                }
-            }
     }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
@@ -85,6 +76,7 @@ class MediaManager constructor(
     }
 
     fun onDestroy() {
+        playDisposable.dispose()
         positionDisposable.dispose()
         mediaSession.release()
     }
@@ -166,17 +158,53 @@ class MediaManager constructor(
     }
 
     private fun play(media: Episode?) {
-        val id = media?.id ?: EMPTY_STRING
-        val savedProgress = historyInteractor.getProgress(id)
-        val playerProgress = player.positionMs.toSeconds()
-        val shouldRestorePosition = abs(playerProgress - savedProgress) > 1
-        player.play(media)
-        if (shouldRestorePosition) {
-            player.seekTo(savedProgress * 1000L)
-        }
-        mediaSession.setMetadata(getMetadata(media))
-        notificationManager.updateMedia(media)
-        onNextQueue()
+        media ?: return
+        subscribeOnPositionUpdates(media)
+        val id = media.id
+        playDisposable = historyInteractor
+            .getProgress(id)
+            .subscribeOn(Schedulers.io())
+            .flatMap { progress ->
+                historyInteractor
+                    .saveProgress(media, progress, System.currentTimeMillis())
+                    .subscribeOn(Schedulers.io())
+                    .andThen(Single.just(progress))
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ savedProgress ->
+                val playerProgress = player.positionMs.toSeconds()
+                val shouldRestorePosition = abs(playerProgress - savedProgress) > 1
+                player.play(media)
+                if (shouldRestorePosition) {
+                    player.seekTo(savedProgress * 1000L)
+                }
+                mediaSession.setMetadata(getMetadata(media))
+                notificationManager.updateMedia(media)
+                onNextQueue()
+            }, Logger::e)
+    }
+
+    private fun subscribeOnPositionUpdates(media: Episode) {
+        positionDisposable.dispose()
+        positionDisposable = Observable
+            .interval(POSITION_UPDATE_INTERVAL_MS, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .filter { player.isPlaying }
+            .map { System.currentTimeMillis() }
+            .flatMapCompletable { lastPlayedTime ->
+                historyInteractor.saveProgress(
+                    episode = media,
+                    progressSec = player.positionMs.toSeconds(),
+                    lastPlayedTime = lastPlayedTime
+                )
+                    .subscribeOn(Schedulers.io())
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                val bufferedPosition = player.bufferedPositionMs.toSeconds()
+                playerServiceBus.emitBufferedPosition(bufferedPosition)
+            }, Logger::e)
     }
 
     private fun updatePlaybackState(playbackState: PlaybackState, position: Long) {

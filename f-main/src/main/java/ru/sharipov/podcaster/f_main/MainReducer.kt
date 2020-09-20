@@ -37,15 +37,6 @@ class MainReducer @Inject constructor(
         }
     }
 
-    fun onPositionChange(newPosition: Int) {
-        val lastPlayed = sh.value.lastPlayed.getOrNull()
-        if (lastPlayed != null){
-            sh.emitNewState {
-                copy(position = newPosition)
-            }
-        }
-    }
-
     fun onTabSelected(tabType: MainTabType) {
         sh.emitNewState {
             copy(currentTabType = tabType)
@@ -60,7 +51,10 @@ class MainReducer @Inject constructor(
 
     fun onLastPlayedChanged(lastPlayed: Episode) {
         sh.emitNewState {
-            copy(lastPlayed = Optional.of(lastPlayed))
+            copy(
+                lastPlayed = Optional.of(lastPlayed),
+                position = lastPlayed.progress
+            )
         }
     }
 }

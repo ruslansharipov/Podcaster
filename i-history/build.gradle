@@ -1,6 +1,9 @@
 apply from: '../commonInteractorModule.gradle'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation project(":i-network")
     implementation project(":i-subscription")
+
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

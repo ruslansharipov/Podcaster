@@ -13,11 +13,12 @@ import javax.inject.Inject
 data class PlayerState(
     val episode: Episode? = null,
     val playbackState: PlaybackState = PlaybackState.Idle,
-    val position: Int = 0,
     val bufferingPosition: Int = 0,
     val positionUi: String = EMPTY_STRING,
     val remainsUi: String = EMPTY_STRING
-)
+) {
+    val position: Int get() = episode?.progress ?: 0
+}
 
 @PerScreen
 class PlayerStateHolder @Inject constructor() : State<PlayerState>(PlayerState())
@@ -37,7 +38,6 @@ class PlayerReducer @Inject constructor(
     fun onPositionChange(newPosition: Int) {
         sh.emitNewState {
             copy(
-                position = newPosition,
                 positionUi = TimeFormatter.fromSeconds(newPosition),
                 remainsUi = "-${TimeFormatter.fromSeconds(episode?.duration?.minus(newPosition))}"
             )
@@ -48,8 +48,8 @@ class PlayerReducer @Inject constructor(
         sh.emitNewState {
             copy(
                 episode = episode,
-                positionUi = TimeFormatter.fromSeconds(position),
-                remainsUi = "-${TimeFormatter.fromSeconds(episode.duration - position)}"
+                positionUi = TimeFormatter.fromSeconds(episode.progress),
+                remainsUi = "-${TimeFormatter.fromSeconds(episode.duration - episode.progress)}"
             )
         }
     }
