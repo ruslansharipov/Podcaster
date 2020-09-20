@@ -42,7 +42,7 @@ abstract class BasePlayer(
             requestFocus()
             registerWifiLock()
             registerNoiseReceiver()
-            if (media == currentMedia) {
+            if (media.id == currentMedia?.id) {
                 resumePlayer()
             } else {
                 currentMedia = media
