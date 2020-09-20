@@ -6,7 +6,6 @@
         <item name="secondaryButtonText">@string/empty_string</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="iconRes">@drawable/bg_primary_btn</item>
         <item name="titleTextAppearance">@style/Text.Medium.18</item>
         <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
         <item name="iconSize">150dp</item>
@@ -29,7 +28,6 @@
         <item name="secondaryButtonText">@string/retry_btn</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="iconRes">@drawable/bg_primary_btn</item>
         <item name="titleTextAppearance">@style/Text.Medium.18</item>
         <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
         <item name="iconSize">150dp</item>
@@ -37,7 +35,6 @@
 
     <style name="PlaceHolderEmpty">
         <item name="secondaryButtonText">@string/empty_string</item>
-        <item name="iconRes">@drawable/bg_primary_btn</item>
         <item name="titleTextAppearance">@style/Text.Medium.18</item>
         <item name="subtitleTextAppearance">@style/Text.Regular.16.SecondaryColor</item>
         <item name="iconSize">150dp</item>

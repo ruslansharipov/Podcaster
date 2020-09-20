@@ -24,10 +24,23 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_rv"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
+            app:emptyTitle="@string/activity_empty_title"
+            app:emptySubTitle="@string/activity_empty_subtitle"
+            android:id="@+id/activity_psv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

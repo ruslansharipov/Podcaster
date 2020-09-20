@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.sharipov.podcaster.base_feature.ui.controller.EpisodeController
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
+import ru.sharipov.podcaster.domain.Episode
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import javax.inject.Inject
@@ -46,7 +49,8 @@ class ActivityFragmentView : BaseRxFragmentView() {
     }
 
     private fun render(state: ActivityState) {
-        activity_rv.performIfChanged(state.historyItems) { items ->
+        activity_psv.performIfChanged(state.placeholderState, PlaceholderStateView::setState)
+        activity_rv.performIfChanged(state.historyItems) { items: List<Episode> ->
             easyAdapter.setData(items, episodeController)
         }
     }

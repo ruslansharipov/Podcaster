@@ -77,4 +77,8 @@
     <string name="subscriptions_new_episodes">New episodes</string>
     <string name="subscriptions_empty_title">No subscriptions yet</string>
     <string name="subscriptions_empty_subtitle">You can go to the first tab to explore curated podcasts or to find them using search by genre or title</string>
+
+    <!--  ActivityFragmentView  -->
+    <string name="activity_empty_title">Nothing found</string>
+    <string name="activity_empty_subtitle">Here you will see the list of listened episodes</string>
 </resources>

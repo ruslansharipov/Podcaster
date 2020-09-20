@@ -25,23 +25,6 @@ class PlaceholderView @JvmOverloads constructor(
     defStyleAttr: Int = -1
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    var iconRes = EMPTY_RES
-        set(value) {
-            field = value
-            placeholder_icon_iv.isVisible = value != EMPTY_RES
-            placeholder_icon_iv.setImageResource(if (value != EMPTY_RES) value else return)
-        }
-    var iconSize = 0
-        set(value) {
-            field = value
-            if (value > 0) {
-                placeholder_icon_iv.updateLayoutParams {
-                    width = value
-                    height = value
-                }
-            }
-        }
-
     var title: CharSequence = EMPTY_STRING
         set(value) {
             field = value
@@ -98,7 +81,6 @@ class PlaceholderView @JvmOverloads constructor(
 
     fun setMiniStyle() {
         isMiniStyle = true
-        placeholder_icon_iv.isVisible = false
         placeholder_secondary_btn.setTextAppearanceStyle(R.style.Text_Medium_12)
         placeholder_secondary_btn.setTextColor(color(R.color.colorAccent))
         placeholder_subtitle_tv.setTextColor(color(R.color.textColorPrimary))
@@ -120,8 +102,6 @@ class PlaceholderView @JvmOverloads constructor(
 
     private fun obtainAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PlaceholderView)
-        iconRes = typedArray.getResourceId(R.styleable.PlaceholderView_iconRes, EMPTY_RES)
-        iconSize = typedArray.getDimensionPixelOffset(R.styleable.PlaceholderView_iconSize, 0)
         title = typedArray.getString(R.styleable.PlaceholderView_title) ?: EMPTY_STRING
         subtitle = typedArray.getString(R.styleable.PlaceholderView_subtitle) ?: EMPTY_STRING
         primaryButtonText = typedArray.getString(R.styleable.PlaceholderView_primaryButtonText)

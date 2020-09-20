@@ -50,7 +50,6 @@
         android:id="@+id/subscriptions_pv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:emptyIcon="@drawable/bg_primary_btn"
         app:emptyStateTransparent="false"
         app:shimmerLayout="@layout/layout_full_episodes_skeleton"
         app:emptySubTitle="@string/subscriptions_empty_subtitle"

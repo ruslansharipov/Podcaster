@@ -59,7 +59,6 @@
         android:id="@+id/search_pv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:emptyIcon="@drawable/bg_primary_btn"
         app:emptySubTitle="@string/search_empty_subtitle"
         app:emptyTitle="@string/state_empty_text"
         app:isMiniStyle="true"
