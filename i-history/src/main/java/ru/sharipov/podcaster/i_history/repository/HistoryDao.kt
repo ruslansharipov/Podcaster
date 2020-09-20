@@ -14,7 +14,7 @@ interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updatePlayedHistory(entity: HistoryEntity): Completable
 
-    @Query("SELECT * FROM history_entity")
+    @Query("SELECT * FROM history_entity ORDER BY lastPlayedTime DESC")
     fun getHistoryEntities(): Flowable<List<HistoryEntity>>
 
     @Query("SELECT * FROM history_entity ORDER BY lastPlayedTime DESC LIMIT 1")

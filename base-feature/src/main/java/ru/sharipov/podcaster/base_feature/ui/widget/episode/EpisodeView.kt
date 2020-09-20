@@ -9,6 +9,8 @@ import org.threeten.bp.LocalTime
 import ru.sharipov.podcaster.base_feature.ui.util.EpisodeDateFormatter
 import ru.sharipov.podcaster.base_feature.R
 import ru.sharipov.podcaster.base_feature.ui.extesions.bindPictureDefault
+import ru.sharipov.podcaster.base_feature.ui.extesions.distinctText
+import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.base_feature.ui.extesions.string
 import ru.sharipov.podcaster.domain.Episode
 import ru.surfstudio.android.core.mvp.binding.rx.ui.CoreRxConstraintLayoutView
@@ -43,16 +45,32 @@ class EpisodeView @JvmOverloads constructor(
     }
 
     fun setEpisode(episode: Episode, isFull: Boolean) {
+        episode_length_tv.distinctText = createTimeString(episode)
+        episode_title_tv.distinctText = episode.title
+        episode_date_tv.distinctText = EpisodeDateFormatter.format(context, episode)
+        episode_date_tv.performIfChanged(episode){
+            renderExplicitStatus(episode)
+        }
+        episode_icon_iv.performIfChanged(episode.image){
+            bindPictureDefault(episode.image)
+        }
         episode_icon_iv.isVisible = isFull || episode.image != episode.podcastImage
-        episode_icon_iv.bindPictureDefault(episode.image)
-        episode_length_tv.text = createFormattedLength(episode)
-        episode_title_tv.text = episode.title
-        episode_date_tv.text = EpisodeDateFormatter.format(context, episode)
-        episode_date_tv.renderExplicitStatus(episode)
     }
 
-    private fun createFormattedLength(episode: Episode): String {
-        val time = LocalTime.ofSecondOfDay(episode.duration.toLong())
+    private fun createTimeString(episode: Episode) : String {
+        val lengthFormatted = createFormattedLength(episode.duration)
+        val secondsLeft = episode.duration - episode.progress
+        val showProgress = episode.duration / 60 != secondsLeft / 60
+        return if (episode.progress != 0 && showProgress) {
+            val timeLeftFormatted = createFormattedLength(secondsLeft)
+            string(R.string.episode_time_left_format, lengthFormatted, timeLeftFormatted)
+        } else {
+            lengthFormatted
+        }
+    }
+
+    private fun createFormattedLength(seconds: Int): String {
+        val time = LocalTime.ofSecondOfDay(seconds.toLong())
         return if (time.hour != 0) {
             string(R.string.episode_length_format_full, time.hour, time.minute)
         } else {
