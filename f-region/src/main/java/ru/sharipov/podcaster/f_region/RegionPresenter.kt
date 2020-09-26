@@ -9,7 +9,7 @@ import ru.sharipov.podcaster.domain.Region
 import ru.sharipov.podcaster.i_genres.RegionsInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class RegionPresenter @Inject constructor(
     private val route: RegionDialogRoute,
     private val reducer: RegionReducer,
     private val regionsInteractor: RegionsInteractor,
-    private val navigationExecutor: NavigationCommandExecutor
+    private val navigationExecutor: AppCommandExecutor
 ) : StatePresenter(dependency) {
 
     companion object {

@@ -15,7 +15,7 @@ import ru.sharipov.podcaster.i_search.SearchResult
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class SearchPresenter @Inject constructor(
     private val reducer: SearchReducer,
     private val podcastInteractor: PodcastInteractor,
     private val searchInteractor: SearchInteractor,
-    private val navigationExecutor: NavigationCommandExecutor
+    private val navigationExecutor: AppCommandExecutor
 ) : StatePresenter(dependency) {
 
     private companion object {

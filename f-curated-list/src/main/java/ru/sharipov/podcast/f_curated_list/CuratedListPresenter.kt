@@ -14,7 +14,7 @@ import ru.sharipov.podcaster.i_search.SearchInteractor
 import ru.sharipov.podcaster.i_search.SearchResult
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
@@ -24,7 +24,7 @@ class CuratedListPresenter @Inject constructor(
     private val reducer: CuratedListReducer,
     private val searchInteractor: SearchInteractor,
     private val podcastInteractor: PodcastInteractor,
-    private val navigationExecutor: NavigationCommandExecutor
+    private val navigationExecutor: AppCommandExecutor
 ) : StatePresenter(dependency) {
 
     private companion object {

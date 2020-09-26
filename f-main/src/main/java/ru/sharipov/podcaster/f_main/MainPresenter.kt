@@ -10,7 +10,7 @@ import ru.sharipov.podcaster.base_feature.ui.navigation.main.MainTabType
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class MainPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val stateHolder: MainStateHolder,
     private val mainReducer: MainReducer,
-    private val navigationExecutor: NavigationCommandExecutor,
+    private val navigationExecutor: AppCommandExecutor,
     private val playerInteractor: PlayerInteractor,
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {

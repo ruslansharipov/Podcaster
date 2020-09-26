@@ -9,13 +9,13 @@ import ru.surfstudio.android.core.mvp.presenter.BasePresenterDependency
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.navigation.command.activity.FinishAffinity
 import ru.surfstudio.android.navigation.command.activity.Start
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
 class SplashPresenter @Inject constructor(
     baseDependency: BasePresenterDependency,
-    private val navigationExecutor: NavigationCommandExecutor,
+    private val navigationExecutor: AppCommandExecutor,
     private val subscriptionInteractor: SubscriptionInteractor
 ) : BasePresenter<SplashActivityView>(baseDependency) {
 
