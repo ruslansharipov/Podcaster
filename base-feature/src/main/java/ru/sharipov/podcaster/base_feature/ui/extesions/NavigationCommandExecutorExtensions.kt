@@ -1,5 +1,7 @@
 package ru.sharipov.podcaster.base_feature.ui.extesions
 
+import ru.surfstudio.android.navigation.animation.Animations
+import ru.surfstudio.android.navigation.animation.DefaultAnimations
 import ru.surfstudio.android.navigation.command.NavigationCommand
 import ru.surfstudio.android.navigation.command.activity.Start
 import ru.surfstudio.android.navigation.command.dialog.Dismiss
@@ -23,8 +25,12 @@ fun NavigationCommandExecutor.add(route: FragmentRoute) {
     execute(Add(route))
 }
 
-fun NavigationCommandExecutor.replace(route: FragmentRoute) {
-    execute(ru.surfstudio.android.navigation.command.fragment.Replace(route))
+fun NavigationCommandExecutor.replace(
+    route: FragmentRoute,
+    animations: Animations = DefaultAnimations.fragment,
+    tag: String = ""
+) {
+    execute(ru.surfstudio.android.navigation.command.fragment.Replace(route, animations, tag))
 }
 
 fun NavigationCommandExecutor.show(route: DialogRoute) {
@@ -35,8 +41,8 @@ fun NavigationCommandExecutor.dismiss(route: DialogRoute) {
     execute(Dismiss(route))
 }
 
-fun NavigationCommandExecutor.removeLastFragment(isTab: Boolean = false) {
-    execute(RemoveLast(isTab = isTab))
+fun NavigationCommandExecutor.removeLastFragment() {
+    execute(RemoveLast())
 }
 
 fun NavigationCommandExecutor.execute(vararg commands: NavigationCommand) {

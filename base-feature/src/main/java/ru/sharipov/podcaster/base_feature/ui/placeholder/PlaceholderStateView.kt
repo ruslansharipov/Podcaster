@@ -59,21 +59,18 @@ open class PlaceholderStateView @JvmOverloads constructor(
     private var isMiniStyle: Boolean = false
 
     var errorBtnTitleRes: Int = 0
-    var errorIconRes: Int = 0
     var errorTitleRes: Int = 0
     var errorSubtitleRes: Int = 0
     var errorTitleText: CharSequence = EMPTY_STRING
     var errorSubtitleText: CharSequence = EMPTY_STRING
 
     var emptyBtnTitleRes: Int = 0
-    var emptyIconRes: Int = 0
     var emptyStateTitleRes: Int = 0
     var emptyStateSubTitleRes: Int = 0
     var emptyStateTitleText: CharSequence = EMPTY_STRING
     var emptyStateSubtitleText: CharSequence = EMPTY_STRING
 
     var notFoundBtnTitleRes: Int = 0
-    var notFoundIconRes: Int = 0
     var notFoundTitleRes: Int = 0
     var notFoundSubtitleRes: Int = 0
     var notFoundTitleText: CharSequence = EMPTY_STRING
@@ -102,9 +99,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
         isMiniStyle = ta.getBoolean(R.styleable.PlaceholderStateView_isMiniStyle, false)
         if (isMiniStyle) {
             // в режиме isMiniStyle=true устанавливаем не требующиеся к отображению ресурсы в EMPTY_RES
-            emptyIconRes = EMPTY_RES
-            errorIconRes = EMPTY_RES
-            notFoundIconRes = EMPTY_RES
             errorTitleRes = R.string.empty_string
             view_placeholder.setMiniStyle()
         }
@@ -115,8 +109,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
     private fun initNotFoundState(ta: TypedArray) {
         notFoundBtnTitleRes =
             ta.getResourceId(R.styleable.PlaceholderStateView_notFoundBtnTitle, R.string.empty_string)
-        notFoundIconRes =
-            ta.getResourceId(R.styleable.PlaceholderStateView_notFoundIcon, R.drawable.empty_drawable)
         notFoundTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_notFoundTitle, R.string.empty_string)
         notFoundSubtitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_notFoundSubTitle, R.string.empty_string)
     }
@@ -147,7 +139,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
     private fun initErrorState(ta: TypedArray) {
         errorTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorTitle, R.string.error_loading_title)
         errorSubtitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorSubtitle, R.string.error_loading_message)
-        errorIconRes = ta.getResourceId(R.styleable.PlaceholderStateView_errorIcon, R.drawable.bg_primary_btn) // TODO
         errorBtnTitleRes =
             ta.getResourceId(R.styleable.PlaceholderStateView_errorBtnTitle, R.string.retry_btn)
     }
@@ -155,8 +146,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
     private fun initEmptyState(ta: TypedArray) {
         emptyBtnTitleRes =
             ta.getResourceId(R.styleable.PlaceholderStateView_emptyBtnTitle, R.string.empty_string)
-        emptyIconRes =
-            ta.getResourceId(R.styleable.PlaceholderStateView_emptyIcon, R.drawable.bg_primary_btn) // TODO
         emptyStateTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_emptyTitle, R.string.empty_string)
         emptyStateSubTitleRes = ta.getResourceId(R.styleable.PlaceholderStateView_emptySubTitle, R.string.empty_string)
         isEmptyStateTransparent = ta.getBoolean(R.styleable.PlaceholderStateView_emptyStateTransparent, false)
@@ -210,7 +199,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
                 true -> data.subtitleText
                 false -> resources.getString(data.subtitleRes)
             }
-            iconRes = data.stateIconRes
             primaryButtonText = resources.getString(data.primaryBtnTitleRes)
             secondaryButtonText = resources.getString(data.secondaryBtnTitleRes)
             onPrimaryButtonClickAction = data.primaryClickListener
@@ -231,7 +219,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
             titleText = emptyStateTitleText,
             subtitleRes = emptyStateSubTitleRes,
             subtitleText = emptyStateSubtitleText,
-            stateIconRes = emptyIconRes,
             primaryBtnTitleRes = emptyBtnTitleRes,
             primaryClickListener = emptyClickListener,
             isStateTransparent = isEmptyStateTransparent
@@ -244,7 +231,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
             titleText = notFoundTitleText,
             subtitleRes = notFoundSubtitleRes,
             subtitleText = notFoundSubtitleText,
-            stateIconRes = notFoundIconRes,
             secondaryBtnTitleRes = notFoundBtnTitleRes,
             secondaryClickListener = notFoundClickListener,
             isStateTransparent = isEmptyStateTransparent
@@ -257,7 +243,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
             titleText = errorTitleText,
             subtitleRes = errorSubtitleRes,
             subtitleText = errorSubtitleText,
-            stateIconRes = errorIconRes,
             secondaryBtnTitleRes = errorBtnTitleRes,
             secondaryClickListener = errorClickListener
         )
@@ -301,7 +286,6 @@ open class PlaceholderStateView @JvmOverloads constructor(
         @StringRes val subtitleRes: Int = R.string.empty_string,
         @StringRes val primaryBtnTitleRes: Int = R.string.empty_string,
         @StringRes val secondaryBtnTitleRes: Int = R.string.empty_string,
-        @DrawableRes val stateIconRes: Int = R.drawable.empty_drawable,
         val titleText: CharSequence = EMPTY_STRING,
         val subtitleText: CharSequence = EMPTY_STRING,
         val isStateTransparent: Boolean = false,

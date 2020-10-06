@@ -9,9 +9,7 @@ import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.domain.player.PlaybackState
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.mvp.dialog.navigation.navigator.DialogNavigator
 import ru.surfstudio.android.navigation.executor.AppCommandExecutor
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -20,7 +18,7 @@ class PlayerDialogPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val sh: PlayerStateHolder,
     private val reducer: PlayerReducer,
-    private val navigationExecutor: NavigationCommandExecutor,
+    private val navigationExecutor: AppCommandExecutor,
     private val playerInteractor: PlayerInteractor,
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
@@ -69,7 +67,7 @@ class PlayerDialogPresenter @Inject constructor(
     fun onSubtitleClick() {
         val episode = state.episode
         if (episode != null) {
-            navigationExecutor.show(EpisodeFragmentRoute(episode))
+            navigationExecutor.show(route = EpisodeFragmentRoute(episode))
         }
     }
 

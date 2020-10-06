@@ -14,10 +14,10 @@ import ru.sharipov.podcaster.f_main.di.MainActivityConfigurator
 import ru.sharipov.podcaster.f_main.view.BottomTabView
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxActivityView
 import ru.surfstudio.android.logger.Logger
-import ru.surfstudio.android.navigation.provider.container.FragmentNavigationContainer
+import ru.surfstudio.android.navigation.provider.container.TabFragmentNavigationContainer
 import javax.inject.Inject
 
-class MainActivityView : BaseRxActivityView(), FragmentNavigationContainer {
+class MainActivityView : BaseRxActivityView(), TabFragmentNavigationContainer {
 
     @Inject
     lateinit var presenter: MainPresenter

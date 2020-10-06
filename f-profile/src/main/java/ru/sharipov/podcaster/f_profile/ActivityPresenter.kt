@@ -2,17 +2,19 @@ package ru.sharipov.podcaster.f_profile
 
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenter
 import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDependency
+import ru.sharipov.podcaster.base_feature.ui.extesions.show
+import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
 class ActivityPresenter @Inject constructor(
     dependency: StatePresenterDependency,
     private val reducer: ActivityReducer,
-    private val navigationExecutor: NavigationCommandExecutor,
+    private val navigationExecutor: AppCommandExecutor,
     private val historyInteractor: HistoryInteractor
 ) : StatePresenter(dependency) {
 
@@ -27,6 +29,6 @@ class ActivityPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-
+        navigationExecutor.show(EpisodeFragmentRoute(episode))
     }
 }

@@ -5,11 +5,10 @@ import androidx.core.os.bundleOf
 import ru.sharipov.podcaster.domain.PodcastFull
 import ru.surfstudio.android.core.ui.navigation.Route
 import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
-import ru.surfstudio.android.navigation.route.tab.TabRoute
 
 class PodcastFragmentRoute(
     val podcast: PodcastFull
-) : FragmentRoute(), TabRoute {
+) : FragmentRoute() {
 
     companion object {
         private fun extractFrom(bundle: Bundle?): PodcastFull =

@@ -7,12 +7,12 @@ import ru.surfstudio.android.core.ui.navigation.Route
 import ru.surfstudio.android.navigation.route.fragment.FragmentRoute
 
 class EpisodesFragmentRoute(
-    val id: String
+    val episodeId: String
 ) : FragmentRoute() {
 
     constructor(bundle: Bundle?) : this(bundle?.getString(Route.EXTRA_FIRST) ?: EMPTY_STRING)
 
-    override fun prepareData(): Bundle = bundleOf(Route.EXTRA_FIRST to id)
+    override fun prepareData(): Bundle = bundleOf(Route.EXTRA_FIRST to episodeId)
 
     override fun getScreenClassPath(): String {
         return "ru.sharipov.podcaster.f_podcast_episodes.EpisodesFragmentView"

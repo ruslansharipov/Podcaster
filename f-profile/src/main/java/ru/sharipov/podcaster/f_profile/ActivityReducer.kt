@@ -2,13 +2,15 @@ package ru.sharipov.podcaster.f_profile
 
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
+import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.sharipov.podcaster.domain.Episode
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class ActivityState(
-    val historyItems: List<Episode> = emptyList()
+    val historyItems: List<Episode> = emptyList(),
+    val placeholderState: PlaceholderState = PlaceholderState.None
 )
 
 @PerScreen
@@ -22,7 +24,14 @@ class ActivityReducer @Inject constructor(
 
     fun historyChanged(newItems: List<Episode>){
         sh.emitNewState {
-            copy(historyItems = newItems)
+            copy(
+                historyItems = newItems,
+                placeholderState = if (newItems.isEmpty()) {
+                    PlaceholderState.Empty
+                } else {
+                    PlaceholderState.None
+                }
+            )
         }
     }
 

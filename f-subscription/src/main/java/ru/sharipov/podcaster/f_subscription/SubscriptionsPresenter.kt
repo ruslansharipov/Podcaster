@@ -12,7 +12,7 @@ import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
@@ -21,7 +21,7 @@ class SubscriptionsPresenter @Inject constructor(
     private val reducer: SubscriptionsReducer,
     private val subscriptionInteractor: SubscriptionInteractor,
     private val podcastInteractor: PodcastInteractor,
-    private val navigationExecutor: NavigationCommandExecutor
+    private val navigationExecutor: AppCommandExecutor
 ) : StatePresenter(dependency) {
 
     override fun onFirstLoad() {
@@ -34,7 +34,7 @@ class SubscriptionsPresenter @Inject constructor(
     }
 
     fun onEpisodeClick(episode: Episode) {
-        navigationExecutor.show(EpisodeFragmentRoute(episode))
+        navigationExecutor.show(route = EpisodeFragmentRoute(episode))
     }
 
     private fun subscribeOnSubscriptionsChange() {

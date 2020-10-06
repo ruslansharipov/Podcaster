@@ -3,6 +3,7 @@ package ru.sharipov.podcaster.base_feature.ui.widget.episode
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.view_episode.view.*
 import org.threeten.bp.LocalTime
@@ -21,27 +22,13 @@ class EpisodeView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : CoreRxConstraintLayoutView(context, attrs, defStyleAttr), ExplicitRenderer {
+) : ConstraintLayout(context, attrs, defStyleAttr), ExplicitRenderer {
 
     private var episode: Episode? = null
 
     init {
         View.inflate(context, R.layout.view_episode, this)
         setBackgroundResource(R.drawable.bg_selectable_item_divider)
-    }
-
-    override fun createConfigurator() = EpisodeWidgetConfigurator()
-
-    override fun getName(): String = "EpisodeView"
-
-    override fun getPresenters() = emptyArray<CorePresenter<CoreView>>()
-
-    override fun getWidgetId(): String {
-        return episode?.id ?: super.getWidgetId()
-    }
-
-    override fun onBind() {
-
     }
 
     fun setEpisode(episode: Episode, isFull: Boolean) {

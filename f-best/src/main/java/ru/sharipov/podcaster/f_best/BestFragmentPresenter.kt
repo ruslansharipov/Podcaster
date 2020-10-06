@@ -17,7 +17,7 @@ import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
 import ru.surfstudio.android.dagger.scope.PerScreen
 import ru.surfstudio.android.datalistpagecount.domain.datalist.DataList
-import ru.surfstudio.android.navigation.executor.NavigationCommandExecutor
+import ru.surfstudio.android.navigation.executor.AppCommandExecutor
 import javax.inject.Inject
 
 @PerScreen
@@ -27,7 +27,7 @@ class BestFragmentPresenter @Inject constructor(
     private val reducer: BestReducer,
     private val podcastInteractor: PodcastInteractor,
     private val regionsInteractor: RegionsInteractor,
-    private val navigationExecutor: NavigationCommandExecutor
+    private val navigationExecutor: AppCommandExecutor
 ) : StatePresenter(dependency) {
 
     companion object {
