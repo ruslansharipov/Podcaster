@@ -8,7 +8,6 @@ import ru.sharipov.podcaster.domain.Episode
 import ru.sharipov.podcaster.domain.player.PlayerAction
 import ru.sharipov.podcaster.domain.player.MediaState
 import ru.sharipov.podcaster.domain.player.PlaybackState
-import ru.sharipov.podcaster.i_history.HistoryInteractor
 import ru.surfstudio.android.dagger.scope.PerApplication
 import javax.inject.Inject
 
@@ -43,11 +42,9 @@ class PlayerInteractor @Inject constructor(
     }
 
     fun observeAllStates(): Observable<PlaybackState> {
-        return serviceBus.observePlaybackState()
-    }
-
-    fun observePosition(): Observable<Int> {
-        return serviceBus.observePosition()
+        return serviceBus
+            .observePlaybackState()
+            .startWith(PlaybackState.Idle)
     }
 
     fun observeBufferingPosition(): Observable<Int>{
