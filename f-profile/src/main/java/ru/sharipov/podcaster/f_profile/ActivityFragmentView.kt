@@ -25,7 +25,6 @@ class ActivityFragmentView : BaseRxFragmentView() {
 
     private val easyAdapter = EasyAdapter()
     private val episodeController = EpisodeController(
-        isFullEpisode = true,
         clickListener = { presenter.onEpisodeClick(it) }
     )
 

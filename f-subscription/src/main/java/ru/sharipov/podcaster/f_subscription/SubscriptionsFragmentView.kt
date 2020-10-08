@@ -27,7 +27,6 @@ class SubscriptionsFragmentView : BaseRxFragmentView() {
 
     private val episodesAdapter = EasyAdapter()
     private val episodeController = EpisodeController(
-        isFullEpisode = true,
         clickListener = { presenter.onEpisodeClick(it) }
     )
     private val subscriptionsAdapter = EasyAdapter()

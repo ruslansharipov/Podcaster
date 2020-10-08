@@ -31,7 +31,7 @@ class EpisodeView @JvmOverloads constructor(
         setBackgroundResource(R.drawable.bg_selectable_item_divider)
     }
 
-    fun setEpisode(episode: Episode, isFull: Boolean) {
+    fun setEpisode(episode: Episode) {
         episode_length_tv.distinctText = createFormattedLength(episode.duration)
         episode_title_tv.distinctText = episode.title
         episode_date_tv.distinctText = EpisodeDateFormatter.format(context, episode)
@@ -41,7 +41,6 @@ class EpisodeView @JvmOverloads constructor(
         episode_icon_iv.performIfChanged(episode.image){
             bindPictureDefault(episode.image)
         }
-        episode_icon_iv.isVisible = isFull || episode.image != episode.podcastImage
     }
 
     private fun createFormattedLength(seconds: Int): String {

@@ -37,7 +37,6 @@ class PodcastFragmentView : BaseRxFragmentView() {
         onShowMoreListener = { presenter.onShowMore() }
     )
     private val episodeController = EpisodeController(
-        isFullEpisode = false,
         clickListener = { presenter.onEpisodeClick(it) }
     )
     private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBar, offset ->
