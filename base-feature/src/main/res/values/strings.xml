@@ -86,4 +86,5 @@
     <!--  ActivityFragmentView  -->
     <string name="activity_empty_title">Nothing found</string>
     <string name="activity_empty_subtitle">Here you will see the list of listened episodes</string>
+    <string name="activity_toolbar_title">Activity</string>
 </resources>

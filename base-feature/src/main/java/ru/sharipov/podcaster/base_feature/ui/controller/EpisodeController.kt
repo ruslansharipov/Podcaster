@@ -14,6 +14,8 @@ class EpisodeController(
 
     override fun getItemId(data: Episode): String = data.id
 
+    override fun getItemHash(data: Episode): String = data.id
+
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
 
     inner class Holder(parent: ViewGroup) :
