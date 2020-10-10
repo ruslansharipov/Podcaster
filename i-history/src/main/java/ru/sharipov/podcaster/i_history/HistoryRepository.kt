@@ -1,9 +1,11 @@
-package ru.sharipov.podcaster.i_history.repository
+package ru.sharipov.podcaster.i_history
 
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.sharipov.podcaster.domain.Episode
+import ru.sharipov.podcaster.i_history.dao.HistoryDao
+import ru.sharipov.podcaster.i_history.entity.HistoryEntity
 import ru.sharipov.podcaster.i_network.network.transform
 import ru.sharipov.podcaster.i_network.network.transformCollection
 import ru.surfstudio.android.dagger.scope.PerApplication

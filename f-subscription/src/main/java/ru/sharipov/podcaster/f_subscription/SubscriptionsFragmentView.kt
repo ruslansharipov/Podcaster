@@ -12,7 +12,7 @@ import ru.sharipov.podcaster.base_feature.ui.controller.subscription.Subscriptio
 import ru.sharipov.podcaster.base_feature.ui.controller.subscription.SubscriptionControllerType
 import ru.sharipov.podcaster.base_feature.ui.extesions.performIfChanged
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderStateView
-import ru.sharipov.podcaster.domain.PodcastFull
+import ru.sharipov.podcaster.domain.Subscription
 import ru.surfstudio.android.core.mvp.binding.rx.ui.BaseRxFragmentView
 import ru.surfstudio.android.easyadapter.EasyAdapter
 import javax.inject.Inject
@@ -27,13 +27,12 @@ class SubscriptionsFragmentView : BaseRxFragmentView() {
 
     private val episodesAdapter = EasyAdapter()
     private val episodeController = EpisodeController(
-        isFullEpisode = true,
         clickListener = { presenter.onEpisodeClick(it) }
     )
     private val subscriptionsAdapter = EasyAdapter()
     private val subscriptionController = SubscriptionController(
             type = SubscriptionControllerType.LIST_ITEM,
-            clickListener = { podcast: PodcastFull ->
+            clickListener = { podcast: Subscription ->
                 presenter.onSubscriptionClick(podcast)
             }
         )

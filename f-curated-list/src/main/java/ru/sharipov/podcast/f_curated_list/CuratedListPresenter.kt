@@ -50,7 +50,7 @@ class CuratedListPresenter @Inject constructor(
     }
 
     fun podcastClick(podcast: PodcastShort) {
-        navigationExecutor.replace(PodcastFragmentRoute(podcast.toPodcastFull()))
+        navigationExecutor.replace(PodcastFragmentRoute(podcast))
     }
 
     fun onSearchClick() {

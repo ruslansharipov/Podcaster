@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.i_history.repository
+package ru.sharipov.podcaster.i_history.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

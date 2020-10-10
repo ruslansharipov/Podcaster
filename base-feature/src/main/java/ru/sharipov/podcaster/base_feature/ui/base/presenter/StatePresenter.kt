@@ -1,6 +1,7 @@
 package ru.sharipov.podcaster.base_feature.ui.base.presenter
 
 import androidx.annotation.CallSuper
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -56,6 +57,19 @@ abstract class StatePresenter(
 
         disposables.add(disposable)
         return disposable
+    }
+
+    fun Completable.subscribeDefault(onComplete: () -> Unit = {}): Disposable {
+        val disposable = this
+            .observeOn(schedulersProvider.main())
+            .subscribe({ onComplete() }, {  })
+
+        disposables.add(disposable)
+        return disposable
+    }
+
+    fun Completable.subscribeIoDefault(onComplete: () -> Unit = {}): Disposable {
+        return this.io().subscribeDefault(onComplete)
     }
 
     @CallSuper

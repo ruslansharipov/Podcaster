@@ -5,9 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducer
 import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.pagination.MergePaginationBundle
-import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.domain.PodcastFull
-import ru.sharipov.podcaster.domain.SortType
+import ru.sharipov.podcaster.domain.*
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
@@ -15,12 +13,15 @@ import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class PodcastState(
-    val podcast: PodcastFull,
+    val podcast: Subscription,
     val sortType: SortType = SortType.RECENT_FIRST,
     val episodes: RequestUi<MergePaginationBundle<Episode>> = RequestUi(),
-    val details: RequestUi<PodcastFull> = RequestUi(),
+    val details: RequestUi<Subscription> = RequestUi(),
     val isSubscribed: Boolean = false
-)
+) {
+    val description: String = if (podcast is PodcastFull) podcast.description else EMPTY_STRING
+    val totalEpisodes: Int? = if (podcast is PodcastFull && !podcast.isShort) podcast.totalEpisodes else null
+}
 
 @PerScreen
 class PodcastStateHolder @Inject constructor(route: PodcastFragmentRoute) :
@@ -40,7 +41,7 @@ class PodcastReducer @Inject constructor(
         }
     }
 
-    fun onDetailsLoad(request: Request<PodcastFull>) {
+    fun onDetailsLoad(request: Request<Subscription>) {
         sh.emitNewState {
             copy(
                 details = mapRequestDefault(request, details),

@@ -8,11 +8,12 @@ import ru.surfstudio.android.easyadapter.controller.BindableItemController
 import ru.surfstudio.android.easyadapter.holder.BindableViewHolder
 
 class EpisodeController(
-    private val isFullEpisode: Boolean = false,
     private val clickListener: (Episode) -> Unit
 ) : BindableItemController<Episode, EpisodeController.Holder>() {
 
     override fun getItemId(data: Episode): String = data.id
+
+    override fun getItemHash(data: Episode): String = data.id
 
     override fun createViewHolder(parent: ViewGroup): Holder = Holder(parent)
 
@@ -29,7 +30,7 @@ class EpisodeController(
 
         override fun bind(data: Episode) {
             payload = data
-            episodeView.setEpisode(data, isFullEpisode)
+            episodeView.setEpisode(data)
         }
     }
 }

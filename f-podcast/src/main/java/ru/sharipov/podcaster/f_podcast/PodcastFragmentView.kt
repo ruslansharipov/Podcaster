@@ -37,7 +37,6 @@ class PodcastFragmentView : BaseRxFragmentView() {
         onShowMoreListener = { presenter.onShowMore() }
     )
     private val episodeController = EpisodeController(
-        isFullEpisode = false,
         clickListener = { presenter.onEpisodeClick(it) }
     )
     private val offsetListener = AppBarLayout.OnOffsetChangedListener { appBar, offset ->
@@ -107,11 +106,10 @@ class PodcastFragmentView : BaseRxFragmentView() {
                 podcast_episodes_tv.isVisible = mergeList.isNotEmpty()
             }
         }
-        val podcastFull = state.details.data
-        podcast_details_tv.performIfChanged(podcastFull?.description) { htmlDescription ->
+        podcast_details_tv.performIfChanged(state.description) { htmlDescription ->
             text = HtmlCompat.fromHtml(htmlDescription, HtmlCompat.FROM_HTML_MODE_COMPACT)
         }
-        podcast_episodes_tv.performIfChanged(podcastFull?.totalEpisodes) { episodesCount ->
+        podcast_episodes_tv.performIfChanged(state.totalEpisodes) { episodesCount ->
             text = string(R.string.podcast_episodes_count_format, episodesCount)
         }
     }

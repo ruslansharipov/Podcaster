@@ -1,7 +1,12 @@
 package ru.sharipov.podcaster.i_subscription
 
-import io.reactivex.Observable
-import ru.sharipov.podcaster.domain.PodcastFull
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import ru.sharipov.podcaster.domain.PodcastShort
+import ru.sharipov.podcaster.domain.Subscription
+import ru.sharipov.podcaster.i_history.dao.SubscriptionDao
+import ru.sharipov.podcaster.i_history.entity.toSubscriptionEntity
+import ru.sharipov.podcaster.i_network.network.transformCollection
 import ru.surfstudio.android.dagger.scope.PerApplication
 import javax.inject.Inject
 
@@ -10,7 +15,7 @@ import javax.inject.Inject
  */
 @PerApplication
 class SubscriptionInteractor @Inject constructor(
-    private val subscriptionStorage: SubscriptionStorage
+    private val subscriptionDao: SubscriptionDao
 ) {
 
     /**
@@ -18,24 +23,19 @@ class SubscriptionInteractor @Inject constructor(
      *
      * @param podcastId id of the target podcast
      */
-    fun observeIsSubscribed(podcastId: String): Observable<Boolean> {
-        return subscriptionStorage
-            .observeSubscriptions()
-            .map { subscriptions -> subscriptions.any { it.id == podcastId } }
+    fun observeIsSubscribed(podcastId: String): Flowable<Boolean> {
+        return subscriptionDao.observeIsSubscribed(podcastId)
     }
 
-    /** [SubscriptionStorage.observeSubscriptions] */
-    fun observeSubscriptions(): Observable<List<PodcastFull>> {
-        return subscriptionStorage.observeSubscriptions()
+    fun observeSubscriptions(): Flowable<List<PodcastShort>> {
+        return subscriptionDao.observeSubscriptionEntities().transformCollection()
     }
 
-    /** [SubscriptionStorage.add] */
-    fun add(podcastFull: PodcastFull) {
-        subscriptionStorage.add(podcastFull)
+    fun add(subscription: Subscription): Completable {
+        return subscriptionDao.insertSubscription(subscription.toSubscriptionEntity())
     }
 
-    /** [SubscriptionStorage.remove] */
-    fun remove(podcastFull: PodcastFull) {
-        subscriptionStorage.remove(podcastFull)
+    fun remove(subscription: Subscription): Completable {
+        return subscriptionDao.deleteSubscription(subscription.toSubscriptionEntity())
     }
 }

@@ -31,8 +31,8 @@ class EpisodeView @JvmOverloads constructor(
         setBackgroundResource(R.drawable.bg_selectable_item_divider)
     }
 
-    fun setEpisode(episode: Episode, isFull: Boolean) {
-        episode_length_tv.distinctText = createTimeString(episode)
+    fun setEpisode(episode: Episode) {
+        episode_length_tv.distinctText = createFormattedLength(episode.duration)
         episode_title_tv.distinctText = episode.title
         episode_date_tv.distinctText = EpisodeDateFormatter.format(context, episode)
         episode_date_tv.performIfChanged(episode){
@@ -40,19 +40,6 @@ class EpisodeView @JvmOverloads constructor(
         }
         episode_icon_iv.performIfChanged(episode.image){
             bindPictureDefault(episode.image)
-        }
-        episode_icon_iv.isVisible = isFull || episode.image != episode.podcastImage
-    }
-
-    private fun createTimeString(episode: Episode) : String {
-        val lengthFormatted = createFormattedLength(episode.duration)
-        val secondsLeft = episode.duration - episode.progress
-        val showProgress = episode.duration / 60 != secondsLeft / 60
-        return if (episode.progress != 0 && showProgress) {
-            val timeLeftFormatted = createFormattedLength(secondsLeft)
-            string(R.string.episode_time_left_format, lengthFormatted, timeLeftFormatted)
-        } else {
-            lengthFormatted
         }
     }
 

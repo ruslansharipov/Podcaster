@@ -4,7 +4,6 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.i_history.repository.HistoryRepository
 import ru.surfstudio.android.dagger.scope.PerApplication
 import javax.inject.Inject
 
