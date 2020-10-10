@@ -59,7 +59,7 @@ class PodcastPresenter @Inject constructor(
 
     private fun loadDetails() {
         val podcast = sh.value.podcast
-        if (podcast is PodcastShort || podcast is PodcastFull && podcast.isShort) {
+        if (podcast is PodcastShort) {
             podcastInteractor
                 .getPodcast(podcast.id)
                 .io()
