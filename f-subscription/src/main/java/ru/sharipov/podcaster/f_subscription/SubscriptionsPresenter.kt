@@ -7,7 +7,7 @@ import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
 import ru.sharipov.podcaster.base_feature.ui.navigation.PodcastFragmentRoute
 import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.domain.PodcastFull
+import ru.sharipov.podcaster.domain.Subscription
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.asRequest
@@ -27,9 +27,10 @@ class SubscriptionsPresenter @Inject constructor(
     override fun onFirstLoad() {
         subscribeOnSubscriptionsChange()
         subscribeOnNewEpisodesLoading()
+        // todo загрузка новых эпизодов по свайп рефреш
     }
 
-    fun onSubscriptionClick(podcast: PodcastFull) {
+    fun onSubscriptionClick(podcast: Subscription) {
         navigationExecutor.replace(PodcastFragmentRoute(podcast))
     }
 
@@ -46,7 +47,8 @@ class SubscriptionsPresenter @Inject constructor(
     private fun subscribeOnNewEpisodesLoading(){
         subscriptionInteractor
             .observeSubscriptions()
-            .switchMap { subscriptions ->
+            .firstOrError()
+            .flatMapObservable { subscriptions ->
                 podcastInteractor
                     .getNewEpisodes(subscriptions)
                     .io()

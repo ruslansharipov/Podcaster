@@ -5,8 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.presenter.StatePresenterDepend
 import ru.sharipov.podcaster.base_feature.ui.extesions.removeLastFragment
 import ru.sharipov.podcaster.base_feature.ui.extesions.show
 import ru.sharipov.podcaster.base_feature.ui.navigation.EpisodeFragmentRoute
-import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.domain.SortType
+import ru.sharipov.podcaster.domain.*
 import ru.sharipov.podcaster.i_listen.PodcastInteractor
 import ru.sharipov.podcaster.i_subscription.SubscriptionInteractor
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
@@ -60,12 +59,12 @@ class PodcastPresenter @Inject constructor(
 
     private fun loadDetails() {
         val podcast = sh.value.podcast
-        if (podcast.isShort) {
+        if (podcast is PodcastShort || podcast is PodcastFull && podcast.isShort) {
             podcastInteractor
                 .getPodcast(podcast.id)
                 .io()
                 .asRequest()
-                .subscribeDefault(reducer::onDetailsLoad)
+                .subscribeDefault { reducer.onDetailsLoad(it as Request<Subscription>) }
         } else {
             reducer.onDetailsLoad(Request.Success(podcast))
         }
@@ -85,7 +84,6 @@ class PodcastPresenter @Inject constructor(
             subscriptionInteractor.remove(podcast)
         } else {
             subscriptionInteractor.add(podcast)
-        }
+        }.subscribeIoDefault()
     }
-
 }

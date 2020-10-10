@@ -1,4 +1,4 @@
-package ru.sharipov.podcaster.i_history.repository
+package ru.sharipov.podcaster.i_history.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -7,6 +7,7 @@ import androidx.room.Query
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
+import ru.sharipov.podcaster.i_history.entity.HistoryEntity
 
 @Dao
 interface HistoryDao {

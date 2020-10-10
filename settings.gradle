@@ -20,5 +20,6 @@ include ':app',
         ':f-profile',
         ':f-subscription',
         ':f-player-dialog',
-        ':i-history',
-        ':i-search'
+        ':i-database',
+        ':i-search',
+        ':i-history'

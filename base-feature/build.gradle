@@ -9,8 +9,9 @@ dependencies {
     implementation project(":i-podcast")
     implementation project(':i-region')
     implementation project(':i-search')
-    implementation project(':i-history')
+    implementation project(':i-database')
     implementation project(':i-subscription')
+    implementation project(':i-history')
 
     implementation "androidx.multidex:multidex:$androidxMultidexVersion"
 

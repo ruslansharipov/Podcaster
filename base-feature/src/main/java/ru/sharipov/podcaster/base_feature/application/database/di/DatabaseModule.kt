@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import ru.sharipov.podcaster.i_history.repository.HistoryDataBase
-import ru.sharipov.podcaster.i_history.repository.HistoryDao
+import ru.sharipov.podcaster.i_history.AppDataBase
+import ru.sharipov.podcaster.i_history.dao.HistoryDao
+import ru.sharipov.podcaster.i_history.dao.SubscriptionDao
 import ru.surfstudio.android.dagger.scope.PerApplication
 
 @Module
@@ -13,17 +14,23 @@ class DatabaseModule {
 
     @Provides
     @PerApplication
-    fun provideDataBase(context: Context): HistoryDataBase {
+    fun provideDataBase(context: Context): AppDataBase {
         return Room.databaseBuilder(
             context,
-            HistoryDataBase::class.java,
-            HistoryDataBase.NAME
+            AppDataBase::class.java,
+            AppDataBase.NAME
         ).build()
     }
 
     @Provides
     @PerApplication
-    fun provideHistoryDao(db: HistoryDataBase): HistoryDao {
+    fun provideHistoryDao(db: AppDataBase): HistoryDao {
         return db.historyDao()
+    }
+
+    @Provides
+    @PerApplication
+    fun provideSubscriptionDao(db: AppDataBase): SubscriptionDao {
+        return db.subscriptionDao()
     }
 }

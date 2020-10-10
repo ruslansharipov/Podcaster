@@ -5,7 +5,7 @@ import ru.sharipov.podcaster.base_feature.ui.base.reducer.StateReducerDependency
 import ru.sharipov.podcaster.base_feature.ui.extesions.placeholderState
 import ru.sharipov.podcaster.base_feature.ui.placeholder.PlaceholderState
 import ru.sharipov.podcaster.domain.Episode
-import ru.sharipov.podcaster.domain.PodcastFull
+import ru.sharipov.podcaster.domain.Subscription
 import ru.surfstudio.android.core.mvp.binding.rx.relation.mvp.State
 import ru.surfstudio.android.core.mvp.binding.rx.request.data.RequestUi
 import ru.surfstudio.android.core.mvp.binding.rx.request.type.Request
@@ -13,7 +13,7 @@ import ru.surfstudio.android.dagger.scope.PerScreen
 import javax.inject.Inject
 
 data class SubscriptionsState(
-    val subscriptions: List<PodcastFull> = emptyList(),
+    val subscriptions: List<Subscription> = emptyList(),
     val episodes: RequestUi<List<Episode>> = RequestUi()
 ) {
     val placeholderState: PlaceholderState
@@ -36,7 +36,7 @@ class SubscriptionsReducer @Inject constructor(
     private val sh: SubscriptionsStateHolder
 ): StateReducer(dependency) {
 
-    fun onSubscriptionChanged(subscriptions: List<PodcastFull>) {
+    fun onSubscriptionChanged(subscriptions: List<Subscription>) {
         sh.emitNewState {
             copy(subscriptions = subscriptions)
         }
