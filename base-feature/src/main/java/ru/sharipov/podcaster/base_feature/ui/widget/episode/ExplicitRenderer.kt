@@ -3,7 +3,6 @@ package ru.sharipov.podcaster.base_feature.ui.widget.episode
 import android.graphics.drawable.Drawable
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ImageSpan
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import ru.sharipov.podcaster.base_feature.R
@@ -21,13 +20,24 @@ interface ExplicitRenderer {
     }
 
     fun TextView.renderTitleWithExplicitStatus(episode: Episode) {
-        if (episode.explicitContent){
+        if (episode.explicitContent) {
             val spannableString = SpannableString(episode.title + SPACE)
-            val length = episode.title.length
+            val length = spannableString.length
             val explicitDrawable = getExplicitDrawable()
             val drawableMargin = context.dpToPx(4)
-            explicitDrawable?.setBounds(drawableMargin, 0, explicitDrawable.intrinsicWidth + drawableMargin, explicitDrawable.intrinsicHeight)
-            spannableString.setSpan(ImageSpan(explicitDrawable, ImageSpan.ALIGN_BOTTOM), length - 1, length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            explicitDrawable?.setBounds(
+                drawableMargin,
+                0,
+                explicitDrawable.intrinsicWidth + drawableMargin,
+                explicitDrawable.intrinsicHeight
+            )
+
+            spannableString.setSpan(
+                CenteredImageSpan(explicitDrawable),
+                length - 1,
+                length,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            )
             setText(spannableString, TextView.BufferType.SPANNABLE)
         } else {
             text = episode.title
