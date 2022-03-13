@@ -1,3 +1,3 @@
 # Podcaster
 
-Multimodule application which is written in Kotlin wuth Dagger, RxJava2, Retrofit and Clean Architecture
+Multimodule application which is written in Kotlin with Dagger, RxJava2, Retrofit and Clean Architecture
